@@ -1,0 +1,17 @@
+<?php defined('BASEPATH') OR exit('No direct script access allowed'); ?>
+
+ERROR - 2021-05-10 14:45:29 --> Could not find the language line "language"
+ERROR - 2021-05-10 16:44:00 --> Could not find the language line "language"
+ERROR - 2021-05-10 16:57:36 --> Could not find the language line "language"
+ERROR - 2021-05-10 16:57:51 --> Could not find the language line "language"
+ERROR - 2021-05-10 16:58:04 --> Could not find the language line "language"
+ERROR - 2021-05-10 16:59:18 --> Could not find the language line "language"
+ERROR - 2021-05-10 17:02:13 --> Could not find the language line "language"
+ERROR - 2021-05-10 17:02:15 --> Could not find the language line "language"
+ERROR - 2021-05-10 17:02:18 --> Could not find the language line "language"
+ERROR - 2021-05-10 17:02:20 --> Could not find the language line "language"
+ERROR - 2021-05-10 18:05:20 --> Could not find the language line "language"
+ERROR - 2021-05-10 18:11:47 --> Could not find the language line "language"
+ERROR - 2021-05-10 21:04:38 --> Could not find the language line "language"
+ERROR - 2021-05-10 21:05:21 --> Could not find the language line "language"
+ERROR - 2021-05-10 21:05:33 --> Could not find the language line "language"
