@@ -365,15 +365,28 @@ class Customers_model extends EA_Model
     }
 
 
-    public function get_patients()
+    public function get_patient_by_ci($ci, $complement)
     {
-        $result = $this->db_hcv
-            ->limit(8)
-            ->get("HC");
+        if (empty($complement)) {
+            $result = $this->db_hcv
+                ->select('*')
+                ->from('HC')
+                ->like('HCL_NUMCI', $ci)
+                ->get();
+        } else {
+            $result = $this->db_hcv
+                ->select('*')
+                ->from('HC')
+                ->like(['HCL_NUMCI' => $ci , 'NumeroComplementoCI' => $complement])
+                ->get();
+        }
 
         if ($result->num_rows() == 0) {
             throw new Exception('Could not find patient record id.');
         }
-        return $result->result_array();
+        return $result->row_array();
+        // $result = $this->db_hcv->select('*')->from('HC')->like('HCL_NUMCI', $ci)->get();
+        //     return $result->row_array();
+        // return $this->db_hcv->limit(1)->get('HC')->row_array();
     }
 }

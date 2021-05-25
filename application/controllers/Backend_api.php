@@ -558,7 +558,6 @@ class Backend_api extends EA_Controller {
 
             $customers = $this->customers_model->get_batch($where, $limit, NULL, $order_by);
 
-            // $customers = $this->customers_model->get_patients();
             foreach ($customers as &$customer)
             {
                 $appointments = $this->appointments_model->get_batch(['id_users_customer' => $customer['id']]);
@@ -1404,7 +1403,7 @@ class Backend_api extends EA_Controller {
     {
         try
         {
-            if ($this->privileges[PRIV_USERS]['delete'] == FALSE)
+            if ($this->privileges[PRIV_CUSTOMERS]['delete'] == FALSE)
             {
                 throw new Exception('You do not have the required privileges for this task.');
             }
@@ -1664,6 +1663,29 @@ class Backend_api extends EA_Controller {
             }
 
             $response = AJAX_SUCCESS;
+        }
+        catch (Exception $exception)
+        {
+            $this->output->set_status_header(500);
+
+            $response = [
+                'message' => $exception->getMessage(),
+                'trace' => config('debug') ? $exception->getTrace() : []
+            ];
+        }
+
+        $this->output
+            ->set_content_type('application/json')
+            ->set_output(json_encode($response));
+    }
+
+    public function ajax_get_patient_by_ci() {
+        try
+        {
+            $ci = $this->input->get('patientCI');
+            $complement = $this->input->get('complement');
+            $patients = $this->customers_model->get_patient_by_ci($ci, $complement);
+            $response = $patients;
         }
         catch (Exception $exception)
         {

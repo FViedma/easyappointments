@@ -289,7 +289,7 @@ window.FrontendBookApi = window.FrontendBookApi || {};
 
         // Grey out unavailable dates.
         $('#select-date .ui-datepicker-calendar td:not(.ui-datepicker-other-month)').each(function (index, td) {
-            selectedDate.set({day: index + 1});
+            selectedDate.set({ day: index + 1 });
             if (unavailableDates.indexOf(selectedDate.toString('yyyy-MM-dd')) !== -1) {
                 $(td).addClass('ui-datepicker-unselectable ui-state-disabled');
             }
@@ -330,6 +330,33 @@ window.FrontendBookApi = window.FrontendBookApi || {};
         $.post(url, data)
             .done(function () {
                 window.location.href = GlobalVariables.baseUrl;
+            });
+    };
+
+    /**
+     * Gets a patient by CI
+     * 
+     * @param {Number} patientCI patient ci.
+     * @param {String} complement patient's ci complement
+     */
+    exports.getPatientByCI = function (patientCI, complement) {
+        var url = GlobalVariables.baseUrl + '/index.php/Backend_api/ajax_get_patient_by_ci';
+        var data = {
+            patientCI: patientCI,
+            complement: complement
+        }
+        $.ajax({
+            url: url,
+            type: 'GET',
+            data: data,
+            dataType: 'json'
+        })
+            .done(function (response) {
+                $('#form-message').text(response.HCL_APPAT + " " + response.HCL_APMAT);
+                $('#button-next-1').prop('disabled', false);
+            })
+            .fail(function (jqxhr, textStatus, errorThrown) { 
+                $('#form-message').text('usuario no registrado en el sistema');
             });
     };
 

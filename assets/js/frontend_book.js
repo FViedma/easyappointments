@@ -103,16 +103,16 @@ window.FrontendBook = window.FrontendBook || {};
                 EALang.sunday, EALang.monday, EALang.tuesday, EALang.wednesday,
                 EALang.thursday, EALang.friday, EALang.saturday],
             dayNamesShort: [EALang.sunday.substr(0, 3), EALang.monday.substr(0, 3),
-                EALang.tuesday.substr(0, 3), EALang.wednesday.substr(0, 3),
-                EALang.thursday.substr(0, 3), EALang.friday.substr(0, 3),
-                EALang.saturday.substr(0, 3)],
+            EALang.tuesday.substr(0, 3), EALang.wednesday.substr(0, 3),
+            EALang.thursday.substr(0, 3), EALang.friday.substr(0, 3),
+            EALang.saturday.substr(0, 3)],
             dayNamesMin: [EALang.sunday.substr(0, 2), EALang.monday.substr(0, 2),
-                EALang.tuesday.substr(0, 2), EALang.wednesday.substr(0, 2),
-                EALang.thursday.substr(0, 2), EALang.friday.substr(0, 2),
-                EALang.saturday.substr(0, 2)],
+            EALang.tuesday.substr(0, 2), EALang.wednesday.substr(0, 2),
+            EALang.thursday.substr(0, 2), EALang.friday.substr(0, 2),
+            EALang.saturday.substr(0, 2)],
             monthNames: [EALang.january, EALang.february, EALang.march, EALang.april,
-                EALang.may, EALang.june, EALang.july, EALang.august, EALang.september,
-                EALang.october, EALang.november, EALang.december],
+            EALang.may, EALang.june, EALang.july, EALang.august, EALang.september,
+            EALang.october, EALang.november, EALang.december],
             prevText: EALang.previous,
             nextText: EALang.next,
             currentText: EALang.now,
@@ -242,6 +242,16 @@ window.FrontendBook = window.FrontendBook || {};
             updateServiceDescription(serviceId);
         });
 
+        $('#button-verify-ci').on('click', function () {
+            if (!validatePacient()) {
+                return; // Validation failed, do not continue.
+            } else {
+                var ci = $('#patient-ci').val();
+                var complement = $('#complement').val();
+                FrontendBookApi.getPatientByCI(ci, complement);
+            }
+        });
+
         /**
          * Event: Next Step Button "Clicked"
          *
@@ -249,13 +259,13 @@ window.FrontendBook = window.FrontendBook || {};
          * Some special tasks might be performed, depending the current wizard step.
          */
         $('.button-next').on('click', function () {
-            // If we are on the first step and there is not provider selected do not continue with the next step.
-            if ($(this).attr('data-step_index') === '1' && !$('#select-provider').val()) {
+            // If we are on the second step and there is not provider selected do not continue with the next step.
+            if ($(this).attr('data-step_index') === '2' && !$('#select-provider').val()) {
                 return;
             }
 
-            // If we are on the 2nd tab then the user should have an appointment hour selected.
-            if ($(this).attr('data-step_index') === '2') {
+            // If we are on the 3rd tab then the user should have an appointment hour selected.
+            if ($(this).attr('data-step_index') === '3') {
                 if (!$('.selected-hour').length) {
                     if (!$('#select-hour-prompt').length) {
                         $('<div/>', {
@@ -269,9 +279,9 @@ window.FrontendBook = window.FrontendBook || {};
                 }
             }
 
-            // If we are on the 3rd tab then we will need to validate the user's input before proceeding to the next
+            // If we are on the 4thtab then we will need to validate the user's input before proceeding to the next
             // step.
-            if ($(this).attr('data-step_index') === '3') {
+            if ($(this).attr('data-step_index') === '4') {
                 if (!validateCustomerForm()) {
                     return; // Validation failed, do not continue.
                 } else {
@@ -446,14 +456,44 @@ window.FrontendBook = window.FrontendBook || {};
     }
 
     /**
+     * This function validates the patient ci input. The user cannot continue
+     * if it is not registered in the hospital database.
+     * @returns {Boolean} Returns the validation result.
+     */
+
+    function validatePacient() {
+        $('#wizard-frame-1 .has-error').removeClass('has-error');
+        $('#wizard-frame-1 label.text-danger').removeClass('text-danger');
+        try {
+            var missingRequiredField = false;
+            var ci_value = $('#patient-ci').val();
+            if ('' == ci_value) {
+                $('#patient-ci').parents('.form-group').addClass('has-error');
+                missingRequiredField = true;
+            }
+            if (missingRequiredField) {
+                throw new Error(EALang.fields_are_required);
+            }
+            if (!GeneralFunctions.validateNumber($('#patient-ci').val())) {
+                $('#patient-ci').parents('.form-group').addClass('has-error');
+                throw new Error(EALang.invalid_ci_number);
+            }
+            return true;
+        } catch (error) {
+            $('#form-message').text(error.message);
+            return false;
+        }
+    }
+
+    /**
      * This function validates the customer's data input. The user cannot continue
      * without passing all the validation checks.
      *
      * @return {Boolean} Returns the validation result.
      */
     function validateCustomerForm() {
-        $('#wizard-frame-3 .has-error').removeClass('has-error');
-        $('#wizard-frame-3 label.text-danger').removeClass('text-danger');
+        $('#wizard-frame-4 .has-error').removeClass('has-error');
+        $('#wizard-frame-4 label.text-danger').removeClass('text-danger');
 
         try {
             // Validate required fields.
@@ -663,7 +703,7 @@ window.FrontendBook = window.FrontendBook || {};
         var endDatetime;
 
         if (service.duration && startDatetime) {
-            endDatetime = startDatetime.add({'minutes': parseInt(service.duration)});
+            endDatetime = startDatetime.add({ 'minutes': parseInt(service.duration) });
         } else {
             endDatetime = new Date();
         }

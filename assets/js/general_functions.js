@@ -231,6 +231,37 @@ window.GeneralFunctions = window.GeneralFunctions || {};
         return re.test(email);
     };
 
+    /**
+     * Validate Ci entered
+     *
+     * This method validates an identification number. If the id is not on the proper
+     * form then the result is FALSE.
+     *
+     *
+     * @param {Number} number The email address to be checked.
+
+     * @return {Boolean} Returns the validation result.
+     */
+    exports.validateNumber = function (number) {
+        var re = /^[\d]{6,9}$/;
+        return re.test(number);
+    }
+
+    /**
+    * Validate complement entered
+    *
+    * This method validates an identification complement. If the complement is not on the proper
+    * form then the result is FALSE.
+    *
+    *
+    * @param {String} complement The email address to be checked.
+    
+    * @return {Boolean} Returns the validation result.
+    */
+    exports.validateComplement = function (complement) {
+        var re = /^[\d]{1}[a-zA-Z]{1,2}$/;
+        return re.test(complement);
+    }
 
     /**
      * Makes the first letter of the string upper case.
@@ -320,7 +351,7 @@ window.GeneralFunctions = window.GeneralFunctions || {};
         try {
             response = JSON.parse(jqXHR.responseText); // JSON response
         } catch (error) {
-            response = {message: jqXHR.responseText}; // String response
+            response = { message: jqXHR.responseText }; // String response
         }
 
         if (!response) {
