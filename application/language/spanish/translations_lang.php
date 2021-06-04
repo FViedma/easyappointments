@@ -327,3 +327,6 @@ $lang['identification'] = 'Cedula de indentidad';
 $lang['complement'] = 'Complemento';
 $lang['verify'] = 'Verificar';
 $lang['invalid_ci_number'] = 'Cédula de identidad inválida';
+$lang['patient_not_found'] = 'Paciente no encontrado en el sistema';
+$lang['message'] = 'Mensaje';
+$lang['patient_registered'] = 'Paciente registrado';

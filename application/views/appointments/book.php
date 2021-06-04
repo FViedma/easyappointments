@@ -92,7 +92,7 @@
                 <div id="wizard-frame-1" class="wizard-frame">
                     <div class="frame-container">
                         <h2 class="frame-title"><?= lang('enter_ci_please') ?></h2>
-                        
+
 
                         <div class="row frame-content">
                             <div class="col-12 col-md-6">
@@ -121,13 +121,9 @@
                             </div>
                         </div>
 
-                        <div class="row frame-content">
-                            <div class="col-12 col-md-6">
-                                <div class="form-group">
-                                    <div id="form-message" class="alert"></div>
-                                </div>
-                            </div>
+                        <div id="form-message">
                         </div>
+
                     </div>
                     <div class="command-buttons">
                         <span>&nbsp;</span>

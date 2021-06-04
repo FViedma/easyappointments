@@ -352,12 +352,38 @@ window.FrontendBookApi = window.FrontendBookApi || {};
             dataType: 'json'
         })
             .done(function (response) {
-                $('#form-message').text(response.HCL_APPAT + " " + response.HCL_APMAT);
-                $('#button-next-1').prop('disabled', false);
-            })
-            .fail(function (jqxhr, textStatus, errorThrown) { 
-                $('#form-message').text('usuario no registrado en el sistema');
+                if (response == null) {
+                    $('#form-message').empty()
+                    $('#button-next-1').prop('disabled', true)
+                    GeneralFunctions.displayMessageBox(EALang.message, EALang.patient_not_found);
+                } else {
+                    $('#form-message').empty()
+                    var nombre = response.HCL_NOMBRE + " " + response.HCL_APPAT + " " + response.HCL_APMAT
+                    $('#form-message').append(getPatientFoundHTML(nombre, response.HCL_NUMCI, response.HCL_CODIGO))
+                    console.log( getPatientFoundHTML(nombre, response.HCL_NUMCI, response.HCL_CODIGO))
+                    $('#button-next-1').prop('disabled', false)
+                }
             });
     };
 
+    function getPatientFoundHTML(nombre, ci, hc){
+        
+       return $('<div/>', {
+            'class': 'card', 
+            'html': [
+                $('<div/>', {
+                    'class': 'card-header',
+                    'html': [
+                        $('<h5/>',{
+                            'text': EALang.patient_registered,
+                        })
+                    ]
+                }),
+                $('<div/>', {
+                    'class': 'card-text',
+                    'text': "Paciente: " + nombre + " con CI: " + ci + " tiene la Historia Clínica: " + hc
+                }),
+            ]
+        });
+    }
 })(window.FrontendBookApi);

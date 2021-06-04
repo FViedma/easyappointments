@@ -381,12 +381,6 @@ class Customers_model extends EA_Model
                 ->get();
         }
 
-        if ($result->num_rows() == 0) {
-            throw new Exception('Could not find patient record id.');
-        }
         return $result->row_array();
-        // $result = $this->db_hcv->select('*')->from('HC')->like('HCL_NUMCI', $ci)->get();
-        //     return $result->row_array();
-        // return $this->db_hcv->limit(1)->get('HC')->row_array();
     }
 }

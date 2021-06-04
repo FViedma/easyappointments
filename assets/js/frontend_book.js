@@ -480,6 +480,7 @@ window.FrontendBook = window.FrontendBook || {};
             }
             return true;
         } catch (error) {
+            $('#button-next-1').prop('disabled', true)
             $('#form-message').text(error.message);
             return false;
         }
