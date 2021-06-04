@@ -372,7 +372,7 @@ window.FrontendBookApi = window.FrontendBookApi || {};
             'class': 'card', 
             'html': [
                 $('<div/>', {
-                    'class': 'card-header',
+                    'class': 'card-header bg-success',
                     'html': [
                         $('<h5/>',{
                             'text': EALang.patient_registered,
