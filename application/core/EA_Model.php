@@ -49,6 +49,7 @@
  * @property Services_model $services_model
  * @property Settings_model $settings_model
  * @property User_model $user_model
+ * @property Snis_municipalities_model $snis_municipalities_model
  *
  * @property Availability $availability
  * @property Google_Sync $google_sync

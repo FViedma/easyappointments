@@ -183,6 +183,55 @@ window.FrontendBook = window.FrontendBook || {};
      * This method binds the necessary event handlers for the book appointments page.
      */
     function bindEventHandlers() {
+
+        /**
+         * Event: Select an answer
+         * Perform actions according to the asnwer given by the patient
+         * 
+         */
+        $('#select-answer').on('change', function () {
+            var answer = $('#select-answer').find(":selected").val();
+            switch (answer) {
+                case '0':
+                    $('#select-municipality').prop('disabled', true)
+                    $('select-medical-center').prop('disabled', true)
+                    $('#doctor-name').prop('disabled', true)
+                    $('#reference-number').prop('disabled', true)
+                    $('#doctor-name').prop('disabled', true)
+                    break;
+                case '1':
+                    $('#select-municipality').prop('disabled', false)
+                    $('#reference-number').prop('disabled', false)
+                    $('#doctor-name').prop('disabled', false)
+                    break;
+                default:
+                    $('#select-municipality').prop('disabled', true)
+                    $('#select-medical-center').prop('disabled', true)
+                    $('#reference-number').prop('disabled', true)
+                    $('#doctor-name').prop('disabled', true)
+                    break;
+            }
+        });
+
+        /**
+         * Event: Selected municipality "Changed"
+         *
+         * When the user clicks on a municipality, its available medical centers should
+         * become visible.
+         */
+        $('#select-municipality').on('change', function () {
+            var municipalityId = $('#select-municipality').val();
+            $('#select-medical-center').empty();
+            GlobalVariables.availableMedicalCenters.forEach(function (medicalCenter) {
+                var isMedicalCenter = medicalCenter.codmunicip == municipalityId;
+                if (isMedicalCenter > 0) {
+                    $('#select-medical-center').append(new Option(medicalCenter.nomestabl));
+                }
+            });
+            //At this point use the selected option to use somewhere else.
+            $('#select-medical-center').prop('disabled', false)
+        });
+
         /**
          * Event: Timezone "Changed"
          */
@@ -259,13 +308,19 @@ window.FrontendBook = window.FrontendBook || {};
          * Some special tasks might be performed, depending the current wizard step.
          */
         $('.button-next').on('click', function () {
-            // If we are on the second step and there is not provider selected do not continue with the next step.
-            if ($(this).attr('data-step_index') === '2' && !$('#select-provider').val()) {
+            if ($(this).attr('data-step_index') === '2') {
+                if (!validateReferenceForm()) {
+                    return;
+                } 
+            }
+
+            // If we are on the third step and there is not provider selected do not continue with the next step.
+            if ($(this).attr('data-step_index') === '3' && !$('#select-provider').val()) {
                 return;
             }
 
-            // If we are on the 3rd tab then the user should have an appointment hour selected.
-            if ($(this).attr('data-step_index') === '3') {
+            // If we are on the 4th tab then the user should have an appointment hour selected.
+            if ($(this).attr('data-step_index') === '4') {
                 if (!$('.selected-hour').length) {
                     if (!$('#select-hour-prompt').length) {
                         $('<div/>', {
@@ -279,9 +334,9 @@ window.FrontendBook = window.FrontendBook || {};
                 }
             }
 
-            // If we are on the 4thtab then we will need to validate the user's input before proceeding to the next
+            // If we are on the 5th tab then we will need to validate the user's input before proceeding to the next
             // step.
-            if ($(this).attr('data-step_index') === '4') {
+            if ($(this).attr('data-step_index') === '5') {
                 if (!validateCustomerForm()) {
                     return; // Validation failed, do not continue.
                 } else {
@@ -485,6 +540,48 @@ window.FrontendBook = window.FrontendBook || {};
             return false;
         }
     }
+    /**
+     * This function validates the reference's data input. The user cannot continue
+     * without passing all the validation checks.
+     * @returns {Boolean} Returns the validation results.
+     */
+    function validateReferenceForm() {
+        $('#wizard-frame-2 .has-error').removeClass('has-error');
+        $('#wizard-frame-2 label.text-danger').removeClass('text-danger');
+
+        try {
+            var answerSelected = $('#select-answer')
+            var missingRequiredField = false;
+            
+            switch (answerSelected.val()) {
+                case '-1':
+                    answerSelected.parents('.form-group').addClass('has-error');
+                    answerSelected.parents('.form-check').addClass('text-danger');
+                    missingRequiredField = true;
+                    break;
+                case '0':
+                    break;
+                case '1':
+                    $('#wizard-frame-2 .required').each(function (index, requiredField) {
+                        if (!$(requiredField).val()) {
+                            $(requiredField).parents('.form-group').addClass('has-error');
+                            $(requiredField).parents('.form-check').addClass('text-danger');
+                            missingRequiredField = true;
+                        }
+                    });
+                    break;
+            }  
+            
+            // Validate required fields.
+            if (missingRequiredField) {
+                throw new Error(EALang.fields_are_required);
+            }
+            return true;
+        } catch (error) {
+            $('#form-message').text(error.message);
+            return false;
+        }
+    }
 
     /**
      * This function validates the customer's data input. The user cannot continue
@@ -493,13 +590,13 @@ window.FrontendBook = window.FrontendBook || {};
      * @return {Boolean} Returns the validation result.
      */
     function validateCustomerForm() {
-        $('#wizard-frame-4 .has-error').removeClass('has-error');
-        $('#wizard-frame-4 label.text-danger').removeClass('text-danger');
+        $('#wizard-frame-5 .has-error').removeClass('has-error');
+        $('#wizard-frame-5 label.text-danger').removeClass('text-danger');
 
         try {
             // Validate required fields.
             var missingRequiredField = false;
-            $('.required').each(function (index, requiredField) {
+            $('#wizard-frame-5 .required').each(function (index, requiredField) {
                 if (!$(requiredField).val()) {
                     $(requiredField).parents('.form-group').addClass('has-error');
                     missingRequiredField = true;

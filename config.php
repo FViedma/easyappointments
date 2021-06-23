@@ -47,6 +47,11 @@ class Config {
     const DB_NAME2      = 'BDESTADISTICA';
     const DB_USERNAME2  = 'fichas';
     const DB_PASSWORD2  = 'fichas2021';
+
+    const DB_HOST3      = '192.168.0.19\serverviedma';
+    const DB_NAME3      = 'BDSNIS';
+    const DB_USERNAME3  = 'fichas';
+    const DB_PASSWORD3  = 'fichas2021';
     // ------------------------------------------------------------------------
     // GOOGLE CALENDAR SYNC
     // ------------------------------------------------------------------------

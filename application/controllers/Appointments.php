@@ -33,6 +33,7 @@ class Appointments extends EA_Controller {
         $this->load->model('services_model');
         $this->load->model('customers_model');
         $this->load->model('settings_model');
+        $this->load->model('snis_municipalities_model');
         $this->load->library('timezones');
         $this->load->library('synchronization');
         $this->load->library('notifications');
@@ -57,7 +58,8 @@ class Appointments extends EA_Controller {
                 redirect('installation/index');
                 return;
             }
-
+            $available_municipalities = $this->snis_municipalities_model->get_available_municipalities();
+            $available_medicalCenters = $this->snis_municipalities_model->get_available_medical_centers();
             $available_services = $this->services_model->get_available_services();
             $available_providers = $this->providers_model->get_available_providers();
             $company_name = $this->settings_model->get_setting('company_name');
@@ -154,6 +156,8 @@ class Appointments extends EA_Controller {
 
             // Load the book appointment view.
             $variables = [
+                'available_municipalities' => $available_municipalities,
+                'available_medical_centers' => $available_medicalCenters,
                 'available_services' => $available_services,
                 'available_providers' => $available_providers,
                 'company_name' => $company_name,

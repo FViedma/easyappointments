@@ -81,5 +81,21 @@ $db['fichas']['swap_pre'] = '';
 $db['fichas']['autoinit'] = TRUE;
 $db['fichas']['stricton'] = FALSE;
 
+$db['snis']['hostname'] = Config::DB_HOST3;
+$db['snis']['username'] = Config::DB_USERNAME3;
+$db['snis']['password'] = Config::DB_PASSWORD3;
+$db['snis']['database'] = Config::DB_NAME3;
+$db['snis']['dbdriver'] = 'sqlsrv';
+$db['snis']['dbprefix'] = 't_';
+$db['snis']['pconnect'] = FALSE;
+$db['snis']['db_debug'] = TRUE;
+$db['snis']['cache_on'] = FALSE;
+$db['snis']['cachedir'] = '';
+$db['snis']['char_set'] = 'utf8';
+$db['snis']['dbcollat'] = 'SQL_Latin1_General_CP1_CI_AS';
+$db['snis']['swap_pre'] = '';
+$db['snis']['autoinit'] = TRUE;
+$db['snis']['stricton'] = FALSE;
+
 /* End of file database.php */
 /* Location: ./application/config/database.php */

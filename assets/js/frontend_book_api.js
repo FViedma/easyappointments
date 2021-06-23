@@ -360,7 +360,6 @@ window.FrontendBookApi = window.FrontendBookApi || {};
                     $('#form-message').empty()
                     var nombre = response.HCL_NOMBRE + " " + response.HCL_APPAT + " " + response.HCL_APMAT
                     $('#form-message').append(getPatientFoundHTML(nombre, response.HCL_NUMCI, response.HCL_CODIGO))
-                    console.log( getPatientFoundHTML(nombre, response.HCL_NUMCI, response.HCL_CODIGO))
                     $('#button-next-1').prop('disabled', false)
                 }
             });

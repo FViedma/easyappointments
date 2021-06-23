@@ -35,17 +35,20 @@
                         <div id="step-1" class="book-step active-step" data-tippy-content="<?= lang('enter_ci_please') ?>">
                             <strong>1</strong>
                         </div>
-                        <div id="step-2" class="book-step" data-toggle="tooltip" data-tippy-content="<?= lang('service_and_provider') ?>">
+                        <div id="step-2" class="book-step" data-toggle="tooltip" data-tippy-content="<?= lang('is_institutional') ?>">
                             <strong>2</strong>
                         </div>
-                        <div id="step-3" class="book-step" data-toggle="tooltip" data-tippy-content="<?= lang('appointment_date_and_time') ?>">
+                        <div id="step-3" class="book-step" data-toggle="tooltip" data-tippy-content="<?= lang('service_and_provider') ?>">
                             <strong>3</strong>
                         </div>
-                        <div id="step-4" class="book-step" data-toggle="tooltip" data-tippy-content="<?= lang('customer_information') ?>">
+                        <div id="step-4" class="book-step" data-toggle="tooltip" data-tippy-content="<?= lang('appointment_date_and_time') ?>">
                             <strong>4</strong>
                         </div>
-                        <div id="step-5" class="book-step" data-toggle="tooltip" data-tippy-content="<?= lang('appointment_confirmation') ?>">
+                        <div id="step-5" class="book-step" data-toggle="tooltip" data-tippy-content="<?= lang('customer_information') ?>">
                             <strong>5</strong>
+                        </div>
+                        <div id="step-6" class="book-step" data-toggle="tooltip" data-tippy-content="<?= lang('appointment_confirmation') ?>">
+                            <strong>6</strong>
                         </div>
                     </div>
                 </div>
@@ -135,9 +138,85 @@
                     </div>
                 </div>
 
+                <!-- IS PATIENT INSTITUTIONAL -->
+                <div id="wizard-frame-2" class="wizard-frame" style="display:none;">
+                    <div class="frame-container">
+                        <h2 class="frame-title"><?= lang('is_institutional_question') ?></h2>
+                        <div class="form-group">
+                            <label for="select-answer"><?= lang('select_an_answer') ?></label>
+                            <select class="form-control" id="select-answer">
+                                <option value=-1 selected><?= lang('select_an_answer') ?></option>
+                                <option value=1>Si</option>
+                                <option value=0>No</option>
+                            </select>
+                        </div>
+
+                        <div class="row frame-content">
+                            <div class="col-12 col-md-6">
+                                <div class="form-group">
+                                    <label for="select-municipality" class="control-label">
+                                        <?= lang('select_municipality') ?>
+                                        <span class="text-danger">*</span>
+                                    </label>
+                                    <!-- <input type="text" id="medical-center" class="required form-control" maxlength="40" disabled="True"/> -->
+                                    <select id="select-municipality" class="required form-control" maxlength="40" disabled="True">
+                                        <option selected value=""><?= lang('select_municipality') ?></option>
+                                        <?php
+                                            foreach ($available_municipalities as $municipality) {
+                                                echo '<option value="' . $municipality['codmunicip'] . '">' . $municipality['nommunicip'] . '</option>';
+                                            }
+                                        ?>
+                                    </select>
+                                </div>
+                            </div>
+                            <div class="col-12 col-md-6">
+                                <div class="form-group">
+                                    <label for="doctor-name" class="control-label">
+                                        <?= lang('doctor_name') ?>
+                                        <span class="text-danger">*</span>
+                                    </label>
+                                    <input type="text" id="doctor-name" class="required form-control" maxlength="40" autocomplete="nope" disabled="True" />
+                                </div>
+                            </div>
+                            <div class="col-12 col-md-6">
+                                <div class="form-group">
+                                    <label for="select-medical-center" class="control-label">
+                                        <?= lang('medical_center') ?>
+                                        <span class="text-danger">*</span>
+                                    </label>
+                                    <!-- <input type="text" id="medical-center" class="required form-control" maxlength="40" disabled="True"/> -->
+                                    <select id="select-medical-center" class="required selectpicker form-control" disabled="True">
+                                        <option selected value=""><?= lang('medical_center') ?></option>
+                                    </select>
+                                </div>
+                            </div>
+                            <div class="col-12 col-md-6">
+                                <div class="form-group">
+                                    <label for="reference-number" class="control-label">
+                                        <?= lang('reference_number') ?>
+                                        <span class="text-danger">*</span>
+                                    </label>
+                                    <input type="text" id="reference-number" class="required form-control" maxlength="20" autocomplete="nope" disabled="True" />
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="command-buttons">
+                        <button type="button" id="button-back-2" class="btn button-back btn-outline-secondary" data-step_index="2">
+                            <i class="fas fa-chevron-left mr-2"></i>
+                            <?= lang('back') ?>
+                        </button>
+
+                        <button type="button" id="button-next-2" class="btn button-next btn-dark" data-step_index="2">
+                            <?= lang('next') ?>
+                            <i class="fas fa-chevron-right ml-2"></i>
+                        </button>
+                    </div>
+                </div>
+
                 <!-- SELECT SERVICE AND PROVIDER -->
 
-                <div id="wizard-frame-2" class="wizard-frame" style="display:none;">
+                <div id="wizard-frame-3" class="wizard-frame" style="display:none;">
                     <div class="frame-container">
                         <h2 class="frame-title"><?= lang('service_and_provider') ?></h2>
 
@@ -216,12 +295,12 @@
                     </div>
 
                     <div class="command-buttons">
-                        <button type="button" id="button-back-1" class="btn button-back btn-outline-secondary" data-step_index="2">
+                        <button type="button" id="button-back-3" class="btn button-back btn-outline-secondary" data-step_index="3">
                             <i class="fas fa-chevron-left mr-2"></i>
                             <?= lang('back') ?>
                         </button>
 
-                        <button type="button" id="button-next-2" class="btn button-next btn-dark" data-step_index="2">
+                        <button type="button" id="button-next-3" class="btn button-next btn-dark" data-step_index="3">
                             <?= lang('next') ?>
                             <i class="fas fa-chevron-right ml-2"></i>
                         </button>
@@ -230,7 +309,7 @@
 
                 <!-- SELECT APPOINTMENT DATE -->
 
-                <div id="wizard-frame-3" class="wizard-frame" style="display:none;">
+                <div id="wizard-frame-4" class="wizard-frame" style="display:none;">
                     <div class="frame-container">
 
                         <h2 class="frame-title"><?= lang('appointment_date_and_time') ?></h2>
@@ -254,11 +333,11 @@
                     </div>
 
                     <div class="command-buttons">
-                        <button type="button" id="button-back-2" class="btn button-back btn-outline-secondary" data-step_index="3">
+                        <button type="button" id="button-back-4" class="btn button-back btn-outline-secondary" data-step_index="4">
                             <i class="fas fa-chevron-left mr-2"></i>
                             <?= lang('back') ?>
                         </button>
-                        <button type="button" id="button-next-3" class="btn button-next btn-dark" data-step_index="3">
+                        <button type="button" id="button-next-4" class="btn button-next btn-dark" data-step_index="4">
                             <?= lang('next') ?>
                             <i class="fas fa-chevron-right ml-2"></i>
                         </button>
@@ -267,7 +346,7 @@
 
                 <!-- ENTER CUSTOMER DATA -->
 
-                <div id="wizard-frame-4" class="wizard-frame" style="display:none;">
+                <div id="wizard-frame-5" class="wizard-frame" style="display:none;">
                     <div class="frame-container">
 
                         <h2 class="frame-title"><?= lang('customer_information') ?></h2>
@@ -366,11 +445,11 @@
                     <?php endif ?>
 
                     <div class="command-buttons">
-                        <button type="button" id="button-back-3" class="btn button-back btn-outline-secondary" data-step_index="4">
+                        <button type="button" id="button-back-5" class="btn button-back btn-outline-secondary" data-step_index="5">
                             <i class="fas fa-chevron-left mr-2"></i>
                             <?= lang('back') ?>
                         </button>
-                        <button type="button" id="button-next-4" class="btn button-next btn-dark" data-step_index="4">
+                        <button type="button" id="button-next-5" class="btn button-next btn-dark" data-step_index="5">
                             <?= lang('next') ?>
                             <i class="fas fa-chevron-right ml-2"></i>
                         </button>
@@ -379,7 +458,7 @@
 
                 <!-- APPOINTMENT DATA CONFIRMATION -->
 
-                <div id="wizard-frame-5" class="wizard-frame" style="display:none;">
+                <div id="wizard-frame-6" class="wizard-frame" style="display:none;">
                     <div class="frame-container">
                         <h2 class="frame-title"><?= lang('appointment_confirmation') ?></h2>
                         <div class="row frame-content">
@@ -404,7 +483,7 @@
                     </div>
 
                     <div class="command-buttons">
-                        <button type="button" id="button-back-4" class="btn button-back btn-outline-secondary" data-step_index="5">
+                        <button type="button" id="button-back-6" class="btn button-back btn-outline-secondary" data-step_index="6">
                             <i class="fas fa-chevron-left mr-2"></i>
                             <?= lang('back') ?>
                         </button>
@@ -460,6 +539,8 @@
 
     <script>
         var GlobalVariables = {
+            availableMunicipalities: <?= json_encode($available_municipalities) ?>,
+            availableMedicalCenters: <?= json_encode($available_medical_centers) ?>,
             availableServices: <?= json_encode($available_services) ?>,
             availableProviders: <?= json_encode($available_providers) ?>,
             baseUrl: <?= json_encode(config('base_url')) ?>,
