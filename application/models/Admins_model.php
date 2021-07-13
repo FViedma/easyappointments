@@ -101,8 +101,8 @@ class Admins_model extends EA_Model {
             $user_id = (isset($admin['id'])) ? $admin['id'] : '';
             if ( ! $this->validate_username($admin['settings']['username'], $user_id))
             {
-                throw new Exception ('Username already exists. Please select a different '
-                    . 'username for this record.');
+                throw new Exception ('Usuario existente. Porfavor seleccione un  '
+                    . 'nombre de usuario diferente.');
             }
         }
 
@@ -111,14 +111,14 @@ class Admins_model extends EA_Model {
         {
             if (strlen($admin['settings']['password']) < MIN_PASSWORD_LENGTH)
             {
-                throw new Exception('The user password must be at least '
-                    . MIN_PASSWORD_LENGTH . ' characters long.');
+                throw new Exception('La clave de usuario debe tener por lo menos '
+                    . MIN_PASSWORD_LENGTH . ' caracteres de largo.');
             }
         }
 
         if ( ! isset($admin['id']) && ! isset($admin['settings']['password']))
         {
-            throw new Exception('The user password cannot be empty for new users.');
+            throw new Exception('La clave de usuairo no debe ser vacia para usuarios nuevos.');
         }
 
         // Validate calendar view mode.
