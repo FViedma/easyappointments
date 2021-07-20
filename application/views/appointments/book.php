@@ -158,7 +158,6 @@
                                         <?= lang('select_municipality') ?>
                                         <span class="text-danger">*</span>
                                     </label>
-                                    <!-- <input type="text" id="medical-center" class="required form-control" maxlength="40" disabled="True"/> -->
                                     <select id="select-municipality" class="required form-control" maxlength="40" disabled="True">
                                         <option selected value=""><?= lang('select_municipality') ?></option>
                                         <?php
@@ -184,7 +183,6 @@
                                         <?= lang('medical_center') ?>
                                         <span class="text-danger">*</span>
                                     </label>
-                                    <!-- <input type="text" id="medical-center" class="required form-control" maxlength="40" disabled="True"/> -->
                                     <select id="select-medical-center" class="required selectpicker form-control" disabled="True">
                                         <option selected value=""><?= lang('medical_center') ?></option>
                                     </select>
@@ -322,8 +320,8 @@
                             <div class="col-12 col-md-6">
                                 <div id="select-time">
                                     <div class="form-group">
-                                        <label for="select-timezone"><?= lang('timezone') ?></label>
-                                        <?= render_timezone_dropdown('id="select-timezone" class="form-control" value="UTC"'); ?>
+                                        <!-- <label for="select-timezone"><?= lang('timezone') ?></label> -->
+                                        <?= render_timezone_dropdown('id="select-timezone" class="form-control" value="UTC" disabled="true" style="visibility: hidden"'); ?>
                                     </div>
 
                                     <div id="available-hours"></div>
