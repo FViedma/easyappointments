@@ -126,8 +126,11 @@
 
                         <div id="form-message">
                         </div>
-
+                        <input type="text" id="nombre_paciente" class="form-control" style="visibility: hidden"/>
+                        <input type="text" id="ape_paciente" class="form-control" style="visibility: hidden"/>
                     </div>
+
+
                     <div class="command-buttons">
                         <span>&nbsp;</span>
 
@@ -501,9 +504,7 @@
                 <div id="frame-footer">
                     <small>
                         <span class="footer-powered-by">
-                            Powered By
-
-                            <a href="https://easyappointments.org" target="_blank">Easy!Appointments</a>
+                            <a href="https://hospitalviedma.org" target="_blank">Hospital Clínico Viedma</a>
                         </span>
 
                         <span class="footer-options">

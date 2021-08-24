@@ -358,6 +358,8 @@ window.FrontendBookApi = window.FrontendBookApi || {};
                     GeneralFunctions.displayMessageBox(EALang.message, EALang.patient_not_found);
                 } else {
                     $('#form-message').empty()
+                    $('#nombre_paciente').val(response.HCL_NOMBRE)
+                    $('#ape_paciente').val(response.HCL_APPAT + " " + response.HCL_APMAT)
                     var nombre = response.HCL_NOMBRE + " " + response.HCL_APPAT + " " + response.HCL_APMAT
                     $('#form-message').append(getPatientFoundHTML(nombre, response.HCL_NUMCI, response.HCL_CODIGO))
                     $('#button-next-1').prop('disabled', false)

@@ -268,8 +268,9 @@ window.FrontendBook = window.FrontendBook || {};
             var serviceId = $('#select-service').val();
 
             $('#select-provider').empty();
-
+            console.log(GlobalVariables.availableProviders)
             GlobalVariables.availableProviders.forEach(function (provider) {
+                
                 // If the current provider is able to provide the selected service, add him to the list box.
                 var canServeService = provider.services.filter(function (providerServiceId) {
                     return Number(providerServiceId) === Number(serviceId);
@@ -281,9 +282,9 @@ window.FrontendBook = window.FrontendBook || {};
             });
 
             // Add the "Any Provider" entry.
-            if ($('#select-provider option').length >= 1 && GlobalVariables.displayAnyProvider === '1') {
-                $('#select-provider').append(new Option('- ' + EALang.any_provider + ' -', 'any-provider'));
-            }
+            // if ($('#select-provider option').length >= 1 && GlobalVariables.displayAnyProvider === '1') {
+            //     $('#select-provider').append(new Option('- ' + EALang.any_provider + ' -', 'any-provider'));
+            // }
 
             FrontendBookApi.getUnavailableDates($('#select-provider').val(), $(this).val(),
                 $('#select-date').datepicker('getDate').toString('yyyy-MM-dd'));
@@ -312,6 +313,8 @@ window.FrontendBook = window.FrontendBook || {};
                 if (!validateReferenceForm()) {
                     return;
                 } 
+                $('#first-name').val($('#nombre_paciente').val()) 
+                $('#last-name').val($('#ape_paciente').val())
             }
 
             // If we are on the third step and there is not provider selected do not continue with the next step.
@@ -682,10 +685,6 @@ window.FrontendBook = window.FrontendBook || {};
                         }),
                         $('<br/>'),
                         $('<span/>', {
-                            'text': EALang.timezone + ': ' + $('#select-timezone option:selected').text()
-                        }),
-                        $('<br/>'),
-                        $('<span/>', {
                             'text': EALang.price + ': ' + servicePrice + ' ' + serviceCurrency,
                             'prop': {
                                 'hidden': !servicePrice
@@ -705,6 +704,12 @@ window.FrontendBook = window.FrontendBook || {};
         var address = GeneralFunctions.escapeHtml($('#address').val());
         var city = GeneralFunctions.escapeHtml($('#city').val());
         var zipCode = GeneralFunctions.escapeHtml($('#zip-code').val());
+        var isRefered = GeneralFunctions.escapeHtml($('#select-answer').val())
+        var isReferedLetter = GeneralFunctions.escapeHtml($('#select-answer option:selected').text())
+        var municipality = GeneralFunctions.escapeHtml($('#select-municipality').val());
+        var hospital = GeneralFunctions.escapeHtml($('#select-medical-center').val());
+        var doctor = GeneralFunctions.escapeHtml($('#doctor-name').val());
+        var reference_number = GeneralFunctions.escapeHtml($('#reference-number').val());
 
         $('#customer-details').empty();
 
@@ -725,6 +730,26 @@ window.FrontendBook = window.FrontendBook || {};
                         $('<br/>'),
                         $('<span/>', {
                             'text': EALang.email + ': ' + email
+                        }),
+                        $('<br/>'),
+                        $('<span/>', {
+                            'text': isRefered > -1 ? EALang.reference + ': ' + isReferedLetter : ''
+                        }),
+                        $('<br/>'),
+                        $('<span/>', {
+                            'text': isRefered == 1 ? EALang.municipality + ': ' + municipality : ''
+                        }),
+                        $('<br/>'),
+                        $('<span/>', {
+                            'text': isRefered == 1 ? EALang.hospital + ': ' + hospital : ''
+                        }),
+                        $('<br/>'),
+                        $('<span/>', {
+                            'text': isRefered == 1 ? EALang.doctor_reference + ': ' + doctor : ''
+                        }),
+                        $('<br/>'),
+                        $('<span/>', {
+                            'text': isRefered == 1 ? EALang.reference_number + ': ' + reference_number : ''
                         }),
                         $('<br/>'),
                         $('<span/>', {

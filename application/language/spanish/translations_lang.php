@@ -337,3 +337,7 @@ $lang['medical_center'] ='Nombre del centro de salud';
 $lang['doctor_name'] = 'Nombre del médico';
 $lang['reference_number'] = 'Número de su hoja referencia';
 $lang['select_municipality'] = 'Seleccione su municipio';
+$lang['reference'] = 'Es referido de otro hospital';
+$lang['municipality'] = 'Municipio';
+$lang['hospital'] = 'Hospital origen';
+$lang['doctor_reference'] = 'Médico que refiere';

@@ -62,8 +62,7 @@
 
             <div class="mt-2">
                 <small>
-                    Powered by
-                    <a href="https://easyappointments.org">Easy!Appointments</a>
+                    <a href="https://hospitalviedma.org">Hospital Clínico Viedma</a>
                 </small>
             </div>
         </div>
