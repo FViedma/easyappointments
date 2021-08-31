@@ -1701,4 +1701,27 @@ class Backend_api extends EA_Controller {
             ->set_content_type('application/json')
             ->set_output(json_encode($response));
     }
+
+    public function ajax_get_patient_reservation() {
+        try
+        {
+            $ci = $this->input->get('patientCI');
+            $complement = $this->input->get('complement');
+            $reservation = $this->appointments_model->get_patient_reservation($ci, $complement);
+            $response = $reservation;
+        }
+        catch (Exception $exception)
+        {
+            $this->output->set_status_header(500);
+
+            $response = [
+                'message' => $exception->getMessage(),
+                'trace' => config('debug') ? $exception->getTrace() : []
+            ];
+        }
+
+        $this->output
+            ->set_content_type('application/json')
+            ->set_output(json_encode($response));
+    }
 }

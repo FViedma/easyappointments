@@ -126,6 +126,8 @@
 
                         <div id="form-message">
                         </div>
+                        <div id="appointment-message">
+                        </div>
                         <input type="text" id="nombre_paciente" class="form-control" style="visibility: hidden"/>
                         <input type="text" id="ape_paciente" class="form-control" style="visibility: hidden"/>
                     </div>

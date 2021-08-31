@@ -354,18 +354,73 @@ window.FrontendBookApi = window.FrontendBookApi || {};
             .done(function (response) {
                 if (response == null) {
                     $('#form-message').empty()
+                    $('#appointment-message').empty()
                     $('#button-next-1').prop('disabled', true)
                     GeneralFunctions.displayMessageBox(EALang.message, EALang.patient_not_found);
                 } else {
                     $('#form-message').empty()
+                    $('#appointment-message').empty()
                     $('#nombre_paciente').val(response.HCL_NOMBRE)
                     $('#ape_paciente').val(response.HCL_APPAT + " " + response.HCL_APMAT)
                     var nombre = response.HCL_NOMBRE + " " + response.HCL_APPAT + " " + response.HCL_APMAT
                     $('#form-message').append(getPatientFoundHTML(nombre, response.HCL_NUMCI, response.HCL_CODIGO))
+                    getPatientReservation(patientCI,complement)
+                }
+            });
+    };
+
+    /**
+     * Gets a reservation for an specific patient
+     * 
+     * @param {Number} patientCI patient ci.
+     * @param {String} complement patient's ci complement
+     */
+    function getPatientReservation (patientCI, complement) {
+        var url = GlobalVariables.baseUrl + '/index.php/Backend_api/ajax_get_patient_reservation';
+        var data = {
+            patientCI: patientCI,
+            complement: complement
+        }
+        $.ajax({
+            url: url,
+            type: 'GET',
+            data: data,
+            dataType: 'json'
+        })
+            .done(function (response) {
+                if (response == null) {
+                    $('#appointment-message').empty()
+                    $('#button-next-1').prop('disabled', true)
+                    GeneralFunctions.displayMessageBox(EALang.message, EALang.patient_not_found);
+                } else if(response.length >1) {
+                    $('#button-next-1').prop('disabled', false)
+                    var appointmentDate = new Date(response.pop().book_datetime)
+                    if(compareDates(appointmentDate, new Date())) {
+                        response = response.pop()
+                        $('#appointment-message').append(getAppointmentFoundHTML(response.book_datetime,response.service.name, response.provider.first_name, response.provider.last_name))
+                        $('#button-next-1').prop('disabled', true)
+                    }
+                }else {
                     $('#button-next-1').prop('disabled', false)
                 }
             });
     };
+
+    function compareDates(date, currentDate) {
+        var year = false;
+        var month = false;
+        var day = false;
+        if(date.getFullYear() == currentDate.getFullYear()){
+            year = true;
+        }
+        if (date.getMonth() == currentDate.getMonth()) {
+            month = true;
+        }
+        if (date.getDate() == currentDate.getDate()) {
+            day = true;
+        }
+        return year == month == day;
+    }
 
     function getPatientFoundHTML(nombre, ci, hc){
         
@@ -387,4 +442,25 @@ window.FrontendBookApi = window.FrontendBookApi || {};
             ]
         });
     }
+
+    function getAppointmentFoundHTML(date, service, providerName, providerLastName){
+        
+        return $('<div/>', {
+             'class': 'card', 
+             'html': [
+                 $('<div/>', {
+                     'class': 'card-header bg-success',
+                     'html': [
+                         $('<h5/>',{
+                             'text': EALang.patient_appointed,
+                         })
+                     ]
+                 }),
+                 $('<div/>', {
+                     'class': 'card-text',
+                     'text': "El paciente ya cuenta con una reserva Reserva: " + date + " Especialidad: " + service + " Médico: " + providerName + " " + providerLastName
+                 }),
+             ]
+         });
+     }
 })(window.FrontendBookApi);

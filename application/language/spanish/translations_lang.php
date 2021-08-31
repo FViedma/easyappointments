@@ -341,3 +341,4 @@ $lang['reference'] = 'Es referido de otro hospital';
 $lang['municipality'] = 'Municipio';
 $lang['hospital'] = 'Hospital origen';
 $lang['doctor_reference'] = 'Médico que refiere';
+$lang['patient_appointed'] = 'Paciente ya agendado';

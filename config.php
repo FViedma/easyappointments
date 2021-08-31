@@ -30,7 +30,7 @@ class Config {
     // GENERAL SETTINGS
     // ------------------------------------------------------------------------
 
-    const BASE_URL      = 'http://localhost:8080/easyappointments';
+    const BASE_URL      = 'http://192.168.14.14:8080/easyappointments';
     const LANGUAGE      = 'english';
     const DEBUG_MODE    = FALSE;
 

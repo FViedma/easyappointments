@@ -615,4 +615,19 @@ class Appointments_model extends EA_Model {
             ->row()
             ->attendants_number;
     }
+
+     /**
+     * Returns the number of the other service attendants number for the provided time slot.
+     *
+     * @param int $ci patient ci.
+     * @param int|null $complement patient's ci comlement.
+     *
+     * @return int Returns wheter the patient has a reservation or not.
+     */
+    public function get_patient_reservation($ci, $complement)
+    {
+        $user = $this->db->get_where('users', ['user_ci'=>$ci, 'complemento'=>$complement])->row_array();
+        $appointment = $this->get_batch(['id_users_customer' => $user['id']],null,null,null,true);
+        return $appointment;
+    }
 }

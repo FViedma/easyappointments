@@ -268,7 +268,6 @@ window.FrontendBook = window.FrontendBook || {};
             var serviceId = $('#select-service').val();
 
             $('#select-provider').empty();
-            console.log(GlobalVariables.availableProviders)
             GlobalVariables.availableProviders.forEach(function (provider) {
                 
                 // If the current provider is able to provide the selected service, add him to the list box.
@@ -782,7 +781,9 @@ window.FrontendBook = window.FrontendBook || {};
             address: $('#address').val(),
             city: $('#city').val(),
             zip_code: $('#zip-code').val(),
-            timezone: $('#select-timezone').val()
+            timezone: $('#select-timezone').val(),
+            user_ci: $('#patient-ci').val(),
+            complemento: $('#complement').val()
         };
 
         data.appointment = {
