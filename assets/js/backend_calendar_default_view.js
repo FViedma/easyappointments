@@ -539,15 +539,6 @@ window.BackendCalendarDefaultView = window.BackendCalendarDefaultView || {};
 
                     $('<strong/>', {
                         'class': 'd-inline-block mr-2',
-                        'text': EALang.timezone
-                    }),
-                    $('<span/>', {
-                        'text': GlobalVariables.timezones[event.data.provider.timezone]
-                    }),
-                    $('<br/>'),
-
-                    $('<strong/>', {
-                        'class': 'd-inline-block mr-2',
                         'text': EALang.service
                     }),
                     $('<span/>', {
@@ -562,6 +553,24 @@ window.BackendCalendarDefaultView = window.BackendCalendarDefaultView || {};
                     GeneralFunctions.renderMapIcon(event.data.provider),
                     $('<span/>', {
                         'text': event.data.provider.first_name + ' ' + event.data.provider.last_name
+                    }),
+                    $('<br/>'),
+
+                    $('<strong/>', {
+                        'class': 'd-inline-block mr-2',
+                        'text': EALang.clinical_story
+                    }),
+                    $('<span/>', {
+                        'text': event.data.customer.clinical_story
+                    }),
+                    $('<br/>'),
+
+                    $('<strong/>', {
+                        'class': 'd-inline-block mr-2',
+                        'text': EALang.user_id
+                    }),
+                    $('<span/>', {
+                        'text': event.data.customer.user_ci+(event.data.customer.complement==undefined?"":event.data.customer.complement)
                     }),
                     $('<br/>'),
 

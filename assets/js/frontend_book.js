@@ -783,7 +783,8 @@ window.FrontendBook = window.FrontendBook || {};
             zip_code: $('#zip-code').val(),
             timezone: $('#select-timezone').val(),
             user_ci: $('#patient-ci').val(),
-            complemento: $('#complement').val()
+            complement: $('#complement').val(),
+            clinical_story: $('#clinic_story').val()
         };
 
         data.appointment = {

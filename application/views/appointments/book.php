@@ -130,6 +130,7 @@
                         </div>
                         <input type="text" id="nombre_paciente" class="form-control" style="visibility: hidden"/>
                         <input type="text" id="ape_paciente" class="form-control" style="visibility: hidden"/>
+                        <input type="text" id="clinic_story" class="form-control" style="visibility: hidden"/>
                     </div>
 
 

@@ -362,6 +362,7 @@ window.FrontendBookApi = window.FrontendBookApi || {};
                     $('#appointment-message').empty()
                     $('#nombre_paciente').val(response.HCL_NOMBRE)
                     $('#ape_paciente').val(response.HCL_APPAT + " " + response.HCL_APMAT)
+                    $('#clinic_story').val(response.HCL_CODIGO)
                     var nombre = response.HCL_NOMBRE + " " + response.HCL_APPAT + " " + response.HCL_APMAT
                     $('#form-message').append(getPatientFoundHTML(nombre, response.HCL_NUMCI, response.HCL_CODIGO))
                     getPatientReservation(patientCI,complement)

@@ -626,7 +626,7 @@ class Appointments_model extends EA_Model {
      */
     public function get_patient_reservation($ci, $complement)
     {
-        $user = $this->db->get_where('users', ['user_ci'=>$ci, 'complemento'=>$complement])->row_array();
+        $user = $this->db->get_where('users', ['user_ci'=>$ci, 'complement'=>$complement])->row_array();
         $appointment = $this->get_batch(['id_users_customer' => $user['id']],null,null,null,true);
         return $appointment;
     }
