@@ -75,10 +75,10 @@ window.FrontendBookApi = window.FrontendBookApi || {};
                     var providerId = $('#select-provider').val();
 
                     if (providerId === 'any-provider') {
-                        providerId = GlobalVariables.availableProviders[0].id; // Use first available provider.
+                        providerId = GlobalVariables.availableProvidersReservation[0].id; // Use first available provider.
                     }
 
-                    var provider = GlobalVariables.availableProviders.find(function (availableProvider) {
+                    var provider = GlobalVariables.availableProvidersReservation.find(function (availableProvider) {
                         return Number(providerId) === Number(availableProvider.id);
                     });
 

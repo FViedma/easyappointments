@@ -538,6 +538,49 @@ class Providers_model extends EA_Model
      */
     public function get_available_providers()
     {
+        // Get provider records from database.
+        $this->db
+            ->select('users.*')
+            ->from('users')
+            ->join('roles', 'roles.id = users.id_roles', 'inner')
+            ->where('roles.slug', DB_SLUG_PROVIDER)
+            ->order_by('first_name ASC, last_name ASC, email ASC');
+
+        $providers = $this->db->get()->result_array();
+
+        // Include each provider services and settings.
+        foreach ($providers as &$provider) {
+            // Services
+            $services = $this->db->get_where('services_providers', ['id_users' => $provider['id']])->result_array();
+
+            $provider['services'] = [];
+            foreach ($services as $service) {
+
+                $provider['services'][] = $service['id_services'];
+            }
+
+            // Settings
+            $provider['settings'] = $this->db->get_where('user_settings', ['id_users' => $provider['id']])->row_array();
+            unset(
+                $provider['settings']['username'],
+                $provider['settings']['password'],
+                $provider['settings']['salt']
+            );
+        }
+
+        // Return provider records.
+        return $providers;
+    }
+
+    /**
+     * Get the available system providers.
+     *
+     * This method returns the available providers and the services that can provide.
+     *
+     * @return array Returns an array with the providers data.
+     */
+    public function get_available_providers_for_reservation()
+    {
         $services = $this->db
             ->get_where('services')->result_array();
         $providers = [];
@@ -553,7 +596,7 @@ class Providers_model extends EA_Model
             $provider['services'][] = $service['id'];
 
             // Settings
-            $provider['settings'] = $this->db->get_where('user_settings', ['id_users' => $provider['id']])->row_array();         
+            $provider['settings'] = $this->db->get_where('user_settings', ['id_users' => $provider['id']])->row_array();
             unset(
                 $provider['settings']['username'],
                 $provider['settings']['password'],
@@ -569,8 +612,7 @@ class Providers_model extends EA_Model
      * Save the provider working plan exception.
      *
      * @param string $date The working plan exception date (in YYYY-MM-DD format).
-     * @param array $working_plan_exception Contains the working plan exception information ("start", "end" and "breaks"
-     * properties).
+     * 
      * @param int $provider_id The selected provider record id.
      *
      * @return bool Return if the new working plan exceptions is correctly saved to DB.

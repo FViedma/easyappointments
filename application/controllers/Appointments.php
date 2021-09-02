@@ -62,6 +62,7 @@ class Appointments extends EA_Controller {
             $available_medicalCenters = $this->snis_municipalities_model->get_available_medical_centers();
             $available_services = $this->services_model->get_available_services();
             $available_providers = $this->providers_model->get_available_providers();
+            $available_providers_reservation = $this->providers_model->get_available_providers_for_reservation();
             $company_name = $this->settings_model->get_setting('company_name');
             $book_advance_timeout = $this->settings_model->get_setting('book_advance_timeout');
             $date_format = $this->settings_model->get_setting('date_format');
@@ -160,6 +161,7 @@ class Appointments extends EA_Controller {
                 'available_medical_centers' => $available_medicalCenters,
                 'available_services' => $available_services,
                 'available_providers' => $available_providers,
+                'available_providers_reservation' => $available_providers_reservation,
                 'company_name' => $company_name,
                 'manage_mode' => $manage_mode,
                 'customer_token' => $customer_token,

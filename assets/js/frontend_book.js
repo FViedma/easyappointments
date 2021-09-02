@@ -159,8 +159,8 @@ window.FrontendBook = window.FrontendBook || {};
 
             if (selectedProviderId && $selectProvider.find('option[value="' + selectedProviderId + '"]').length === 0) {
                 // Select a service of this provider in order to make the provider available in the select box.
-                for (var index in GlobalVariables.availableProviders) {
-                    var provider = GlobalVariables.availableProviders[index];
+                for (var index in GlobalVariables.availableProvidersReservation) {
+                    var provider = GlobalVariables.availableProvidersReservation[index];
 
                     if (provider.id === selectedProviderId && provider.services.length > 0) {
                         $selectService
@@ -268,7 +268,7 @@ window.FrontendBook = window.FrontendBook || {};
             var serviceId = $('#select-service').val();
 
             $('#select-provider').empty();
-            GlobalVariables.availableProviders.forEach(function (provider) {
+            GlobalVariables.availableProvidersReservation.forEach(function (provider) {
                 
                 // If the current provider is able to provide the selected service, add him to the list box.
                 var canServeService = provider.services.filter(function (providerServiceId) {
