@@ -544,6 +544,7 @@
             availableMedicalCenters: <?= json_encode($available_medical_centers) ?>,
             availableServices: <?= json_encode($available_services) ?>,
             availableProviders: <?= json_encode($available_providers) ?>,
+            availableProvidersReservation: <?= json_encode($available_providers_reservation) ?>,
             baseUrl: <?= json_encode(config('base_url')) ?>,
             manageMode: <?= $manage_mode ? 'true' : 'false' ?>,
             customerToken: <?= json_encode($customer_token) ?>,
