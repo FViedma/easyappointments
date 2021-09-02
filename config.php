@@ -42,6 +42,7 @@ class Config {
     const DB_NAME       = 'easyappointment';
     const DB_USERNAME   = 'root';
     const DB_PASSWORD   = '';
+    //const DB_PASSWORD   = 'Og39NEs8MbHIwohoBW84MZ';
 
     const DB_HOST2      = '192.168.0.19\serverviedma';
     const DB_NAME2      = 'BDESTADISTICA';

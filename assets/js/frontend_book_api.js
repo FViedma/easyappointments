@@ -410,16 +410,16 @@ window.FrontendBookApi = window.FrontendBookApi || {};
         var year = false;
         var month = false;
         var day = false;
-        if(date.getFullYear() == currentDate.getFullYear()){
+        if(date.getFullYear() === date.getFullYear()){
             year = true;
         }
-        if (date.getMonth() == currentDate.getMonth()) {
+        if (date.getMonth() === currentDate.getMonth()) {
             month = true;
         }
-        if (date.getDate() == currentDate.getDate()) {
+        if (date.getDate() === currentDate.getDate()) {
             day = true;
         }
-        return year == month == day;
+        return year == month && month == day;
     }
 
     function getPatientFoundHTML(nombre, ci, hc){
