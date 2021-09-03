@@ -96,7 +96,7 @@ window.BackendCalendarApi = window.BackendCalendarApi || {};
      * @param {Function} errorCallback The ajax failure callback function.
      */
     exports.saveWorkingPlanException = function (date, workingPlanException, providerId,
-                                                 successCallback, errorCallback) {
+        successCallback, errorCallback) {
         var url = GlobalVariables.baseUrl + '/index.php/backend_api/ajax_save_working_plan_exception';
 
         var data = {
@@ -140,4 +140,36 @@ window.BackendCalendarApi = window.BackendCalendarApi || {};
                 }
             });
     }
+    /**
+        * Gets a patient by CI
+        * 
+        * @param {Number} patientCI patient ci.
+        * @param {String} complement patient's ci complement
+        */
+    exports.getPatientByCI = function (patientCI, complement) {
+        var url = GlobalVariables.baseUrl + '/index.php/Backend_api/ajax_get_patient_by_ci';
+        var data = {
+            patientCI: patientCI,
+            complement: complement
+        }
+        $.ajax({
+            url: url,
+            type: 'GET',
+            data: data,
+            dataType: 'json'
+        })
+            .done(function (response) {
+                if (response == null) {
+                    $('#form-message').empty()
+                    $('#appointment-message').empty()
+                    $('#save-appointment').prop('disabled', true)
+                    GeneralFunctions.displayMessageBox(EALang.message, EALang.patient_not_found);
+                } else {
+                    $('#first-name').val(response.HCL_NOMBRE)
+                    $('#last-name').val(response.HCL_APPAT + " " + response.HCL_APMAT)
+                    $('#clinical-story').val(response.HCL_CODIGO)
+                    $('#save-appointment').prop('disabled', false)
+                }
+            });
+    };
 })(window.BackendCalendarApi);

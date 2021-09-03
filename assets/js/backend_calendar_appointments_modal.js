@@ -78,7 +78,10 @@ window.BackendCalendarAppointmentsModal = window.BackendCalendarAppointmentsModa
                 address: $dialog.find('#address').val(),
                 city: $dialog.find('#city').val(),
                 zip_code: $dialog.find('#zip-code').val(),
-                notes: $dialog.find('#customer-notes').val()
+                notes: $dialog.find('#customer-notes').val(),
+                clinical_story: $dialog.find('#clinical-story').val(),
+                user_ci: $dialog.find('#patient-ci').val(),
+                complement: ''==$dialog.find('#complement').val()?"":$dialog.find('#complement').val()
             };
 
             if ($dialog.find('#customer-id').val() !== '') {
@@ -351,7 +354,19 @@ window.BackendCalendarAppointmentsModal = window.BackendCalendarAppointmentsModa
          */
         $('#new-customer').on('click', function () {
             $('#manage-appointment').find('#customer-id, #first-name, #last-name, #email, '
-                + '#phone-number, #address, #city, #zip-code, #customer-notes').val('');
+                + '#phone-number, #address, #city, #zip-code, #customer-notes, #clinical-story').val('');
+        });
+        /**
+         * Event: Verify patient Button "Click"
+         */
+         $('#verify-patient').on('click', function () {
+            var ci = $('#manage-appointment').find('#patient-ci').val();
+            var complement = $('#manage-appointment').find('#complement').val();
+            if(!validatePatientsCI(ci)){
+                return;
+            } else {
+                BackendCalendarApi.getPatientByCI(ci,complement);
+            }
         });
     }
 
@@ -547,6 +562,39 @@ window.BackendCalendarAppointmentsModal = window.BackendCalendarAppointmentsModa
         }
     }
 
+     /**
+     * Validate the patient's ci. Validation checks need to
+     * run every time the data are going to be verified.
+     *
+     * @return {Boolean} Returns the validation result.
+     */
+      function validatePatientsCI(ci_value) {
+        var $dialog = $('#manage-appointment');
+
+        // Reset previous validation css formatting.
+        $dialog.find('.has-error').removeClass('has-error');
+        $dialog.find('.modal-message').addClass('d-none');
+
+        try {
+            var missingRequiredField = false;
+            var ci_value = $('#patient-ci').val();
+            if ('' == ci_value) {
+                $('#patient-ci').parents('.form-group').addClass('has-error');
+                missingRequiredField = true;
+            }
+            if (missingRequiredField) {
+                throw new Error(EALang.fields_are_required);
+            }
+            if (!GeneralFunctions.validateNumber($('#patient-ci').val())) {
+                $('#patient-ci').parents('.form-group').addClass('has-error');
+                throw new Error(EALang.invalid_ci_number);
+            }
+            return true;
+        } catch (error) {
+            $dialog.find('.modal-message').addClass('alert-danger').text(error.message).removeClass('d-none');
+            return false;
+        }
+    }
     exports.initialize = function () {
         bindEventHandlers();
     };

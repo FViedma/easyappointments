@@ -326,6 +326,7 @@ $lang['enter_ci_please'] = 'Ingrese su Cédula de identidad por favor';
 $lang['identification'] = 'Cedula de indentidad';
 $lang['complement'] = 'Complemento';
 $lang['verify'] = 'Verificar';
+$lang['verify_hint'] = 'Verificar que el paciente cuente con una historia clinica permanente';
 $lang['invalid_ci_number'] = 'Cédula de identidad inválida';
 $lang['patient_not_found'] = 'Usted no se encuentra en el sistema, es paciente nuevo, por favor tiene que apersonarse por el hospital no puede hacer una reserva en línea';
 $lang['message'] = 'Mensaje';

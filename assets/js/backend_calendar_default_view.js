@@ -131,6 +131,9 @@ window.BackendCalendarDefaultView = window.BackendCalendarDefaultView || {};
                 $dialog.find('#appointment-location').val(appointment.location);
                 $dialog.find('#appointment-notes').val(appointment.notes);
                 $dialog.find('#customer-notes').val(customer.notes);
+                $dialog.find('#clinical-story').val(customer.clinical_story);
+                $dialog.find('#patient-ci').val(customer.user_ci);
+                $dialog.find('#complement').val(customer.complement);
                 $dialog.modal('show');
             } else {
                 var unavailable = lastFocusedEventData.data;
