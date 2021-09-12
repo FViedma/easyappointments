@@ -393,11 +393,11 @@ window.FrontendBookApi = window.FrontendBookApi || {};
                     $('#appointment-message').empty()
                     $('#button-next-1').prop('disabled', true)
                     GeneralFunctions.displayMessageBox(EALang.message, EALang.patient_not_found);
-                } else if(response.length >1) {
+                } else if(response.length >= 1) {
+                    var response = response[0]
                     $('#button-next-1').prop('disabled', false)
-                    var appointmentDate = new Date(response.pop().book_datetime)
+                    var appointmentDate = new Date(response.book_datetime)
                     if(compareDates(appointmentDate, new Date())) {
-                        response = response.pop()
                         $('#appointment-message').append(getAppointmentFoundHTML(response.book_datetime,response.service.name, response.provider.first_name, response.provider.last_name))
                         $('#button-next-1').prop('disabled', true)
                     }

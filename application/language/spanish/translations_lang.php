@@ -345,3 +345,4 @@ $lang['doctor_reference'] = 'Médico que refiere';
 $lang['patient_appointed'] = 'Paciente ya agendado';
 $lang['clinical_story'] = 'Hist. clínica';
 $lang['user_id'] = 'C.I.';
+$lang['birth_date'] = 'Fecha de nacimiento';

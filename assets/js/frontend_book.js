@@ -780,7 +780,7 @@ window.FrontendBook = window.FrontendBook || {};
             phone_number: $('#phone-number').val(),
             address: $('#address').val(),
             city: $('#city').val(),
-            zip_code: $('#zip-code').val(),
+            birth_date: $('#birth-date').val().toString('yyyy-MM-dd'),
             timezone: $('#select-timezone').val(),
             user_ci: $('#patient-ci').val(),
             complement: $('#complement').val(),

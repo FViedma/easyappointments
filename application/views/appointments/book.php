@@ -327,7 +327,7 @@
                                 <div id="select-time">
                                     <div class="form-group">
                                         <!-- <label for="select-timezone"><?= lang('timezone') ?></label> -->
-                                        <?= render_timezone_dropdown('id="select-timezone" class="form-control" value="UTC" disabled="true" style="visibility: hidden"'); ?>
+                                        <?= render_timezone_dropdown('id="select-timezone" class="form-control" value="America/La_Paz" disabled="true" style="visibility: hidden"'); ?>
                                     </div>
 
                                     <div id="available-hours"></div>
@@ -401,10 +401,10 @@
                                     <input type="text" id="city" class="form-control" maxlength="120" />
                                 </div>
                                 <div class="form-group">
-                                    <label for="zip-code" class="control-label">
-                                        <?= lang('zip_code') ?>
+                                    <label for="birth-date" class="control-label">
+                                        <?= lang('birth_date') ?>
                                     </label>
-                                    <input type="text" id="zip-code" class="form-control" maxlength="120" />
+                                    <input type="date" id="birth-date" class="form-control"/>
                                 </div>
                                 <div class="form-group">
                                     <label for="notes" class="control-label">

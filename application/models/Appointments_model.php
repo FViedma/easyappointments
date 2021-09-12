@@ -152,6 +152,7 @@ class Appointments_model extends EA_Model {
      */
     protected function insert($appointment)
     {
+        date_default_timezone_set("America/La_Paz");
         $appointment['book_datetime'] = date('Y-m-d H:i:s');
         $appointment['hash'] = $this->generate_hash();
 
@@ -615,6 +616,24 @@ class Appointments_model extends EA_Model {
             ->row()
             ->attendants_number;
     }
+    /**
+     * Returns the last record for a given patient id.
+     *
+     * @param int $patient_id patient id.
+     *
+     * @return int Returns the last appointment id for the patient id given.
+     */
+    public function get_last_appointment_for_patient($patient_id)
+    {  
+        $result= $this->db
+            ->select('id')
+            ->from('appointments')
+            ->where('id_users_customer', $patient_id)
+            ->order_by('id', 'DESC')
+            ->limit(1)
+            ->get()->row_array();
+            return $result;
+    }
 
      /**
      * Returns the number of the other service attendants number for the provided time slot.
@@ -627,7 +646,8 @@ class Appointments_model extends EA_Model {
     public function get_patient_reservation($ci, $complement)
     {
         $user = $this->db->get_where('users', ['user_ci'=>$ci, 'complement'=>$complement])->row_array();
-        $appointment = $this->get_batch(['id_users_customer' => $user['id']],null,null,null,true);
+        $last_appointment = $this->get_last_appointment_for_patient($user['id']);
+        $appointment = $this->get_batch(['id' => $last_appointment['id']],null,null,null,true);
         return $appointment;
     }
 }

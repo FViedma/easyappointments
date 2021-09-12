@@ -1707,8 +1707,7 @@ class Backend_api extends EA_Controller {
         {
             $ci = $this->input->get('patientCI');
             $complement = $this->input->get('complement');
-            $reservation = $this->appointments_model->get_patient_reservation($ci, $complement);
-            $response = $reservation;
+            $response = $this->appointments_model->get_patient_reservation($ci, $complement);
         }
         catch (Exception $exception)
         {
