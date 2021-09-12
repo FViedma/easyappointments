@@ -128,7 +128,7 @@ html body .ui-datepicker td a.ui-state-active {
 }
 
 body .ui-datepicker td a.ui-state-highlight {
-    background: #80E3AD !important;
+    background: #80b8e3 !important;
     border-radius: 67px;
     color: #FFF !important;
     width: 24px;
@@ -141,8 +141,8 @@ body .ui-datepicker td a.ui-state-highlight {
 body .ui-datepicker .ui-datepicker-prev-hover {
     top: 2px !important;
     left: 2px !important;
-    background: #80e1ac;
-    border-color: #80e1ac;
+    background: #80b8e3;
+    border-color: #80b8e3;
     border-radius: 0;
     cursor: pointer;
 }
@@ -150,16 +150,16 @@ body .ui-datepicker .ui-datepicker-prev-hover {
 body .ui-datepicker .ui-datepicker-next-hover {
     top: 2px !important;
     right: 2px !important;
-    background: #80e1ac;
-    border-color: #80e1ac;
+    background: #80c7e1;
+    border-color: #80c7e1;
     border-radius: 0;
     cursor: pointer;
 }
 
 body .ui-datepicker .ui-slider-handle {
     border-radius: 0;
-    border-color: #429a82;
-    background-color: #429a82;
+    border-color: #427b9a;
+    background-color: #427b9a;
 }
 
 body .ui-priority-primary,
