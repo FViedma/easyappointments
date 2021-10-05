@@ -820,6 +820,10 @@ body .form-horizontal .controls {
     width: 100px;
 }
 
+#business-logic #max-reservation-period {
+    width: 100px;
+}
+
 #settings-page #user-notifications,
 #settings-page #customer-notifications,
 #settings-page #display-any-provider,
