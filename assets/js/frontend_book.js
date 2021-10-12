@@ -653,12 +653,12 @@ window.FrontendBook = window.FrontendBook || {};
         }
 
         var serviceId = $('#select-service').val();
-        var servicePrice = '';
+        // var servicePrice = '';
         var serviceCurrency = '';
 
         GlobalVariables.availableServices.forEach(function (service, index) {
             if (Number(service.id) === Number(serviceId) && Number(service.price) > 0) {
-                servicePrice = service.price;
+                // servicePrice = service.price;
                 serviceCurrency = service.currency;
                 return false; // break loop
             }
@@ -684,13 +684,13 @@ window.FrontendBook = window.FrontendBook || {};
                         $('<span/>', {
                             'text': EALang.start + ': ' + selectedDate + ' ' + $('.selected-hour').text()
                         }),
-                        $('<br/>'),
-                        $('<span/>', {
-                            'text': EALang.price + ': ' + servicePrice + ' ' + serviceCurrency,
-                            'prop': {
-                                'hidden': !servicePrice
-                            }
-                        }),
+                        // $('<br/>'),
+                        // $('<span/>', {
+                            // 'text': EALang.price + ': ' + servicePrice + ' ' + serviceCurrency,
+                            // 'prop': {
+                            //     'hidden': !servicePrice
+                            // }
+                        // }),
                     ]
                 })
             ]
@@ -929,12 +929,12 @@ window.FrontendBook = window.FrontendBook || {};
                 .appendTo($serviceDescription);
         }
 
-        if (Number(service.price) > 0) {
-            $('<span/>', {
-                'text': '[' + EALang.price + ' ' + service.price + ' ' + service.currency + ']'
-            })
-                .appendTo($serviceDescription);
-        }
+        // if (Number(service.price) > 0) {
+        //     $('<span/>', {
+        //         'text': '[' + EALang.price + ' ' + service.price + ' ' + service.currency + ']'
+        //     })
+        //         .appendTo($serviceDescription);
+        // }
 
         if (service.location) {
             $('<span/>', {
