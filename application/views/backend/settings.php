@@ -53,9 +53,9 @@
                 <a class="nav-link" href="#current-user" data-toggle="tab"><?= lang('current_user') ?></a>
             </li>
         <?php endif ?>
-        <li class="nav-item">
+        <!-- <li class="nav-item">
             <a class="nav-link" href="#about-app" data-toggle="tab"><?= lang('about_app') ?></a>
-        </li>
+        </li> -->
     </ul>
 
     <div class="tab-content">
