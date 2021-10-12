@@ -76,6 +76,7 @@ class Appointments extends EA_Controller {
             $display_privacy_policy = $this->settings_model->get_setting('display_privacy_policy');
             $privacy_policy_content = $this->settings_model->get_setting('privacy_policy_content');
             $display_any_provider = $this->settings_model->get_setting('display_any_provider');
+            $max_reservation_period = $this->settings_model->get_setting('max_reservation_period');
             $timezones = $this->timezones->to_array();
 
             // Remove the data that are not needed inside the $available_providers array.
@@ -168,6 +169,7 @@ class Appointments extends EA_Controller {
                 'date_format' => $date_format,
                 'time_format' => $time_format,
                 'first_weekday' => $first_weekday,
+                'max_reservation_period' => $max_reservation_period,
                 'require_phone_number' => $require_phone_number,
                 'appointment_data' => $appointment,
                 'provider_data' => $provider,

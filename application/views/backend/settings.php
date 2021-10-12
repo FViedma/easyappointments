@@ -304,7 +304,7 @@
                                 <label for="max-reservation-period"
                                        class="control-label"><?= lang('reservation_period_days') ?></label>
                                 <input id="max-reservation-period" data-field="max_reservation_period" class="form-control"
-                                       type="number" min="10">
+                                       type="number" step="5" min="10">
                             </div>
                         </div>                     
                         
