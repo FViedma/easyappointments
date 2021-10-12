@@ -115,6 +115,11 @@
             value: $('#book-advance-timeout').val()
         });
 
+        settings.push({
+            name: 'max_reservation_period',
+            value: $('#max-reservation-period').val()
+        });
+
         // Legal Contents Tab
 
         settings.push({

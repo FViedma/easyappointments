@@ -30,7 +30,7 @@
                 <!-- FRAME TOP BAR -->
 
                 <div id="header">
-                    <span id="company-name"><?= $company_name ?></span>
+                    <span id="company-name"><img src="assets/img/logoBooking.png" alt=""><?= $company_name ?></span>
                     <div id="steps">
                         <div id="step-1" class="book-step active-step" data-tippy-content="<?= lang('enter_ci_please') ?>">
                             <strong>1</strong>
@@ -552,6 +552,7 @@
             dateFormat: <?= json_encode($date_format) ?>,
             timeFormat: <?= json_encode($time_format) ?>,
             firstWeekday: <?= json_encode($first_weekday) ?>,
+            maxReservationPeriod: <?= json_encode($max_reservation_period)?>,
             displayCookieNotice: <?= json_encode($display_cookie_notice === '1') ?>,
             appointmentData: <?= json_encode($appointment_data) ?>,
             providerData: <?= json_encode($provider_data) ?>,

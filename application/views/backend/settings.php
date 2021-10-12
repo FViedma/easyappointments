@@ -295,7 +295,19 @@
                                 </thead>
                                 <tbody><!-- Dynamic Content --></tbody>
                             </table>
-                        </div>
+
+                            <h4><?= lang('max_reservation_period')?></h4>
+                            <span class="form-text text-muted">
+                                <?= lang('max_reservation_period_hint') ?>
+                            </span>
+                            <div class="form-group">
+                                <label for="max-reservation-period"
+                                       class="control-label"><?= lang('reservation_period_days') ?></label>
+                                <input id="max-reservation-period" data-field="max_reservation_period" class="form-control"
+                                       type="number" step="5" min="10">
+                            </div>
+                        </div>                     
+                        
                     </div>
                 </fieldset>
             </form>

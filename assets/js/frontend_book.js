@@ -92,11 +92,13 @@ window.FrontendBook = window.FrontendBook || {};
         tippy('[data-tippy-content]');
 
         var weekDayId = GeneralFunctions.getWeekDayId(GlobalVariables.firstWeekday);
+        var maxDateRange = GlobalVariables.maxReservationPeriod;
 
         $('#select-date').datepicker({
             dateFormat: 'dd-mm-yy',
             firstDay: weekDayId,
             minDate: 0,
+            maxDate: "+"+(maxDateRange/5)+"w",
             defaultDate: Date.today(),
 
             dayNames: [
