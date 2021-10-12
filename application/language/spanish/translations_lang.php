@@ -345,11 +345,7 @@ $lang['doctor_reference'] = 'Médico que refiere';
 $lang['patient_appointed'] = 'Paciente ya agendado';
 $lang['clinical_story'] = 'Hist. clínica';
 $lang['user_id'] = 'C.I.';
-<<<<<<< HEAD
-$lang['birth_date'] = 'Fecha de nacimiento';
-=======
 $lang['birth_date'] = 'Fecha de nacimiento';
 $lang['max_reservation_period'] = 'Periodo de reserva máximo';
 $lang['max_reservation_period_hint'] = 'Establezca un periodo máximo en el cual los pacientes podrán realizar sus reservas.';
 $lang['reservation_period_days'] = 'Periodo máximo de reserva (en dias hábiles)';
->>>>>>> 657f2a7b222db5ac52dd6f1895895a50e34eae25
