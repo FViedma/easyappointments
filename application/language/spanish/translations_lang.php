@@ -349,3 +349,5 @@ $lang['birth_date'] = 'Fecha de nacimiento';
 $lang['max_reservation_period'] = 'Periodo de reserva máximo';
 $lang['max_reservation_period_hint'] = 'Establezca un periodo máximo en el cual los pacientes podrán realizar sus reservas.';
 $lang['reservation_period_days'] = 'Periodo máximo de reserva (en dias hábiles)';
+$lang['recomendation'] = 'Se le recomienda estar presente en el hospital por lo menos 1 hora antes de su consulta';
+$lang['documents_recomendation'] = 'Además se le insinua llevar todos sus formularios correctamente llenados';

@@ -28,12 +28,14 @@
                 <h3><?= lang('appointment_registered') ?></h3>
 
                 <p>
-                    <?= lang('appointment_details_was_sent_to_you') ?>
+                    <strong>
+                        <?= lang('recomendation') ?>
+                    </strong>
                 </p>
 
                 <p>
                     <strong>
-                        <?= lang('check_spam_folder') ?>
+                        <?= lang('documents_recomendation') ?>  
                     </strong>
                 </p>
 
