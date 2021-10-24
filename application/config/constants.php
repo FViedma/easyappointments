@@ -66,6 +66,7 @@ define('PRIV_DELETE', 8);
 
 define('PRIV_APPOINTMENTS', 'appointments');
 define('PRIV_CUSTOMERS', 'customers');
+define('PRIV_REPORTS', 'reports');
 define('PRIV_SERVICES', 'services');
 define('PRIV_USERS', 'users');
 define('PRIV_SYSTEM_SETTINGS', 'system_settings');

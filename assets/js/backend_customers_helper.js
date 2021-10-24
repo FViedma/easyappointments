@@ -415,28 +415,7 @@
 
             }.bind(this));
     };
-    // CustomersHelper.prototype.getFilterHtml = function (customer) {
-    //     var name = customer.HCL_NOMBRE + ' ' + customer.HCL_APPAT + ' ' + customer.HCL_APMAT;
 
-    //     var info = customer.HCL_CODIGO;
-
-    //     info = customer.HCL_DIRECC ? info + ', ' + customer.HCL_DIRECC : info;
-
-    //     return $('<div/>', {
-    //         'class': 'customer-row entry',
-    //         'data-id': customer.HCL_NUMCI,
-    //         'html': [
-    //             $('<strong/>', {
-    //                 'text': name
-    //             }),
-    //             $('<br/>'),
-    //             $('<span/>', {
-    //                 'text': info
-    //             }),
-    //             $('<br/>'),
-    //         ]
-    //     });
-    // };
     /**
      * Get the filter results row HTML code.
      *

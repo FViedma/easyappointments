@@ -173,6 +173,46 @@ class Backend extends EA_Controller {
     }
 
     /**
+     * Display the backend reports page.
+     *
+     * In this page the user can manage all the customer reports of the system.
+     */
+    public function reports()
+    {
+        $this->session->set_userdata('dest_url', site_url('backend/reports'));
+
+        if ( ! $this->has_privileges(PRIV_REPORTS))
+        {
+            return;
+        }
+        $view['available_services'] = $this->services_model->get_batch();
+        $view['base_url'] = config('base_url');
+        $view['page_title'] = lang('reports');
+        $view['user_display_name'] = $this->user_model->get_user_display_name($this->session->userdata('user_id'));
+        $view['active_menu'] = PRIV_REPORTS;
+        $view['company_name'] = $this->settings_model->get_setting('company_name');
+        $view['date_format'] = $this->settings_model->get_setting('date_format');
+        $view['time_format'] = $this->settings_model->get_setting('time_format');
+        $view['first_weekday'] = $this->settings_model->get_setting('first_weekday');
+
+        if ($this->session->userdata('role_slug') === DB_SLUG_SECRETARY)
+        {
+            $secretary = $this->secretaries_model->get_row($this->session->userdata('user_id'));
+            $view['secretary_providers'] = $secretary['providers'];
+        }
+        else
+        {
+            $view['secretary_providers'] = [];
+        }
+
+        $this->set_user_data($view);
+
+        $this->load->view('backend/header', $view);
+        $this->load->view('backend/reports', $view);
+        $this->load->view('backend/footer', $view);
+    }
+
+    /**
      * Display the backend customers page.
      *
      * In this page the user can manage all the customer records of the system.

@@ -61,6 +61,15 @@
                 </a>
             </li>
 
+            <?php $hidden = ($privileges[PRIV_REPORTS]['view'] == TRUE) ? '' : 'd-none' ?>
+            <?php $active = ($active_menu == PRIV_REPORTS) ? 'active' : '' ?>
+            <li class="nav-item <?= $active . $hidden ?>">
+                <a href="<?= site_url('backend/reports') ?>" class="nav-link"
+                   data-tippy-content="<?= lang('reports_hint') ?>">
+                    <i class="fas fa-file-alt mr-2"></i>
+                    <?= lang('reports') ?>
+                </a>
+            </li>
             <?php $hidden = ($privileges[PRIV_CUSTOMERS]['view'] == TRUE) ? '' : 'd-none' ?>
             <?php $active = ($active_menu == PRIV_CUSTOMERS) ? 'active' : '' ?>
             <li class="nav-item <?= $active . $hidden ?>">
