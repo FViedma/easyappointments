@@ -56,13 +56,13 @@ window.BackendReportsApi = window.BackendReportsApi || {};
         let grouped = {}
         //travel througth the array. 
         data.forEach(x => {
-            if (!grouped.hasOwnProperty(x.speciality.name + " - " + x.doctor.first_name + " " + x.doctor.last_name)) {
-                grouped[x.speciality.name + " - " + x.doctor.first_name + " " + x.doctor.last_name] = {
+            if (!grouped.hasOwnProperty(x.speciality.name + " - " + x.doctor.last_name + " " + x.doctor.first_name)) {
+                grouped[x.speciality.name + " - " + x.doctor.last_name + " " + x.doctor.first_name] = {
                     patients: []
                 }
             }
             //We add the patients 
-            grouped[x.speciality.name + " - " + x.doctor.first_name + " " + x.doctor.last_name].patients.push({
+            grouped[x.speciality.name + " - " + x.doctor.last_name + " " + x.doctor.first_name].patients.push({
                 name: x.patient.first_name,
                 lastname: x.patient.last_name,
                 clinical_story: x.patient.clinical_story,
