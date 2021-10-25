@@ -23,6 +23,8 @@
         editAppointment: <?= json_encode($edit_appointment) ?>,
         customers: <?= json_encode($customers) ?>,
         secretaryProviders: <?= json_encode($secretary_providers) ?>,
+        availableMunicipalities: <?= json_encode($available_municipalities) ?>,
+        availableMedicalCenters: <?= json_encode($available_medical_centers) ?>,
         calendarView: <?= json_encode($calendar_view) ?>,
         timezones: <?= json_encode($timezones) ?>,
         user: {
@@ -202,17 +204,26 @@
                                     </label>
                                     <select id="select-provider" class="required form-control"></select>
                                 </div>
-
                                 <div class="form-group">
-                                    <label for="appointment-location" class="control-label">
-                                        <?= lang('location') ?>
+                                    <h5><?= lang('reference_label')?></h5>
+                                </div>
+                                <div class="form-group">
+                                    <label for="appointment-select-municipality" class="control-label">
+                                        <?= lang('select_municipality') ?>
                                     </label>
-                                    <input id="appointment-location" class="form-control">
+                                    <select id="appointment-select-municipality" class="required form-control" maxlength="40">
+                                        <option selected value=""><?= lang('select_municipality') ?></option>
+                                        <?php
+                                        foreach ($available_municipalities as $municipality) {
+                                            echo '<option value="' . $municipality['codmunicip'] . '">' . $municipality['nommunicip'] . '</option>';
+                                        }
+                                        ?>
+                                    </select>
                                 </div>
 
                                 <div class="form-group">
-                                    <label for="appointment-notes" class="control-label"><?= lang('notes') ?></label>
-                                    <textarea id="appointment-notes" class="form-control" rows="3"></textarea>
+                                    <label for="appointment-doctor" class="control-label"><?= lang('doctor_reference') ?></label>
+                                    <input id="appointment-doctor" class="form-control"></input>
                                 </div>
                             </div>
 
@@ -226,8 +237,22 @@
                                     <label for="end-datetime" class="control-label"><?= lang('end_date_time') ?></label>
                                     <input id="end-datetime" class="required form-control">
                                 </div>
-
-                                
+                                <div class="form-group">
+                                    <br>
+                                </div>
+                                <div class="form-group">
+                                    <label for="appointment-select-medical-center" class="control-label">
+                                        <?= lang('medical_center') ?>
+                                        <span class="text-danger">*</span>
+                                    </label>
+                                    <select id="appointment-select-medical-center" class="required selectpicker form-control">
+                                        <option selected value=""><?= lang('medical_center') ?></option>
+                                    </select>
+                                </div>
+                                <div class="form-group">
+                                    <label for="appointment-diagnostic" class="control-label"><?= lang('diagnostic') ?></label>
+                                    <textarea id="appointment-diagnostic" class="form-control" rows="3"></textarea>
+                                </div>
                             </div>
                         </div>
                     </fieldset>
@@ -314,7 +339,7 @@
                                     <label for="clinical-story" class="control-label">
                                         <?= lang('clinical_story') ?>
                                     </label>
-                                    <input id="clinical-story" class="form-control" >
+                                    <input id="clinical-story" class="form-control">
                                 </div>
 
                                 <div class="form-group">
@@ -331,12 +356,12 @@
                                     <input id="city" class="form-control">
                                 </div>
 
-                                <div class="form-group">
+                                <!-- <div class="form-group">
                                     <label for="customer-notes" class="control-label">
                                         <?= lang('notes') ?>
                                     </label>
                                     <textarea id="customer-notes" rows="2" class="form-control"></textarea>
-                                </div>
+                                </div> -->
                             </div>
                         </div>
                     </fieldset>

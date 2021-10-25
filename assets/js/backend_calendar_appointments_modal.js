@@ -61,7 +61,11 @@ window.BackendCalendarAppointmentsModal = window.BackendCalendarAppointmentsModa
                 start_datetime: startDatetime,
                 end_datetime: endDatetime,
                 location: $dialog.find('#appointment-location').val(),
-                notes: $dialog.find('#appointment-notes').val(),
+                notes: $dialog.find('#appointment-diagnostic').val(),
+                medic_refering: $dialog.find('#appointment-doctor').val(),
+                id_municipality: $dialog.find('#appointment-select-municipality').val(),
+                municipality: $dialog.find('#appointment-select-municipality option:selected').text(),
+                medical_center: $dialog.find('#appointment-select-medical-center').val(),
                 is_unavailable: false
             };
 
@@ -169,7 +173,8 @@ window.BackendCalendarAppointmentsModal = window.BackendCalendarAppointmentsModa
             $dialog.find('#start-datetime').val(GeneralFunctions.formatDate(start, GlobalVariables.dateFormat, true));
             $dialog.find('#end-datetime').val(GeneralFunctions.formatDate(start.addMinutes(duration),
                 GlobalVariables.dateFormat, true));
-
+            $dialog.find('#appointment-select-municipality').val(0);
+            $dialog.find('#appointment-select-medical-center').val(0);
             // Display modal form.
             $dialog.find('.modal-header h3').text(EALang.new_appointment_title);
             $dialog.modal('show');
@@ -212,6 +217,8 @@ window.BackendCalendarAppointmentsModal = window.BackendCalendarAppointmentsModa
             });
 
             if (customer) {
+                $('#patient-ci').val(customer.user_ci);
+                $('#complement').val(customer.complement);
                 $('#customer-id').val(customer.id);
                 $('#first-name').val(customer.first_name);
                 $('#last-name').val(customer.last_name);
@@ -219,10 +226,11 @@ window.BackendCalendarAppointmentsModal = window.BackendCalendarAppointmentsModa
                 $('#phone-number').val(customer.phone_number);
                 $('#address').val(customer.address);
                 $('#city').val(customer.city);
-                $('#zip-code').val(customer.zip_code);
+                $('#clinical-story').val(customer.clinical_story);
                 $('#customer-notes').val(customer.notes);
+                $('#appointment-doctor').val(customer.medic_refering);
             }
-
+            validatePatientsCI($('#patient-ci').val());
             $('#select-customer').trigger('click'); // Hide the list.
         });
 

@@ -34,6 +34,7 @@ class Backend extends EA_Controller {
         $this->load->model('roles_model');
         $this->load->model('user_model');
         $this->load->model('secretaries_model');
+        $this->load->model('snis_municipalities_model');
         $this->load->model('admins_model');
         $this->load->library('timezones');
         $this->load->library('migration');
@@ -76,6 +77,8 @@ class Backend extends EA_Controller {
         $view['require_phone_number'] = $this->settings_model->get_setting('require_phone_number');
         $view['available_providers'] = $this->providers_model->get_available_providers();
         $view['available_services'] = $this->services_model->get_available_services();
+        $view['available_municipalities'] = $this->snis_municipalities_model->get_available_municipalities();
+        $view['available_medical_centers'] = $this->snis_municipalities_model->get_available_medical_centers();
         $view['customers'] = $this->customers_model->get_batch();
         $view['calendar_view'] = ! empty($calendar_view_query_param) ? $calendar_view_query_param : $user['settings']['calendar_view'];
         $view['timezones'] = $this->timezones->to_array();

@@ -198,18 +198,18 @@ window.FrontendBook = window.FrontendBook || {};
                     $('#select-municipality').prop('disabled', true)
                     $('select-medical-center').prop('disabled', true)
                     $('#doctor-name').prop('disabled', true)
-                    $('#reference-number').prop('disabled', true)
+                    $('#diagnostic').prop('disabled', true)
                     $('#doctor-name').prop('disabled', true)
                     break;
                 case '1':
                     $('#select-municipality').prop('disabled', false)
-                    $('#reference-number').prop('disabled', false)
+                    $('#diagnostic').prop('disabled', false)
                     $('#doctor-name').prop('disabled', false)
                     break;
                 default:
                     $('#select-municipality').prop('disabled', true)
                     $('#select-medical-center').prop('disabled', true)
-                    $('#reference-number').prop('disabled', true)
+                    $('#diagnostic').prop('disabled', true)
                     $('#doctor-name').prop('disabled', true)
                     break;
             }
@@ -705,12 +705,13 @@ window.FrontendBook = window.FrontendBook || {};
         var address = GeneralFunctions.escapeHtml($('#address').val());
         var city = GeneralFunctions.escapeHtml($('#city').val());
         var zipCode = GeneralFunctions.escapeHtml($('#zip-code').val());
-        var isRefered = GeneralFunctions.escapeHtml($('#select-answer').val())
-        var isReferedLetter = GeneralFunctions.escapeHtml($('#select-answer option:selected').text())
-        var municipality = GeneralFunctions.escapeHtml($('#select-municipality').val());
+        var isRefered = GeneralFunctions.escapeHtml($('#select-answer').val());
+        var isReferedLetter = GeneralFunctions.escapeHtml($('#select-answer option:selected').text());
+        var id_municipality = GeneralFunctions.escapeHtml($('#select-municipality').val());
+        var municipality = GeneralFunctions.escapeHtml($('#select-municipality option:selected').text());
         var hospital = GeneralFunctions.escapeHtml($('#select-medical-center').val());
         var doctor = GeneralFunctions.escapeHtml($('#doctor-name').val());
-        var reference_number = GeneralFunctions.escapeHtml($('#reference-number').val());
+        var diagnostic = GeneralFunctions.escapeHtml($('#diagnostic').val());
 
         $('#customer-details').empty();
 
@@ -750,7 +751,7 @@ window.FrontendBook = window.FrontendBook || {};
                         }),
                         $('<br/>'),
                         $('<span/>', {
-                            'text': isRefered == 1 ? EALang.reference_number + ': ' + reference_number : ''
+                            'text': isRefered == 1 ? EALang.diagnostic + ': ' + diagnostic : ''
                         }),
                         $('<br/>'),
                         $('<span/>', {
@@ -793,10 +794,14 @@ window.FrontendBook = window.FrontendBook || {};
             start_datetime: $('#select-date').datepicker('getDate').toString('yyyy-MM-dd')
                 + ' ' + Date.parse($('.selected-hour').data('value') || '').toString('HH:mm') + ':00',
             end_datetime: calculateEndDatetime(),
-            notes: $('#notes').val(),
+            notes: $('#diagnostic').val(),
             is_unavailable: false,
             id_users_provider: $('#select-provider').val(),
-            id_services: $('#select-service').val()
+            id_services: $('#select-service').val(),
+            medic_refering: $('#doctor-name').val(),
+            id_municipality: id_municipality,
+            municipality: municipality,
+            medical_center: $('#select-medical-center').val()
         };
 
         data.manage_mode = FrontendBook.manageMode;

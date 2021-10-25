@@ -101,6 +101,24 @@ window.BackendCalendar = window.BackendCalendar || {};
                     BackendCalendarApi.saveWorkingPlanException(date, workingPlanException, providerId, successCallback, null);
                 });
         });
+
+        /**
+         * Event: Selected municipality "Changed"
+         *
+         * When the user clicks on a municipality, its available medical centers should
+         * become visible.
+         */
+        $('#appointment-select-municipality').on('change', function () {
+            var municipalityId = $('#appointment-select-municipality').val();
+            $('#appointment-select-medical-center').empty();
+            GlobalVariables.availableMedicalCenters.forEach(function (medicalCenter) {
+                var isMedicalCenter = medicalCenter.codmunicip == municipalityId;
+                if (isMedicalCenter > 0) {
+                    $('#appointment-select-medical-center').append(new Option(medicalCenter.nomestabl));
+                }
+            });
+        });
+
     }
 
     /**

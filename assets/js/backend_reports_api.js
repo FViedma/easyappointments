@@ -47,17 +47,11 @@ window.BackendReportsApi = window.BackendReportsApi || {};
             .done(function (response) {
                 if (response.length > 0) {
                     printReport(response);
-                    // agregar al iframe el pdf recien creado                           
-                    // var $dialog = $('#report-modal');
-                    // $dialog.modal('show');
                 }
-
             });
-
     };
 
     function printReport(data) {
-
         //We create a new object wher we are storing the specialities . 
         let grouped = {}
         //travel througth the array. 
@@ -72,18 +66,20 @@ window.BackendReportsApi = window.BackendReportsApi || {};
                 name: x.patient.first_name,
                 lastname: x.patient.last_name,
                 clinical_story: x.patient.clinical_story,
-                diagnostic: x.patient.notes,
+                diagnostic: x.notes,
+                municipality: x.municipality,
+                medical_center: x.medical_center,
                 doc_name: x.doctor.first_name,
                 doc_last_name: x.doctor.last_name
             })
-
         });
 
         var doc = new jsPDF('p', 'pt', 'letter')
         var pageWidth = 612;
         var pageHeight = 792;
         var pageMargin = 30;
-
+        var fontSizePatient = 10;
+        var fontSizeSpeciality = 10;
         pageWidth -= pageMargin * 2;
         pageHeight -= pageMargin * 2;
 
@@ -103,18 +99,19 @@ window.BackendReportsApi = window.BackendReportsApi || {};
         Object.entries(grouped).forEach(([key, value]) => {
             doc.setFont('helvetica')
             doc.setFontType('bold')
-            doc.setFontSize(10)
+            doc.setFontSize(fontSizeSpeciality)
             doc.text(pageMargin, startYTitle, key)
-
             Object.entries(value).forEach(([key, patients]) => {
                 var patients_length = patients.length - 1;
                 patients.forEach(patient_data => {
                     doc.setFont('courier')
                     doc.setFontType('normal')
-                    doc.setFontSize(12)
-                    doc.text(startX, startYcell, patient_data.name + " " + patient_data.lastname + " " + patient_data.diagnostic);
-                    doc.text(startX, startYcell + 10, patient_data.clinical_story + " " + patient_data.diagnostic);
-                    doc.text(startX, startYcell + 20, patient_data.diagnostic)
+                    doc.setFontSize(fontSizePatient)
+                    doc.text(startX, startYcell, patient_data.name + " " + patient_data.lastname);
+                    doc.text(startX, startYcell + 10, patient_data.clinical_story);
+                    doc.text(startX, startYcell + 20, patient_data.diagnostic + " ")
+                    doc.text(startX, startYcell + 30, patient_data.municipality)
+                    doc.text(startX, startYcell + 40, patient_data.medical_center)
                     if (patients.indexOf(patient_data) < patients_length) {
                         var nextPosX = startX + cellWidth + cellMargin;
                         if (nextPosX > pageWidth) {

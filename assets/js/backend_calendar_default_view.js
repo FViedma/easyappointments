@@ -111,6 +111,10 @@ window.BackendCalendarDefaultView = window.BackendCalendarDefaultView || {};
                 $dialog.find('#appointment-id').val(appointment.id);
                 $dialog.find('#select-service').val(appointment.id_services).trigger('change');
                 $dialog.find('#select-provider').val(appointment.id_users_provider);
+                $dialog.find('#appointment-select-municipality').val(appointment.id_municipality);
+                $dialog.find('#appointment-location').val(appointment.location);
+                $dialog.find('#appointment-doctor').val(appointment.medic_refering);
+                $dialog.find('#appointment-diagnostic').val(appointment.notes);
 
                 // Set the start and end datetime of the appointment.
                 startDatetime = Date.parseExact(appointment.start_datetime, 'yyyy-MM-dd HH:mm:ss');
@@ -129,7 +133,7 @@ window.BackendCalendarDefaultView = window.BackendCalendarDefaultView || {};
                 $dialog.find('#city').val(customer.city);
                 $dialog.find('#zip-code').val(customer.zip_code);
                 $dialog.find('#appointment-location').val(appointment.location);
-                $dialog.find('#appointment-notes').val(appointment.notes);
+                $dialog.find('#appointment-diagnostic').val(appointment.notes);
                 $dialog.find('#customer-notes').val(customer.notes);
                 $dialog.find('#clinical-story').val(customer.clinical_story);
                 $dialog.find('#patient-ci').val(customer.user_ci);
@@ -1611,7 +1615,10 @@ window.BackendCalendarDefaultView = window.BackendCalendarDefaultView || {};
             $dialog.find('#appointment-id').val(appointment.id);
             $dialog.find('#select-service').val(appointment.id_services).trigger('change');
             $dialog.find('#select-provider').val(appointment.id_users_provider);
-
+            $dialog.find('#appointment-select-municipality').val(appointment.id_municipality);
+            $dialog.find('#appointment-location').val(appointment.location);
+            $dialog.find('#appointment-doctor').val(appointment.medic_refering);
+            $dialog.find('#appointment-diagnostic').val(appointment.notes);
             // Set the start and end datetime of the appointment.
             var startDatetime = Date.parseExact(appointment.start_datetime, 'yyyy-MM-dd HH:mm:ss');
             $dialog.find('#start-datetime').datetimepicker('setDate', startDatetime);
@@ -1628,8 +1635,6 @@ window.BackendCalendarDefaultView = window.BackendCalendarDefaultView || {};
             $dialog.find('#address').val(customer.address);
             $dialog.find('#city').val(customer.city);
             $dialog.find('#zip-code').val(customer.zip_code);
-            $dialog.find('#appointment-location').val(appointment.location);
-            $dialog.find('#appointment-notes').val(appointment.notes);
             $dialog.find('#customer-notes').val(customer.notes);
 
             $dialog.modal('show');

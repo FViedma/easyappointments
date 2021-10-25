@@ -128,9 +128,9 @@
                         </div>
                         <div id="appointment-message">
                         </div>
-                        <input type="text" id="nombre_paciente" class="form-control" style="visibility: hidden"/>
-                        <input type="text" id="ape_paciente" class="form-control" style="visibility: hidden"/>
-                        <input type="text" id="clinic_story" class="form-control" style="visibility: hidden"/>
+                        <input type="text" id="nombre_paciente" class="form-control" style="visibility: hidden" />
+                        <input type="text" id="ape_paciente" class="form-control" style="visibility: hidden" />
+                        <input type="text" id="clinic_story" class="form-control" style="visibility: hidden" />
                     </div>
 
 
@@ -167,9 +167,9 @@
                                     <select id="select-municipality" class="required form-control" maxlength="40" disabled="True">
                                         <option selected value=""><?= lang('select_municipality') ?></option>
                                         <?php
-                                            foreach ($available_municipalities as $municipality) {
-                                                echo '<option value="' . $municipality['codmunicip'] . '">' . $municipality['nommunicip'] . '</option>';
-                                            }
+                                        foreach ($available_municipalities as $municipality) {
+                                            echo '<option value="' . $municipality['codmunicip'] . '">' . $municipality['nommunicip'] . '</option>';
+                                        }
                                         ?>
                                     </select>
                                 </div>
@@ -193,14 +193,15 @@
                                         <option selected value=""><?= lang('medical_center') ?></option>
                                     </select>
                                 </div>
+
                             </div>
                             <div class="col-12 col-md-6">
                                 <div class="form-group">
-                                    <label for="reference-number" class="control-label">
-                                        <?= lang('reference_number') ?>
-                                        <span class="text-danger">*</span>
+                                    <label for="diagnostic" class="control-label">
+                                        <?= lang('diagnostic') ?>
+                                        
                                     </label>
-                                    <input type="text" id="reference-number" class="required form-control" maxlength="20" autocomplete="nope" disabled="True" />
+                                    <textarea id="diagnostic" maxlength="500" class="form-control" rows="1" disabled="True"></textarea>
                                 </div>
                             </div>
                         </div>
@@ -404,13 +405,7 @@
                                     <label for="birth-date" class="control-label">
                                         <?= lang('birth_date') ?>
                                     </label>
-                                    <input type="date" id="birth-date" class="form-control"/>
-                                </div>
-                                <div class="form-group">
-                                    <label for="notes" class="control-label">
-                                        <?= lang('notes') ?>
-                                    </label>
-                                    <textarea id="notes" maxlength="500" class="form-control" rows="1"></textarea>
+                                    <input type="date" id="birth-date" class="form-control" />
                                 </div>
                             </div>
                         </div>
@@ -552,7 +547,7 @@
             dateFormat: <?= json_encode($date_format) ?>,
             timeFormat: <?= json_encode($time_format) ?>,
             firstWeekday: <?= json_encode($first_weekday) ?>,
-            maxReservationPeriod: <?= json_encode($max_reservation_period)?>,
+            maxReservationPeriod: <?= json_encode($max_reservation_period) ?>,
             displayCookieNotice: <?= json_encode($display_cookie_notice === '1') ?>,
             appointmentData: <?= json_encode($appointment_data) ?>,
             providerData: <?= json_encode($provider_data) ?>,
