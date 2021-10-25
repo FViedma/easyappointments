@@ -1555,15 +1555,15 @@ class Backend_api extends EA_Controller
     public function ajax_get_appointments_by_specialities()
     {
         $today_date = date("Y-m-d");
-        $tomorrow_date = date('Y-m-d', strtotime($today_date . ' +1 days'));
+        // $tomorrow_date = date('Y-m-d', strtotime($today_date . ' +1 days'));
         $where_clause = '';
         try {
             $speciality_id = $this->input->get('speciality_value');
             if ($speciality_id == 0) {
-                $where_clause = 'is_unavailable = 0 AND start_datetime LIKE "' . $tomorrow_date . '%"';
+                $where_clause = 'is_unavailable = 0 AND start_datetime LIKE "' . $today_date . '%"';
             } else {
                 $where_clause = 'id_services = ' . $speciality_id . '
-                AND is_unavailable = 0 AND start_datetime LIKE "' . $tomorrow_date . '%"';
+                AND is_unavailable = 0 AND start_datetime LIKE "' . $today_date . '%"';
             }
 
             $response = $this->appointments_model->get_batch($where_clause);
@@ -1573,15 +1573,6 @@ class Backend_api extends EA_Controller
                 $appointment['speciality'] = $this->services_model->get_row($appointment['id_services']);
                 $appointment['patient'] = $this->customers_model->get_row($appointment['id_users_customer']);
             }   
-            
-            // $grouped = [];
-            // foreach ($response as &$value) {
-            //     if (!property_exists($grouped, $value['speciality']['name'])) {
-            //         $grouped[$value['speciality']['name']] = $grouped['patients'];
-            //     }
-            //     array_push($grouped[$value['speciality']['name']], ['name' =>$value['name'],'last_name' => $value['last_name'], 'HCL' => $value['clinical_story'], 'diagnostic' => $value['notes']]);
-            // }
-            // print_r($grouped);
         } catch (Exception $exception) {
             $this->output->set_status_header(500);
 
