@@ -344,7 +344,7 @@ window.BackendCalendarAppointmentsModal = window.BackendCalendarAppointmentsModa
                     // If the current provider is able to provide the selected service, add him to the listbox.
                     if (Number(providerServiceId) === Number(serviceId)) {
                         $('#select-provider')
-                            .append(new Option(provider.first_name + ' ' + provider.last_name, provider.id));
+                            .append(new Option(provider.last_name + ' ' + provider.first_name, provider.id));
                     }
                 });
             });
@@ -409,7 +409,7 @@ window.BackendCalendarAppointmentsModal = window.BackendCalendarAppointmentsModa
 
             if (canProvideService) { // Add the provider to the listbox.
                 $dialog.find('#select-provider')
-                    .append(new Option(provider.first_name + ' ' + provider.last_name, provider.id));
+                    .append(new Option(provider.last_name + ' ' + provider.first_name, provider.id));
             }
         });
 
@@ -549,11 +549,11 @@ window.BackendCalendarAppointmentsModal = window.BackendCalendarAppointmentsModa
                 throw new Error(EALang.fields_are_required);
             }
 
-            // Check email address.
-            if (!GeneralFunctions.validateEmail($dialog.find('#email').val())) {
-                $dialog.find('#email').closest('.form-group').addClass('has-error');
-                throw new Error(EALang.invalid_email);
-            }
+            // // Check email address.
+            // if (!GeneralFunctions.validateEmail($dialog.find('#email').val())) {
+            //     $dialog.find('#email').closest('.form-group').addClass('has-error');
+            //     throw new Error(EALang.invalid_email);
+            // }
 
             // Check appointment start and end time.
             var start = $('#start-datetime').datetimepicker('getDate');

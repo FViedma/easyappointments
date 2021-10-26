@@ -211,7 +211,7 @@
                                     <label for="appointment-select-municipality" class="control-label">
                                         <?= lang('select_municipality') ?>
                                     </label>
-                                    <select id="appointment-select-municipality" class="required form-control" maxlength="40">
+                                    <select id="appointment-select-municipality" class="form-control" maxlength="40">
                                         <option selected value=""><?= lang('select_municipality') ?></option>
                                         <?php
                                         foreach ($available_municipalities as $municipality) {
@@ -230,11 +230,13 @@
                             <div class="col-12 col-sm-6">
                                 <div class="form-group">
                                     <label for="start-datetime" class="control-label"><?= lang('start_date_time') ?></label>
+                                    <span class="text-danger">*</span>
                                     <input id="start-datetime" class="required form-control">
                                 </div>
 
                                 <div class="form-group">
                                     <label for="end-datetime" class="control-label"><?= lang('end_date_time') ?></label>
+                                    <span class="text-danger">*</span>
                                     <input id="end-datetime" class="required form-control">
                                 </div>
                                 <div class="form-group">
@@ -243,9 +245,8 @@
                                 <div class="form-group">
                                     <label for="appointment-select-medical-center" class="control-label">
                                         <?= lang('medical_center') ?>
-                                        <span class="text-danger">*</span>
                                     </label>
-                                    <select id="appointment-select-medical-center" class="required selectpicker form-control">
+                                    <select id="appointment-select-medical-center" class="selectpicker form-control">
                                         <option selected value=""><?= lang('medical_center') ?></option>
                                     </select>
                                 </div>
@@ -312,9 +313,8 @@
                                 <div class="form-group">
                                     <label for="email" class="control-label">
                                         <?= lang('email') ?>
-                                        <span class="text-danger">*</span>
                                     </label>
-                                    <input id="email" class="required form-control">
+                                    <input id="email" class="form-control">
                                 </div>
 
                                 <div class="form-group">

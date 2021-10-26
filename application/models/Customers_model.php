@@ -45,7 +45,7 @@ class Customers_model extends EA_Model
         // Validate the customer data before doing anything.
         $this->validate($customer);
 
-        // Check if a customer already exists (by email).
+        // Check if a customer already exists (by user ci).
         if ($this->exists($customer) && !isset($customer['id'])) {
             // Find the customer id from the database.
             $customer['id'] = $this->find_record_id($customer);
@@ -89,35 +89,35 @@ class Customers_model extends EA_Model
             !isset(
                 $customer['first_name'],
                 $customer['last_name'],
-                $customer['email']
+                $customer['user_ci']
             )
             || (!isset($customer['phone_number']) && $phone_number_required)
         ) {
             throw new Exception('Not all required fields are provided: ' . print_r($customer, TRUE));
         }
 
-        // Validate email address
-        if (!filter_var($customer['email'], FILTER_VALIDATE_EMAIL)) {
-            throw new Exception('Invalid email address provided: ' . $customer['email']);
-        }
+        // // Validate email address
+        // if (!filter_var($customer['user_ci'], FILTER_VALIDATE_EMAIL)) {
+        //     throw new Exception('Invalid email address provided: ' . $customer['email']);
+        // }
 
         // When inserting a record the email address must be unique.
-        $customer_id = isset($customer['id']) ? $customer['id'] : '';
+        // $customer_id = isset($customer['id']) ? $customer['id'] : '';
 
-        $num_rows = $this->db
-            ->select('*')
-            ->from('users')
-            ->join('roles', 'roles.id = users.id_roles', 'inner')
-            ->where('roles.slug', DB_SLUG_CUSTOMER)
-            ->where('users.email', $customer['email'])
-            ->where('users.id !=', $customer_id)
-            ->get()
-            ->num_rows();
+        // $num_rows = $this->db
+        //     ->select('*')
+        //     ->from('users')
+        //     ->join('roles', 'roles.id = users.id_roles', 'inner')
+        //     ->where('roles.slug', DB_SLUG_CUSTOMER)
+        //     ->where('users.user_ci', $customer['user_ci'])
+        //     ->where('users.id !=', $customer_id)
+        //     ->get()
+        //     ->num_rows();
 
-        if ($num_rows > 0) {
-            throw new Exception('Given email address belongs to another customer record. '
-                . 'Please use a different email.');
-        }
+        // if ($num_rows > 0) {
+        //     throw new Exception('El carnet provisto pertenece a otro paciente.'
+        //         . 'Por favor ingrese un carnet diferente');
+        // }
 
         return TRUE;
     }
@@ -137,8 +137,8 @@ class Customers_model extends EA_Model
      */
     public function exists($customer)
     {
-        if (empty($customer['email'])) {
-            throw new Exception('Customer\'s email is not provided.');
+        if (empty($customer['user_ci'])) {
+            throw new Exception('Por favor proporciones un CI del paciente valido\'s');
         }
 
         // This method shouldn't depend on another method of this class.
@@ -146,7 +146,7 @@ class Customers_model extends EA_Model
             ->select('*')
             ->from('users')
             ->join('roles', 'roles.id = users.id_roles', 'inner')
-            ->where('users.email', $customer['email'])
+            ->where('users.user_ci', $customer['user_ci'])
             ->where('roles.slug', DB_SLUG_CUSTOMER)
             ->get()->num_rows();
 
@@ -169,8 +169,8 @@ class Customers_model extends EA_Model
      */
     public function find_record_id($customer)
     {
-        if (empty($customer['email'])) {
-            throw new Exception('Customer\'s email was not provided: '
+        if (empty($customer['user_ci'])) {
+            throw new Exception('No se proporcionó un carnet valido: '
                 . print_r($customer, TRUE));
         }
 
@@ -179,12 +179,12 @@ class Customers_model extends EA_Model
             ->select('users.id')
             ->from('users')
             ->join('roles', 'roles.id = users.id_roles', 'inner')
-            ->where('users.email', $customer['email'])
+            ->where('users.user_ci', $customer['user_ci'])
             ->where('roles.slug', DB_SLUG_CUSTOMER)
             ->get();
 
         if ($result->num_rows() == 0) {
-            throw new Exception('Could not find customer record id.');
+            throw new Exception('No se pudo encontrar el registro del id del paciente');
         }
 
         return $result->row()->id;
@@ -213,7 +213,7 @@ class Customers_model extends EA_Model
         $customer['id_roles'] = $customer_role_id;
 
         if (!$this->db->insert('users', $customer)) {
-            throw new Exception('Could not insert customer to the database.');
+            throw new Exception('No se pudo registrar el paciente en la base de datos.');
         }
 
         return (int)$this->db->insert_id();
