@@ -544,7 +544,7 @@ class Providers_model extends EA_Model
             ->from('users')
             ->join('roles', 'roles.id = users.id_roles', 'inner')
             ->where('roles.slug', DB_SLUG_PROVIDER)
-            ->order_by('first_name ASC, last_name ASC, email ASC');
+            ->order_by('last_name ASC, first_name ASC, email ASC');
 
         $providers = $this->db->get()->result_array();
 

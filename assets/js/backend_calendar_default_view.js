@@ -445,7 +445,7 @@ window.BackendCalendarDefaultView = window.BackendCalendarDefaultView || {};
                         'text': EALang.provider
                     }),
                     $('<span/>', {
-                        'text': event.data ? event.data.provider.first_name + ' ' + event.data.provider.last_name : '-'
+                        'text': event.data ? event.data.provider.last_name + ' ' + event.data.provider.first_name : '-'
                     }),
                     $('<br/>'),
 
@@ -559,7 +559,7 @@ window.BackendCalendarDefaultView = window.BackendCalendarDefaultView || {};
                     }),
                     GeneralFunctions.renderMapIcon(event.data.provider),
                     $('<span/>', {
-                        'text': event.data.provider.first_name + ' ' + event.data.provider.last_name
+                        'text': event.data.provider.last_name + ' ' + event.data.provider.first_name
                     }),
                     $('<br/>'),
 
@@ -590,17 +590,17 @@ window.BackendCalendarDefaultView = window.BackendCalendarDefaultView || {};
                         'class': 'd-inline-block ml-1',
                         'text': event.data.customer.first_name + ' ' + event.data.customer.last_name
                     }),
-                    $('<br/>'),
+                    // $('<br/>'),
 
-                    $('<strong/>', {
-                        'class': 'd-inline-block mr-2',
-                        'text': EALang.email
-                    }),
-                    GeneralFunctions.renderMailIcon(event.data.customer.email),
-                    $('<span/>', {
-                        'class': 'd-inline-block ml-1',
-                        'text': event.data.customer.email
-                    }),
+                    // $('<strong/>', {
+                    //     'class': 'd-inline-block mr-2',
+                    //     'text': EALang.email
+                    // }),
+                    // GeneralFunctions.renderMailIcon(event.data.customer.email),
+                    // $('<span/>', {
+                    //     'class': 'd-inline-block ml-1',
+                    //     'text': event.data.customer.email
+                    // }),
                     $('<br/>'),
 
                     $('<strong/>', {
@@ -612,14 +612,14 @@ window.BackendCalendarDefaultView = window.BackendCalendarDefaultView || {};
                         'class': 'd-inline-block ml-1',
                         'text': event.data.customer.phone_number
                     }),
-                    $('<br/>'),
+                    // $('<br/>'),
 
-                    $('<strong/>', {
-                        'text': EALang.notes
-                    }),
-                    $('<span/>', {
-                        'text': getEventNotes(event)
-                    }),
+                    // $('<strong/>', {
+                    //     'text': EALang.notes
+                    // }),
+                    // $('<span/>', {
+                    //     'text': getEventNotes(event)
+                    // }),
                     $('<br/>'),
 
                     $('<hr/>'),
@@ -1551,7 +1551,7 @@ window.BackendCalendarDefaultView = window.BackendCalendarDefaultView || {};
                         'value': availableProvider.id,
                         'type': FILTER_TYPE_PROVIDER,
                         'google-sync': hasGoogleSync,
-                        'text': availableProvider.first_name + ' ' + availableProvider.last_name
+                        'text': availableProvider.last_name + ' ' + availableProvider.first_name
                     })
                 })
             })
