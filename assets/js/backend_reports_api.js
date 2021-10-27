@@ -66,11 +66,12 @@ window.BackendReportsApi = window.BackendReportsApi || {};
                 name: x.patient.first_name,
                 lastname: x.patient.last_name,
                 clinical_story: x.patient.clinical_story,
-                diagnostic: x.notes,
-                municipality: x.municipality,
-                medical_center: x.medical_center,
+                diagnostic: x.notes == null ? "" : x.notes,
+                municipality: x.municipality == null ? "" : x.municipality,
+                medical_center: x.medical_center == null ? "" : x.medical_center,
                 doc_name: x.doctor.first_name,
-                doc_last_name: x.doctor.last_name
+                doc_last_name: x.doctor.last_name,
+                start_datetime: x.start_datetime
             })
         });
 
@@ -107,11 +108,17 @@ window.BackendReportsApi = window.BackendReportsApi || {};
                     doc.setFont('courier')
                     doc.setFontType('normal')
                     doc.setFontSize(fontSizePatient)
-                    doc.text(startX, startYcell, patient_data.name + " " + patient_data.lastname);
-                    doc.text(startX, startYcell + 10, patient_data.clinical_story);
-                    doc.text(startX, startYcell + 20, patient_data.diagnostic + " ")
+                    console.log(patient_data.name + " " + patient_data.lastname)
+                    console.log(patient_data.clinical_story)
+                    console.log(patient_data.diagnostic)
+                    console.log(patient_data.municipality)
+                    console.log(patient_data.medical_center)
+                    doc.text(startX, startYcell, patient_data.name + " " + patient_data.lastname)
+                    doc.text(startX, startYcell + 10, patient_data.clinical_story)
+                    doc.text(startX, startYcell + 20, patient_data.diagnostic)
                     doc.text(startX, startYcell + 30, patient_data.municipality)
                     doc.text(startX, startYcell + 40, patient_data.medical_center)
+
                     if (patients.indexOf(patient_data) < patients_length) {
                         var nextPosX = startX + cellWidth + cellMargin;
                         if (nextPosX > pageWidth) {
