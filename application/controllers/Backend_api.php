@@ -1554,11 +1554,10 @@ class Backend_api extends EA_Controller
     //POR EL MOMENTO ESTARÁ SACANDO LOS APPOINTMENTS DEL DIA
     public function ajax_get_appointments_by_specialities()
     {
-        $today_date = date("Y-m-d");
-        // $tomorrow_date = date('Y-m-d', strtotime($today_date . ' +1 days'));
         $where_clause = '';
         try {
             $speciality_id = $this->input->get('speciality_value');
+            $today_date = $this->input->get('date_value');
             if ($speciality_id == 0) {
                 $where_clause = 'is_unavailable = 0 AND start_datetime LIKE "' . $today_date . '%"';
             } else {

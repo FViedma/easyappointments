@@ -359,3 +359,4 @@ $lang['all_specialities'] = 'TODAS LAS ESPECIALIDADES';
 $lang['print'] = 'imprimir reporte';
 $lang['appointments_by_speciality'] = 'Citas por especialidades';
 $lang['diagnostic'] = 'Diagnóstico';
+$lang['select_report_date'] = 'Seleccione una fecha';

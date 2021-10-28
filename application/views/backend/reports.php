@@ -1,5 +1,6 @@
 <script src="<?= asset_url('assets/ext/jquery-ui/jquery-ui-timepicker-addon.min.js') ?>"></script>
 <script src="<?= asset_url('assets/js/backend_reports_api.js') ?>"></script>
+<script src="<?= asset_url('assets/js/general_functions.js') ?>"></script>
 <script src="<?= asset_url('assets/js/backend_reports.js') ?>"></script>
 <script src="<?= asset_url('assets/ext/jsPDF/dist/jspdf.min.js') ?>"></script>
 
@@ -34,7 +35,15 @@
                             }
                             ?>
                         </select>
-                        <br>
+                    </div>
+                    <div class="form-group">
+                        <label class="control-label" for="select-date">
+                            <?= lang('select_report_date') ?>
+                        </label>
+                        <input id="select-date" type="date" value="<?php echo date('Y-m-d'); ?>"/>
+                        <button id="set-today-btn" type="button" class="fc-today-button fc-button fc-state-default fc-corner-left fc-corner-right"><?= lang('today') ?></button>
+                    </div>
+                    <div class="form-group">
                         <button type="button" class="print-reports btn btn-primary btn-sm mb-2" data-tippy-content="<?= lang('print') ?>">
                             <i class="fas fa-print mr-2"></i>
                             <?= lang('print') ?>

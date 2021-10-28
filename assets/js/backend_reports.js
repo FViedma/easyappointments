@@ -58,7 +58,12 @@ window.BackendReports = window.BackendReports || {};
     function bindEventHandlers() {
          $('.print-reports').on('click', function () {
             var selectedSpeciality = $('#select-service').val();
-            BackendReportsApi.getAppointmentsBySpecialities(selectedSpeciality);
+            var date = $('#select-date').val();
+            BackendReportsApi.getAppointmentsBySpecialities(selectedSpeciality,date);
+        });
+        $('#set-today-btn').on('click', function () {
+            var parsedDate = Date.parse(new Date());
+            $('#select-date').val(parsedDate.toString('yyyy-MM-dd'));
         });
     }
 

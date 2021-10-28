@@ -28,14 +28,15 @@ window.BackendReportsApi = window.BackendReportsApi || {};
      *
      * @param {int} id_specialiaty The selected speciality
      */
-    exports.getAppointmentsBySpecialities = function (id_specialiaty) {
+    exports.getAppointmentsBySpecialities = function (id_specialiaty, date) {
 
         // Make ajax post request and get the appointments
         var url = GlobalVariables.baseUrl + '/index.php/Backend_api/ajax_get_appointments_by_specialities';
 
         var data = {
             csrfToken: GlobalVariables.csrfToken,
-            speciality_value: id_specialiaty
+            speciality_value: id_specialiaty,
+            date_value: date
         };
 
         $.ajax({
@@ -88,7 +89,7 @@ window.BackendReportsApi = window.BackendReportsApi || {};
         var cellMargin = 5;
         var cellWidth = 200;
         // Si se agregan más datos para mostrar en los pacientes, aumentar este valor
-        var cellHeight = 60;
+        var cellHeight = 70;
         // el alto de la especialidad
         var titleHeight = 10;
 
@@ -108,16 +109,12 @@ window.BackendReportsApi = window.BackendReportsApi || {};
                     doc.setFont('courier')
                     doc.setFontType('normal')
                     doc.setFontSize(fontSizePatient)
-                    console.log(patient_data.name + " " + patient_data.lastname)
-                    console.log(patient_data.clinical_story)
-                    console.log(patient_data.diagnostic)
-                    console.log(patient_data.municipality)
-                    console.log(patient_data.medical_center)
                     doc.text(startX, startYcell, patient_data.name + " " + patient_data.lastname)
                     doc.text(startX, startYcell + 10, patient_data.clinical_story)
-                    doc.text(startX, startYcell + 20, patient_data.diagnostic)
-                    doc.text(startX, startYcell + 30, patient_data.municipality)
-                    doc.text(startX, startYcell + 40, patient_data.medical_center)
+                    doc.text(startX, startYcell + 20, patient_data.start_datetime)
+                    doc.text(startX, startYcell + 30, patient_data.diagnostic)
+                    doc.text(startX, startYcell + 40, patient_data.municipality)
+                    doc.text(startX, startYcell + 50, patient_data.medical_center)
 
                     if (patients.indexOf(patient_data) < patients_length) {
                         var nextPosX = startX + cellWidth + cellMargin;
