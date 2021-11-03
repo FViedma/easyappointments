@@ -78,7 +78,7 @@ window.BackendReportsApi = window.BackendReportsApi || {};
 
         var doc = new jsPDF('p', 'pt', 'letter')
         var pageWidth = 612;
-        var pageHeight = 792;
+        var pageHeight = 777;
         var pageMargin = 30;
         var fontSizePatient = 10;
         var fontSizeSpeciality = 10;
