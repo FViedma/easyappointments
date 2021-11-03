@@ -131,13 +131,21 @@ window.BackendReportsApi = window.BackendReportsApi || {};
                     }
                 });
             });
-            startYcell += cellHeight;
-            startYTitle = startYcell;
-            startYcell += titleHeight;
-            startX = pageMargin;
+            nextYtittle = startYcell; +cellHeight;
+            if (Object.entries(grouped).findIndex(i => i.key === key) < Object.keys(grouped).length - 1) {
+                if (nextYtittle > pageHeight) {
+                    doc.addPage();
+                    startX = pageMargin;
+                    startYTitle = pageMargin;
+                    startYcell = pageMargin + titleHeight;
+                } else {
+                    startYcell += cellHeight;
+                    startYTitle = startYcell;
+                    startYcell += titleHeight;
+                    startX = pageMargin;
+                }
+            }
         });
-
-
         var report = doc.output('bloburi')
         $('.preview-pane').attr('src', report);
     }
