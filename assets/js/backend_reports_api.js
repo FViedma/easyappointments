@@ -52,6 +52,72 @@ window.BackendReportsApi = window.BackendReportsApi || {};
             });
     };
 
+    /**
+     * Get Appointments by ci
+     *
+     * This function makes an AJAX call and returns the last appointment for the ci
+     * input
+     *
+     * @param {int} ci The patient's ci
+     */
+       exports.getAppointmentByCi = function (ci, complement) {
+        // Make ajax post request and get the appointments
+        var url = GlobalVariables.baseUrl + '/index.php/Backend_api/ajax_get_appointment_by_ci';
+
+        var data = {
+            csrfToken: GlobalVariables.csrfToken,
+            ci_value: ci,
+            complement_ci: complement
+        };
+
+        $.ajax({
+            url: url,
+            type: 'GET',
+            data: data,
+            dataType: 'json'
+        })
+            .done(function (response) {
+                if (response.length > 0) {
+                    response = response[0];
+                    $('#appointment-message').empty()
+                    //acomodar los resultados de modo que se vean luego de presionar el boton
+                    var nombre = response.customer.first_name + " " + response.customer.last_name 
+                    var doctorName = response.provider.first_name + " " + response.provider.last_name 
+                    $('#appointment-message').append(getPatientAppointmentFoundHTML(nombre, response.customer.user_ci, 
+                            response.start_datetime, response.service.name, doctorName, response.customer.clinical_story,
+                            response.notes))
+                    
+                }
+            });
+    };
+    function getPatientAppointmentFoundHTML(nombre, ci, datetime, especialidad, medico, hc,diagnostico){
+        
+        return $('<div/>', {
+             'class': 'card', 
+             'html': [
+                 $('<div/>', {
+                     'class': 'card-header bg-success',
+                     'html': [
+                         $('<h5/>',{
+                             'text': EALang.last_appointment,
+                         })
+                     ]
+                 }),
+                 $('<div/>', {
+                     'class': 'card-text',
+                     'style': 'white-space: pre-line;',
+                     'text': "Paciente: " + nombre + '\n'+
+                     "Historia Clinica: " + hc + '\n'+
+                     "CI: " + ci + '\n'+
+                     "Fecha reserva: " + datetime + '\n'+
+                     "Especialidad: " + especialidad + '\n'+
+                     "Medico: " + medico + '\n'+
+                     "Diagnóstico: " + diagnostico
+                 }),
+             ]
+         });
+     }
+
     function printReport(data) {
         //We create a new object wher we are storing the specialities . 
         let grouped = {}

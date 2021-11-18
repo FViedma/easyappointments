@@ -364,6 +364,17 @@ class Customers_model extends EA_Model
         return $this->db->get_where('roles', ['slug' => DB_SLUG_CUSTOMER])->row()->id;
     }
 
+    public function get_patient_by_ci_local($ci, $complement)
+    {
+        if (empty($complement)) {
+            $result = $this->db->get_where('users', array('user_ci' => $ci));
+        } else {
+            $result = $result = $this->db->get_where('users', array('user_ci' => $ci, 'complement' => $complement));
+        }
+        
+        return $result->row_array();
+    }
+
 
     public function get_patient_by_ci($ci, $complement)
     {
@@ -377,7 +388,7 @@ class Customers_model extends EA_Model
             $result = $this->db_hcv
                 ->select('*')
                 ->from('HC')
-                ->like(['HCL_NUMCI' => $ci , 'NumeroComplementoCI' => $complement])
+                ->like(['HCL_NUMCI' => $ci, 'NumeroComplementoCI' => $complement])
                 ->get();
         }
 

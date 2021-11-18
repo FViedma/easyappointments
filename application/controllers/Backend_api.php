@@ -1550,8 +1550,6 @@ class Backend_api extends EA_Controller
             ->set_output(json_encode($response));
     }
 
-    // AGREGRAR UN FILTRO MÁS PARA LAS FECHAS PARA QUE NO INTENTE SACAR REPORTES DE TODOS LOS APPOINTMENTS
-    //POR EL MOMENTO ESTARÁ SACANDO LOS APPOINTMENTS DEL DIA
     public function ajax_get_appointments_by_specialities()
     {
         $where_clause = '';
@@ -1571,10 +1569,36 @@ class Backend_api extends EA_Controller
                 $appointment['doctor'] = $this->providers_model->get_row($appointment['id_users_provider']);
                 $appointment['speciality'] = $this->services_model->get_row($appointment['id_services']);
                 $appointment['patient'] = $this->customers_model->get_row($appointment['id_users_customer']);
-            }   
+            }
         } catch (Exception $exception) {
             $this->output->set_status_header(500);
 
+            $response = [
+                'message' => $exception->getMessage(),
+                'trace' => config('debug') ? $exception->getTrace() : []
+            ];
+        }
+
+        $this->output
+            ->set_content_type('application/json')
+            ->set_output(json_encode($response));
+    }
+
+    public function ajax_get_appointment_by_ci()
+    {
+        try {
+            $patient_ci = $this->input->get('ci_value');
+            $complement = $this->input->get('complement_ci');
+            $patient = $this->customers_model->get_patient_by_ci_local($patient_ci, $complement);
+            if (count($patient) > 0) {
+                //recuperar la ultima cita que tuvo el paciente en el hospital.
+                $where_clause = 'id_users_customer = ' . $patient['id'];
+                $response = $this->appointments_model->get_batch($where_clause, 1, null, "id DESC", true);
+            } else {
+                $response = AJAX_FAILURE;
+            }
+        } catch (Exception $exception) {
+            $this->output->set_status_header(500);
             $response = [
                 'message' => $exception->getMessage(),
                 'trace' => config('debug') ? $exception->getTrace() : []

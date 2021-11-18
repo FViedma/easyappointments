@@ -56,15 +56,50 @@ window.BackendReports = window.BackendReports || {};
      * Default event handlers declaration for backend Reports page.
      */
     function bindEventHandlers() {
-         $('.print-reports').on('click', function () {
+        $('.print-reports').on('click', function () {
             var selectedSpeciality = $('#select-service').val();
             var date = $('#select-date').val();
-            BackendReportsApi.getAppointmentsBySpecialities(selectedSpeciality,date);
+            BackendReportsApi.getAppointmentsBySpecialities(selectedSpeciality, date);
         });
-        $('#set-today-btn').on('click', function () {
-            var parsedDate = Date.parse(new Date());
-            $('#select-date').val(parsedDate.toString('yyyy-MM-dd'));
+
+        $('#btn-query').on('click', function (event) {
+            event.preventDefault();
+            if (!validatePacient()) {
+                return; // Validation failed, do not continue.
+            } else {
+                var ci = $('#input-ci').val();
+                var complement = $('#complement').val();
+                BackendReportsApi.getAppointmentByCi(ci, complement);
+            }
         });
     }
 
+    /**
+    * This function validates the patient ci input. The user cannot continue
+    * if it is not registered in the hospital database.
+    * @returns {Boolean} Returns the validation result.
+    */
+    function validatePacient() {
+        $('#input-ci .has-error').removeClass('has-error');
+        // $('#message-reports label.text-danger').removeClass('text-danger');
+        try {
+            var missingRequiredField = false;
+            var ci_value = $('#input-ci').val();
+            if ('' == ci_value) {
+                $('#input-ci').parents('.form-group').addClass('has-error');
+                missingRequiredField = true;
+            }
+            if (missingRequiredField) {
+                throw new Error(EALang.fields_are_required);
+            }
+            if (!GeneralFunctions.validateNumber($('#input-ci').val())) {
+                $('#input-ci').parents('.form-group').addClass('has-error');
+                throw new Error(EALang.invalid_ci_number);
+            }
+            return true;
+        } catch (error) {
+            $('#message-reports').text(error.message);
+            return false;
+        }
+    }
 })(window.BackendReports);

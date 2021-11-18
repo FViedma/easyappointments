@@ -363,3 +363,4 @@ $lang['appointments_by_patient_id'] = 'Citas por ci';
 $lang['diagnostic'] = 'Diagnóstico';
 $lang['select_report_date'] = 'Seleccione una fecha';
 $lang['query'] = 'Consultar';
+$lang['last_appointment'] = 'Ultima reserva';
