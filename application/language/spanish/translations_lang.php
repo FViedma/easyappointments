@@ -364,3 +364,4 @@ $lang['diagnostic'] = 'Diagnóstico';
 $lang['select_report_date'] = 'Seleccione una fecha';
 $lang['query'] = 'Consultar';
 $lang['last_appointment'] = 'Ultima reserva';
+$lang['patient_not_found'] = 'Paciente no encontrado';
