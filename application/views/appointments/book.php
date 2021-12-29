@@ -99,8 +99,8 @@
                         <div class="card">
                             <div class="card-header bg-warning">
                                 <h4>Se comunica a la población en general que por motivos de emergencia sanitaria 
-                                    se suspenden las reservas en linea temporalmente, toda reserva deberá ser realizada en la predios
-                                    de la institución. Gracias por su comprensión.
+                                    se suspenden las reservas en línea temporalmente, toda reserva deberá ser realizada en la predios
+                                    de la Institución. Gracias por su comprensión.
                                 </h4>
                             </div>
                         </div>
