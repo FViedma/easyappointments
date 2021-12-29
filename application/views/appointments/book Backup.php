@@ -94,16 +94,53 @@
                 <!-- ENTER PATIENT CI -->
                 <div id="wizard-frame-1" class="wizard-frame">
                     <div class="frame-container">
-                        <h2 class="frame-title">COMUNICADO</h2>
+                        <h2 class="frame-title"><?= lang('enter_ci_please') ?></h2>
 
-                        <div class="card">
-                            <div class="card-header bg-warning">
-                                <h4>Se comunica a la población en general que por motivos de emergencia sanitaria 
-                                    se suspenden las reservas en linea temporalmente, toda reserva deberá ser realizada en la predios
-                                    de la institución. Gracias por su comprensión.
-                                </h4>
+
+                        <div class="row frame-content">
+                            <div class="col-12 col-md-6">
+                                <div class="form-group">
+                                    <label for="patient-ci" class="control-label">
+                                        <?= lang('identification') ?>
+                                        <span class="text-danger">*</span>
+                                    </label>
+                                    <input type="text" id="patient-ci" class="required form-control" maxlength="10" />
+                                </div>
+                            </div>
+                            <div class="col-12 col-md-6">
+                                <div class="form-group">
+                                    <label for="complement" class="control-label">
+                                        <?= lang('complement') ?>
+                                    </label>
+                                    <input type="text" id="complement" class="form-control" maxlength="3" />
+                                </div>
                             </div>
                         </div>
+                        <div class="row frame-content">
+                            <div class="col-12 col-md-6">
+                                <div class="form-group">
+                                    <button type="button" id="button-verify-ci" class="btn button-verify btn-success"><?= lang('verify') ?> <i class="fas fa-chevron-right ml-2"></i></button>
+                                </div>
+                            </div>
+                        </div>
+
+                        <div id="form-message">
+                        </div>
+                        <div id="appointment-message">
+                        </div>
+                        <input type="text" id="nombre_paciente" class="form-control" style="visibility: hidden" />
+                        <input type="text" id="ape_paciente" class="form-control" style="visibility: hidden" />
+                        <input type="text" id="clinic_story" class="form-control" style="visibility: hidden" />
+                    </div>
+
+
+                    <div class="command-buttons">
+                        <span>&nbsp;</span>
+
+                        <button type="button" id="button-next-1" class="btn button-next btn-dark" data-step_index="1" disabled="true">
+                            <?= lang('next') ?>
+                            <i class="fas fa-chevron-right ml-2"></i>
+                        </button>
                     </div>
                 </div>
 
@@ -162,7 +199,7 @@
                                 <div class="form-group">
                                     <label for="diagnostic" class="control-label">
                                         <?= lang('diagnostic') ?>
-
+                                        
                                     </label>
                                     <textarea id="diagnostic" maxlength="500" class="form-control" rows="1" disabled="True"></textarea>
                                 </div>
