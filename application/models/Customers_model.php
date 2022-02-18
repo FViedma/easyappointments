@@ -392,6 +392,6 @@ class Customers_model extends EA_Model
                 ->get();
         }
 
-        return $result->row_array();
+        return $result->result_array();
     }
 }
