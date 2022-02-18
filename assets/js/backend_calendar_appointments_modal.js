@@ -361,7 +361,7 @@ window.BackendCalendarAppointmentsModal = window.BackendCalendarAppointmentsModa
          * Event: Enter New Customer Button "Click"
          */
         $('#new-customer').on('click', function () {
-            $('#manage-appointment').find('#customer-id, #first-name, #last-name, #email, '
+            $('#manage-appointment').find('#patient-ci,#customer-id, #first-name, #last-name, #email, '
                 + '#phone-number, #address, #city, #zip-code, #customer-notes, #clinical-story').val('');
         });
         /**

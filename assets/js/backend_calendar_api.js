@@ -165,19 +165,23 @@ window.BackendCalendarApi = window.BackendCalendarApi || {};
                     $('#save-appointment').prop('disabled', true)
                     GeneralFunctions.displayMessageBox(EALang.message, EALang.patient_not_found);
                 } else {
-                    var regex = /[^0-9]+/;
-                    var index = 0;
-                    // console.log(response[index].HCL_NUMCI.toString().match(regex))
-                    while (index < response.length) {
-                        var numCI = response[index].HCL_NUMCI.replace(regex, '')
-                        if (numCI == patientCI) {
-                            $('#first-name').val(response[index].HCL_NOMBRE)
-                            $('#last-name').val(response[index].HCL_APPAT + " " + response[index].HCL_APMAT)
-                            $('#clinical-story').val(response[index].HCL_CODIGO)
-                            $('#save-appointment').prop('disabled', false)
-                            break;
+                    if (response.length > 0) {
+                        var regex = /[^0-9]+/;
+                        var index = 0;
+                        // console.log(response[index].HCL_NUMCI.toString().match(regex))
+                        while (index < response.length) {
+                            var numCI = response[index].HCL_NUMCI.replace(regex, '')
+                            if (numCI == patientCI) {
+                                $('#first-name').val(response[index].HCL_NOMBRE)
+                                $('#last-name').val(response[index].HCL_APPAT + " " + response[index].HCL_APMAT)
+                                $('#clinical-story').val(response[index].HCL_CODIGO)
+                                $('#save-appointment').prop('disabled', false)
+                                break;
+                            }
+                            index++;
                         }
-                        index++;
+                    } else {
+                        $('#manage-appointment').find('#first-name, #last-name,#clinical-story').val('');
                     }
                 }
             });
