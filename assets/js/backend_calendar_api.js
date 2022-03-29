@@ -159,7 +159,7 @@ window.BackendCalendarApi = window.BackendCalendarApi || {};
             dataType: 'json'
         })
             .done(function (response) {
-                if (response == null) {
+                if (response.length == 0) {
                     $('#form-message').empty()
                     $('#appointment-message').empty()
                     $('#save-appointment').prop('disabled', true)

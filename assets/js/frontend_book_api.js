@@ -352,20 +352,26 @@ window.FrontendBookApi = window.FrontendBookApi || {};
             dataType: 'json'
         })
             .done(function (response) {
-                if (response == null) {
+                if (response.length == 0) {
                     $('#form-message').empty()
                     $('#appointment-message').empty()
                     $('#button-next-1').prop('disabled', true)
-                    GeneralFunctions.displayMessageBox(EALang.message, EALang.patient_not_found);
+                    GeneralFunctions.displayMessageBox(EALang.message, EALang.patient_not_registered);
                 } else {
-                    $('#form-message').empty()
-                    $('#appointment-message').empty()
-                    $('#nombre_paciente').val(response.HCL_NOMBRE)
-                    $('#ape_paciente').val(response.HCL_APPAT + " " + response.HCL_APMAT)
-                    $('#clinic_story').val(response.HCL_CODIGO)
-                    var nombre = response.HCL_NOMBRE + " " + response.HCL_APPAT + " " + response.HCL_APMAT
-                    $('#form-message').append(getPatientFoundHTML(nombre, response.HCL_NUMCI, response.HCL_CODIGO))
-                    getPatientReservation(patientCI,complement)
+                    if (response.length > 0) {
+                        response.forEach(element => {
+                            $('#form-message').empty()
+                            $('#appointment-message').empty()
+                            $('#nombre_paciente').val(element.HCL_NOMBRE)
+                            $('#ape_paciente').val(element.HCL_APPAT + " " + element.HCL_APMAT)
+                            $('#clinic_story').val(element.HCL_CODIGO)
+                            var nombre = element.HCL_NOMBRE + " " + element.HCL_APPAT + " " + element.HCL_APMAT
+                            $('#form-message').append(getPatientFoundHTML(nombre, element.HCL_NUMCI, element.HCL_CODIGO))
+                            getPatientReservation(patientCI, complement)
+                        });
+                    } else {
+                        $('#manage-appointment').find('#first-name, #last-name,#clinical-story').val('');
+                    }
                 }
             });
     };
@@ -376,7 +382,7 @@ window.FrontendBookApi = window.FrontendBookApi || {};
      * @param {Number} patientCI patient ci.
      * @param {String} complement patient's ci complement
      */
-    function getPatientReservation (patientCI, complement) {
+    function getPatientReservation(patientCI, complement) {
         var url = GlobalVariables.baseUrl + '/index.php/Backend_api/ajax_get_patient_reservation';
         var data = {
             patientCI: patientCI,
@@ -393,15 +399,15 @@ window.FrontendBookApi = window.FrontendBookApi || {};
                     $('#appointment-message').empty()
                     $('#button-next-1').prop('disabled', true)
                     GeneralFunctions.displayMessageBox(EALang.message, EALang.patient_not_found);
-                } else if(response.length >= 1) {
+                } else if (response.length >= 1) {
                     var response = response[0]
                     $('#button-next-1').prop('disabled', false)
                     var appointmentDate = new Date(response.book_datetime)
-                    if(compareDates(appointmentDate, new Date())) {
-                        $('#appointment-message').append(getAppointmentFoundHTML(response.book_datetime,response.service.name, response.provider.first_name, response.provider.last_name))
+                    if (compareDates(appointmentDate, new Date())) {
+                        $('#appointment-message').append(getAppointmentFoundHTML(response.book_datetime, response.service.name, response.provider.first_name, response.provider.last_name))
                         $('#button-next-1').prop('disabled', true)
                     }
-                }else {
+                } else {
                     $('#button-next-1').prop('disabled', false)
                 }
             });
@@ -411,7 +417,7 @@ window.FrontendBookApi = window.FrontendBookApi || {};
         var year = false;
         var month = false;
         var day = false;
-        if(date.getFullYear() === date.getFullYear()){
+        if (date.getFullYear() === date.getFullYear()) {
             year = true;
         }
         if (date.getMonth() === currentDate.getMonth()) {
@@ -423,15 +429,15 @@ window.FrontendBookApi = window.FrontendBookApi || {};
         return year == month && month == day;
     }
 
-    function getPatientFoundHTML(nombre, ci, hc){
-        
-       return $('<div/>', {
-            'class': 'card', 
+    function getPatientFoundHTML(nombre, ci, hc) {
+
+        return $('<div/>', {
+            'class': 'card',
             'html': [
                 $('<div/>', {
                     'class': 'card-header bg-success',
                     'html': [
-                        $('<h5/>',{
+                        $('<h5/>', {
                             'text': EALang.patient_registered,
                         })
                     ]
@@ -444,24 +450,24 @@ window.FrontendBookApi = window.FrontendBookApi || {};
         });
     }
 
-    function getAppointmentFoundHTML(date, service, providerName, providerLastName){
-        
+    function getAppointmentFoundHTML(date, service, providerName, providerLastName) {
+
         return $('<div/>', {
-             'class': 'card', 
-             'html': [
-                 $('<div/>', {
-                     'class': 'card-header bg-success',
-                     'html': [
-                         $('<h5/>',{
-                             'text': EALang.patient_appointed,
-                         })
-                     ]
-                 }),
-                 $('<div/>', {
-                     'class': 'card-text',
-                     'text': "El paciente ya cuenta con una reserva Reserva: " + date + " Especialidad: " + service + " Médico: " + providerName + " " + providerLastName
-                 }),
-             ]
-         });
-     }
+            'class': 'card',
+            'html': [
+                $('<div/>', {
+                    'class': 'card-header bg-success',
+                    'html': [
+                        $('<h5/>', {
+                            'text': EALang.patient_appointed,
+                        })
+                    ]
+                }),
+                $('<div/>', {
+                    'class': 'card-text',
+                    'text': "El paciente ya cuenta con una reserva Reserva: " + date + " Especialidad: " + service + " Médico: " + providerName + " " + providerLastName
+                }),
+            ]
+        });
+    }
 })(window.FrontendBookApi);

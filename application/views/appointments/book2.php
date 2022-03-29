@@ -199,7 +199,7 @@
                                 <div class="form-group">
                                     <label for="diagnostic" class="control-label">
                                         <?= lang('diagnostic') ?>
-                                        
+
                                     </label>
                                     <textarea id="diagnostic" maxlength="500" class="form-control" rows="1" disabled="True"></textarea>
                                 </div>
@@ -271,15 +271,19 @@
                                                 if (count($group) > 0) {
                                                     echo '<optgroup label="' . $group_label . '">';
                                                     foreach ($group as $service) {
-                                                        echo '<option value="' . $service['id'] . '">'
-                                                            . $service['name'] . '</option>';
+                                                        if ($service['name'] != 'ECOGRAFÍA') {
+                                                            echo '<option value="' . $service['id'] . '">'
+                                                                . $service['name'] . '</option>';
+                                                        }
                                                     }
                                                     echo '</optgroup>';
                                                 }
                                             }
                                         } else {
                                             foreach ($available_services as $service) {
-                                                echo '<option value="' . $service['id'] . '">' . $service['name'] . '</option>';
+                                                if ($service['name'] != 'ECOGRAFÍA') {
+                                                    echo '<option value="' . $service['id'] . '">' . $service['name'] . '</option>';
+                                                }
                                             }
                                         }
                                         ?>

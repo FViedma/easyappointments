@@ -234,8 +234,10 @@
                                                 if (count($group) > 0) {
                                                     echo '<optgroup label="' . $group_label . '">';
                                                     foreach ($group as $service) {
-                                                        echo '<option value="' . $service['id'] . '">'
+                                                        if ($service['name'] != 'ECOGRAFIA') {
+                                                            echo '<option value="' . $service['id'] . '">'
                                                             . $service['name'] . '</option>';
+                                                        }
                                                     }
                                                     echo '</optgroup>';
                                                 }
