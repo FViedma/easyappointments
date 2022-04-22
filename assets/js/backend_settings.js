@@ -107,6 +107,10 @@ window.BackendSettings = window.BackendSettings || {};
         exports.wp.setup(workingPlan);
         exports.wp.timepickers(false);
 
+        exports.hd = new Holydays();
+        exports.hd.setup();
+        exports.hd.timepickers(false);
+
         // Load user settings into form
         $('#user-id').val(GlobalVariables.settings.user.id);
         $('#first-name').val(GlobalVariables.settings.user.first_name);
@@ -155,6 +159,7 @@ window.BackendSettings = window.BackendSettings || {};
      */
     function bindEventHandlers() {
         exports.wp.bindEventHandlers();
+        exports.hd.bindEventHandlers();
 
         /**
          * Event: Tab "Click"
