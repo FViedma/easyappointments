@@ -20,6 +20,9 @@
 
     <script src="<?= asset_url('assets/ext/fontawesome/js/fontawesome.min.js') ?>"></script>
     <script src="<?= asset_url('assets/ext/fontawesome/js/solid.min.js') ?>"></script>
+    <script src="<?= asset_url('assets/ext/jsPDF/dist/jspdf.min.js') ?>"></script>
+    <script src="<?= asset_url('assets/ext/qrious/qrious.min.js') ?>"></script>
+
 </head>
 
 <body>
@@ -132,7 +135,6 @@
                         <input type="text" id="ape_paciente" class="form-control" style="visibility: hidden" />
                         <input type="text" id="clinic_story" class="form-control" style="visibility: hidden" />
                     </div>
-
 
                     <div class="command-buttons">
                         <span>&nbsp;</span>
@@ -522,6 +524,9 @@
                         </span>
                     </small>
                 </div>
+                <img id="qr_code" hidden>
+                </img>
+
             </div>
         </div>
     </div>
