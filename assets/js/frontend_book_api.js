@@ -539,11 +539,13 @@ window.FrontendBookApi = window.FrontendBookApi || {};
         doc.text(dataStartX, dataStartY, 'Hospital Clínico Viedma');
         doc.setFontSize(fontSizeSubTitle)
         doc.text(dataStartX, fontSubTitleStartYPos, EALang.attention_date);
+        doc.text(dataStartX + 150, fontSubTitleStartYPos, EALang.user_id);
         doc.text(dataStartX, fontSubTitleStartYPos+=(fontTextSize + fontTextSpace), EALang.service);
         doc.text(dataStartX, fontSubTitleStartYPos+=(fontTextSize + fontTextSpace), EALang.provider);
         doc.text(dataStartX, fontSubTitleStartYPos+=(fontTextSize + fontTextSpace), EALang.customer);
         doc.setFontSize(fontTextSize)
         doc.text(dataStartX, fontTextStartYPos, appointment.start_datetime);
+        doc.text(dataStartX + 150, fontTextStartYPos, customer.user_ci);
         doc.text(dataStartX, fontTextStartYPos += (fontSizeSubTitle + fontTextSize + fontSubTitleSpace), doctor.speciality);
         doc.text(dataStartX, fontTextStartYPos += (fontSizeSubTitle + fontTextSize + fontSubTitleSpace), doctor.doctor_name);
         doc.text(dataStartX, fontTextStartYPos += (fontSizeSubTitle + fontTextSize + fontSubTitleSpace), customer.first_name);
