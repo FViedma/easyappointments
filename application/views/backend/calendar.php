@@ -27,6 +27,7 @@
         availableMedicalCenters: <?= json_encode($available_medical_centers) ?>,
         calendarView: <?= json_encode($calendar_view) ?>,
         timezones: <?= json_encode($timezones) ?>,
+        user_display_name:<?= json_encode($user_display_name)?>,
         user: {
             id: <?= $user_id ?>,
             email: <?= json_encode($user_email) ?>,
