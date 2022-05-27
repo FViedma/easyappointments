@@ -365,3 +365,4 @@ $lang['select_report_date'] = 'Seleccione una fecha';
 $lang['query'] = 'Consultar';
 $lang['last_appointment'] = 'Ultima reserva';
 $lang['patient_not_found'] = 'Paciente no encontrado';
+$lang['patient_reserved_already'] = 'El paciente ya realizó una reserva el dia de hoy';
