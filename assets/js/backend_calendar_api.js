@@ -213,7 +213,7 @@ window.BackendCalendarApi = window.BackendCalendarApi || {};
                     var response = response[0]
                     var appointmentDate = new Date(response.book_datetime)
                     if (compareDates(appointmentDate, new Date())) {
-                        GeneralFunctions.displayMessageBox(EALang.message, EALang.patient_reserved_already);
+                        GeneralFunctions.displayMessageBox(EALang.message, EALang.patient_reserved_already+" "+response.book_datetime);
                     }
                 }
             });
