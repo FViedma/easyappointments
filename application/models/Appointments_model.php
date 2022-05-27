@@ -629,6 +629,7 @@ class Appointments_model extends EA_Model {
             ->select('id')
             ->from('appointments')
             ->where('id_users_customer', $patient_id)
+            ->where('is_unavailable', 0)
             ->order_by('id', 'DESC')
             ->limit(1)
             ->get()->row_array();
