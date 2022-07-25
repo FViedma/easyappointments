@@ -365,6 +365,7 @@ $lang['select_report_date'] = 'Seleccione una fecha';
 $lang['query'] = 'Consultar';
 $lang['last_appointment'] = 'Ultima reserva';
 $lang['patient_not_found'] = 'Paciente no encontrado';
+$lang['patient_reserved_already'] = 'El paciente ya realizó una reserva el dia de hoy';
 $lang['ticket_recomendation_first'] = 'Se le recuerda que debe apersonarse al establecimiento con 2 horas de anticipación';
 $lang['ticket_recomendation_second'] = 'además debe portar todos sus documentos y formularios de referencia correctamente llenados.';
 $lang['ticket_recomendation_third'] = 'El hospital no se hace responsable en caso de retrasos a las citas programadas.';

@@ -168,7 +168,7 @@ window.BackendCalendarApi = window.BackendCalendarApi || {};
                     if (response.length > 0) {
                         var regex = /[^0-9]+/;
                         var index = 0;
-                        // console.log(response[index].HCL_NUMCI.toString().match(regex))
+                        getPatientReservation(patientCI, complement)
                         while (index < response.length) {
                             var numCI = response[index].HCL_NUMCI.replace(regex, '')
                             if (numCI == patientCI) {
@@ -186,4 +186,52 @@ window.BackendCalendarApi = window.BackendCalendarApi || {};
                 }
             });
     };
+
+    /**
+    * Gets a reservation for an specific patient
+    * 
+    * @param {Number} patientCI patient ci.
+    * @param {String} complement patient's ci complement
+    */
+    function getPatientReservation(patientCI, complement) {
+        var url = GlobalVariables.baseUrl + '/index.php/Backend_api/ajax_get_patient_reservation';
+        var data = {
+            patientCI: patientCI,
+            complement: complement
+        }
+        $.ajax({
+            url: url,
+            type: 'GET',
+            data: data,
+            dataType: 'json'
+        })
+            .done(function (response) {
+                if (response == null) {
+                    $('#appointment-message').empty()
+                    GeneralFunctions.displayMessageBox(EALang.message, EALang.patient_not_found);
+                } else if (response.length >= 1) {
+                    var response = response[0]
+                    var appointmentDate = new Date(response.book_datetime)
+                    if (compareDates(appointmentDate, new Date())) {
+                        GeneralFunctions.displayMessageBox(EALang.message, EALang.patient_reserved_already+" "+response.book_datetime);
+                    }
+                }
+            });
+    };
+
+    function compareDates(date, currentDate) {
+        var year = false;
+        var month = false;
+        var day = false;
+        if (date.getFullYear() === date.getFullYear()) {
+            year = true;
+        }
+        if (date.getMonth() === currentDate.getMonth()) {
+            month = true;
+        }
+        if (date.getDate() === currentDate.getDate()) {
+            day = true;
+        }
+        return year == month && month == day;
+    }
 })(window.BackendCalendarApi);

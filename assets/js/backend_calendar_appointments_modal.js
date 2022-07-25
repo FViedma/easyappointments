@@ -54,7 +54,6 @@ window.BackendCalendarAppointmentsModal = window.BackendCalendarAppointmentsModa
 
             var startDatetime = $dialog.find('#start-datetime').datetimepicker('getDate').toString('yyyy-MM-dd HH:mm:ss');
             var endDatetime = $dialog.find('#end-datetime').datetimepicker('getDate').toString('yyyy-MM-dd HH:mm:ss');
-
             var appointment = {
                 id_services: $dialog.find('#select-service').val(),
                 id_users_provider: $dialog.find('#select-provider').val(),
@@ -66,7 +65,9 @@ window.BackendCalendarAppointmentsModal = window.BackendCalendarAppointmentsModa
                 id_municipality: $dialog.find('#appointment-select-municipality').val(),
                 municipality: $dialog.find('#appointment-select-municipality option:selected').text(),
                 medical_center: $dialog.find('#appointment-select-medical-center').val(),
-                is_unavailable: false
+                is_unavailable: false,
+                user_id: GlobalVariables.user.id,
+                user_display_name: GlobalVariables.user_display_name
             };
 
             if ($dialog.find('#appointment-id').val() !== '') {

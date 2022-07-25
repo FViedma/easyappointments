@@ -238,12 +238,12 @@ window.GeneralFunctions = window.GeneralFunctions || {};
      * form then the result is FALSE.
      *
      *
-     * @param {Number} number The email address to be checked.
+     * @param {Number} number The ci to be checked.
 
      * @return {Boolean} Returns the validation result.
      */
     exports.validateNumber = function (number) {
-        var re = /^[\d]{6,9}$/;
+        var re = /^[\d]{5,11}$/;
         return re.test(number);
     }
 
