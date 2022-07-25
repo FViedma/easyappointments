@@ -72,6 +72,10 @@ window.BackendReports = window.BackendReports || {};
                 BackendReportsApi.getAppointmentByCi(ci, complement);
             }
         });
+
+        var html5QrcodeScanner = new Html5QrcodeScanner(
+            "reader", { fps: 10, qrbox: 250 });
+        html5QrcodeScanner.render(onScanSuccess, onScanError);
     }
 
     /**
@@ -102,4 +106,13 @@ window.BackendReports = window.BackendReports || {};
             return false;
         }
     }
+
+    function onScanSuccess(qrCodeMessage) {
+        BackendReportsApi.getAppointmentByQr(qrCodeMessage);
+    }
+    
+    function onScanError(errorMessage) {
+        alert(EALang.qr_error)
+    }
+    
 })(window.BackendReports);

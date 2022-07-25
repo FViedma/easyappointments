@@ -1609,4 +1609,26 @@ class Backend_api extends EA_Controller
             ->set_content_type('application/json')
             ->set_output(json_encode($response));
     }
+    public function ajax_get_appointment_by_qrHash()
+    {
+        try {
+            $appointmentHash = $this->input->get('hashCode');
+            
+            $where_clause = 'hash = ' . '\''.$appointmentHash.'\'';
+            $response = $this->appointments_model->get_batch($where_clause, 1, null, "id DESC", true);
+            if(count($response) < 0) {
+                $response = AJAX_FAILURE;
+            }
+        } catch (Exception $exception) {
+            $this->output->set_status_header(500);
+            $response = [
+                'message' => $exception->getMessage(),
+                'trace' => config('debug') ? $exception->getTrace() : []
+            ];
+        }
+
+        $this->output
+            ->set_content_type('application/json')
+            ->set_output(json_encode($response));
+    }
 }

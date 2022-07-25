@@ -2,6 +2,7 @@
 <script src="<?= asset_url('assets/js/backend_reports_api.js') ?>"></script>
 <script src="<?= asset_url('assets/js/general_functions.js') ?>"></script>
 <script src="<?= asset_url('assets/js/backend_reports.js') ?>"></script>
+<script src="<?= asset_url('assets/js/html5-qrcode.min.js') ?>"></script>
 <script src="<?= asset_url('assets/ext/jsPDF/dist/jspdf.min.js') ?>"></script>
 
 <script>
@@ -84,8 +85,18 @@
                             </div>
                         </div>
                     </div>
+                    <div class="form-group">
+                        <div class="row">
+                            <div class="col-12">
+                                <div id="qr_reader" class="row">
+                                    <div class="col">
+                                        <div style="width:100%;" id="reader"></div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
                 </div>
-
             </div>
 
         </div>

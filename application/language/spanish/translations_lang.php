@@ -370,3 +370,4 @@ $lang['ticket_recomendation_second'] = 'además debe portar todos sus documentos
 $lang['ticket_recomendation_third'] = 'El hospital no se hace responsable en caso de retrasos a las citas programadas.';
 $lang['attention_date'] = 'Fecha de atención';
 $lang['qr_code'] = 'Código QR';
+$lang['qr_error'] = 'Codigo o imagen no válida';
