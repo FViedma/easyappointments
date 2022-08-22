@@ -2,7 +2,7 @@
 <script src="<?= asset_url('assets/js/backend_reports_api.js') ?>"></script>
 <script src="<?= asset_url('assets/js/general_functions.js') ?>"></script>
 <script src="<?= asset_url('assets/js/backend_reports.js') ?>"></script>
-<script src="<?= asset_url('assets/js/html5-qrcode.min.js') ?>"></script>
+<script src="<?= asset_url('assets/ext/qr-scanner/qr-scanner.umd.min.js') ?>"></script>
 <script src="<?= asset_url('assets/ext/jsPDF/dist/jspdf.min.js') ?>"></script>
 
 <script>
@@ -85,12 +85,41 @@
                             </div>
                         </div>
                     </div>
+                </div>
+            </div>
+
+            <h3><?= lang('by_qr') ?></h3>
+
+            <div class="row">
+                <div class="col-12 col-md-8" style="margin-left: 0;">
                     <div class="form-group">
+                        <!-- botones iniciar parar -->
                         <div class="row">
                             <div class="col-12">
-                                <div id="qr_reader" class="row">
+                                <button id="start-button" type="button" class="btn btn-primary btn-sm mb-2" data-tippy-content="<?= lang('start_qr') ?>">
+                                    <i class="fas fa-play mr-2"></i>
+                                    <?= lang('start_qr') ?>
+                                </button>
+                                <button id="stop-button" type="button" class="btn btn-primary btn-sm mb-2" data-tippy-content="<?= lang('stop') ?>">
+                                    <i class="fas fa-stop mr-2"></i>
+                                    <?= lang('stop') ?>
+                                </button>
+                            </div>
+                            <div class="form-group">
+                                <select id="cam-list">
+                                    <option value="environment" selected>Environment Facing (default)</option>
+                                    <option value="user">User Facing</option>
+                                </select>
+                            </div>
+                        </div>
+                        <!-- lector qr -->
+                        <div class="row">
+                            <div class="col-12">
+                                <div id="video-container" class="row">
                                     <div class="col">
-                                        <div style="width:100%;" id="reader"></div>
+                                        <div style="width:100%;" id="reader">
+                                            <video id="qr-video"></video>
+                                        </div>
                                     </div>
                                 </div>
                             </div>
