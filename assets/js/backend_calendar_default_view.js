@@ -523,7 +523,7 @@ window.BackendCalendarDefaultView = window.BackendCalendarDefaultView || {};
                 ? 'mr-2' : 'd-none';
             displayDelete = (GlobalVariables.user.privileges.appointments.delete === true)
                 ? 'mr-2' : 'd-none';
-
+            console.log(event)
             $html = $('<div/>', {
                 'html': [
                     $('<strong/>', {
@@ -590,17 +590,6 @@ window.BackendCalendarDefaultView = window.BackendCalendarDefaultView || {};
                         'class': 'd-inline-block ml-1',
                         'text': event.data.customer.first_name + ' ' + event.data.customer.last_name
                     }),
-                    // $('<br/>'),
-
-                    // $('<strong/>', {
-                    //     'class': 'd-inline-block mr-2',
-                    //     'text': EALang.email
-                    // }),
-                    // GeneralFunctions.renderMailIcon(event.data.customer.email),
-                    // $('<span/>', {
-                    //     'class': 'd-inline-block ml-1',
-                    //     'text': event.data.customer.email
-                    // }),
                     $('<br/>'),
 
                     $('<strong/>', {
@@ -612,14 +601,24 @@ window.BackendCalendarDefaultView = window.BackendCalendarDefaultView || {};
                         'class': 'd-inline-block ml-1',
                         'text': event.data.customer.phone_number
                     }),
-                    // $('<br/>'),
+                    $('<br/>'),
 
-                    // $('<strong/>', {
-                    //     'text': EALang.notes
-                    // }),
-                    // $('<span/>', {
-                    //     'text': getEventNotes(event)
-                    // }),
+                    $('<strong/>', {
+                        'class': 'd-inline-block mr-2',
+                        'text': EALang.user_secretary
+                    }),
+                    $('<span/>', {
+                        'class': 'd-inline-block ml-1',
+                        'text': event.data.user_display_name
+                    }),
+                    $('<br/>'),
+
+                    $('<strong/>', {
+                        'text': EALang.date
+                    }),
+                    $('<span/>', {
+                        'text': GeneralFunctions.formatDate(event.data.book_datetime, GlobalVariables.dateFormat, true)
+                    }),
                     $('<br/>'),
 
                     $('<hr/>'),
