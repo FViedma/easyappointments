@@ -182,7 +182,8 @@ body .modal.full-screen .modal-content {
 
 body .modal.full-screen .wrapper {
     min-height: 100%;
-    margin-bottom: -67px; /* modal-footer height */
+    margin-bottom: -67px;
+    /* modal-footer height */
 }
 
 body .modal.full-screen .modal-footer {
@@ -323,19 +324,19 @@ body legend {
     margin-bottom: 10px;
 }
 
-#calendar-page #calendar-actions > .btn-group {
+#calendar-page #calendar-actions>.btn-group {
     width: 100%;
 }
 
-#calendar-page #calendar-actions > .btn-group .btn {
+#calendar-page #calendar-actions>.btn-group .btn {
     width: auto;
 }
 
-#calendar-page #calendar-actions > .btn-group .btn:not(.dropdown-toggle) {
+#calendar-page #calendar-actions>.btn-group .btn:not(.dropdown-toggle) {
     text-align: right;
 }
 
-#calendar-page #calendar-actions > .btn-group .btn.dropdown-toggle {
+#calendar-page #calendar-actions>.btn-group .btn.dropdown-toggle {
     text-align: left;
 }
 
@@ -461,7 +462,8 @@ body legend {
 
 #appointment-notes,
 #customer-notes {
-    height: 37px; /* Align with location field */
+    height: 37px;
+    /* Align with location field */
 }
 
 body .form-horizontal .control-label {
@@ -510,7 +512,7 @@ body .form-horizontal .controls {
     overflow-x: auto;
 }
 
-#calendar .calendar-view > div {
+#calendar .calendar-view>div {
     width: 100%;
     min-width: 1000%;
     overflow: auto;
@@ -571,19 +573,19 @@ body .form-horizontal .controls {
         margin-bottom: 0;
     }
 
-    #calendar-page #calendar-actions > .btn-group {
+    #calendar-page #calendar-actions>.btn-group {
         width: auto;
     }
 
-    #calendar-page #calendar-actions > .btn-group .btn {
+    #calendar-page #calendar-actions>.btn-group .btn {
         width: auto;
     }
 
-    #calendar-page #calendar-actions > .btn-group .btn:not(.dropdown-toggle) {
+    #calendar-page #calendar-actions>.btn-group .btn:not(.dropdown-toggle) {
         text-align: center;
     }
 
-    #calendar-page #calendar-actions > .btn-group .btn.dropdown-toggle {
+    #calendar-page #calendar-actions>.btn-group .btn.dropdown-toggle {
         text-align: center;
     }
 
@@ -608,6 +610,11 @@ body .form-horizontal .controls {
     }
 }
 
+/* BACKEND REPORTS PAGE
+   -------------------------------------------------------------------- */
+#qr_reader {
+    display: flex;
+}
 
 /* BACKEND CUSTOMERS PAGE
    -------------------------------------------------------------------- */

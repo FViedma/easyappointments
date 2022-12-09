@@ -92,6 +92,38 @@ window.BackendReportsApi = window.BackendReportsApi || {};
                 }
             });
     };
+    exports.getAppointmentByQr = function (qrHashCode) {
+        // Make ajax post request and get the appointments
+        var url = GlobalVariables.baseUrl + '/index.php/Backend_api/ajax_get_appointment_by_qrHash';
+
+        var data = {
+            csrfToken: GlobalVariables.csrfToken,
+            hashCode: qrHashCode
+        };
+
+        $.ajax({
+            url: url,
+            type: 'GET',
+            data: data,
+            dataType: 'json'
+        })
+            .done(function (response) {
+                if (response.length > 0 && response != "FAILURE") {
+                    response = response[0];
+                    $('#appointment-message').empty()
+                    //acomodar los resultados de modo que se vean luego de presionar el boton
+                    var nombre = response.customer.first_name + " " + response.customer.last_name
+                    var doctorName = response.provider.first_name + " " + response.provider.last_name
+                    $('#appointment-message').append(getPatientAppointmentFoundHTML(nombre, response.customer.user_ci,
+                        response.start_datetime, response.service.name, doctorName, response.customer.clinical_story,
+                        response.notes))
+                } else {
+                    $('#appointment-message').empty()
+                    $('#appointment-message').append(appointmentNotFoundHTML())
+                }
+            });
+    };
+
     function appointmentNotFoundHTML() {
         return $('<div/>', {
             'class': 'card',

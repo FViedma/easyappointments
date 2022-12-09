@@ -712,7 +712,8 @@ window.FrontendBook = window.FrontendBook || {};
         var hospital = GeneralFunctions.escapeHtml($('#select-medical-center').val());
         var doctor = GeneralFunctions.escapeHtml($('#doctor-name').val());
         var diagnostic = GeneralFunctions.escapeHtml($('#diagnostic').val());
-
+        var service = GeneralFunctions.escapeHtml($('#select-service option:selected').text());
+        var provider = GeneralFunctions.escapeHtml($('#select-provider').text());
         $('#customer-details').empty();
 
         $('<div/>', {
@@ -772,9 +773,12 @@ window.FrontendBook = window.FrontendBook || {};
         })
             .appendTo('#customer-details');
 
-
         // Update appointment form data for submission to server when the user confirms the appointment.
         var data = {};
+        data.doctor = {
+            doctor_name: provider,
+            speciality: service
+        };
 
         data.customer = {
             last_name: $('#last-name').val(),
