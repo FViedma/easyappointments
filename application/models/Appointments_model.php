@@ -651,4 +651,21 @@ class Appointments_model extends EA_Model {
         $appointment = $this->get_batch(['id' => $last_appointment['id']],null,null,null,true);
         return $appointment;
     }
+
+     /**
+     * Returns the number of the appointment to print it on the ticket.
+     *
+     * @param int $doctor, doctor id.
+     * @param string $date start date from the appointment.
+     *
+     * @return int Returns the number of the recent appointment.
+     */
+    public function get_appointment_number($doctor, $date)
+    {
+        $this->db->count_all_results('appointments');
+        $this->db->from('appointments');
+        $this->db->where('id_users_provider =', $doctor);
+        $this->db->like('start_datetime', $date);
+        return $this->db->count_all_results();
+    }
 }

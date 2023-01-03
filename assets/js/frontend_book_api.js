@@ -199,7 +199,7 @@ window.FrontendBookApi = window.FrontendBookApi || {};
 
                     return false;
                 }
-                printTicket(data, response.appointment_hash)
+                printTicket(data, response.appointment_hash, response.appointment_number)
                 window.location.href = GlobalVariables.baseUrl
                     + '/index.php/appointments/book_success/' + response.appointment_hash;
             })
@@ -470,11 +470,10 @@ window.FrontendBookApi = window.FrontendBookApi || {};
         });
     }
 
-    function printTicket(data, hash) {
+    function printTicket(data, hash, number) {
         var doctor = data.post_data.doctor;
         var appointment = data.post_data.appointment;
         var customer = data.post_data.customer;
-        console.log(customer)
         //QR
         new QRious({
             element: document.querySelector("#qr_code"),
@@ -545,6 +544,7 @@ window.FrontendBookApi = window.FrontendBookApi || {};
         doc.addImage(base64Image, 'png', QRX, QRY, QRW, QRH);
         doc.setFontSize(fontSizeTitle)
         doc.text(dataStartX, dataStartY, 'Hospital Clínico Viedma');
+        doc.text(dataStartX+240, dataStartY, 'Ficha Nº:'+number);
         doc.setFontSize(fontSizeSubTitle)
         doc.text(dataStartX, fontSubTitleStartYPos, EALang.attention_date);
         doc.text(dataStartX + 150, fontSubTitleStartYPos, EALang.user_id);

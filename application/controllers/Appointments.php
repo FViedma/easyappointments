@@ -484,7 +484,8 @@ class Appointments extends EA_Controller {
             $appointment['is_unavailable'] = (int)$appointment['is_unavailable']; // needs to be type casted
             $appointment['id'] = $this->appointments_model->add($appointment);
             $appointment['hash'] = $this->appointments_model->get_value('hash', $appointment['id']);
-
+            //Numero de ficha
+            $appointment_number = $this->appointments_model->get_appointment_number($provider['id'],substr($appointment['start_datetime'],0,10));
             $settings = [
                 'company_name' => $this->settings_model->get_setting('company_name'),
                 'company_link' => $this->settings_model->get_setting('company_link'),
@@ -498,7 +499,8 @@ class Appointments extends EA_Controller {
 
             $response = [
                 'appointment_id' => $appointment['id'],
-                'appointment_hash' => $appointment['hash']
+                'appointment_hash' => $appointment['hash'],
+                'appointment_number' => $appointment_number,
             ];
         }
         catch (Exception $exception)
