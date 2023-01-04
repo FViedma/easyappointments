@@ -98,9 +98,12 @@
 
                         <div class="card">
                             <div class="card-header bg-warning">
-                                <h4>Se comunica a la población en general que por motivos de emergencia sanitaria 
-                                    se suspenden las reservas en línea temporalmente, toda reserva deberá ser realizada en predios
-                                    de la Institución. Gracias por su comprensión.
+                                <h4>El Hospital Clínico Viedma anuncia a la población en general,
+                                    que con el objetivo de brindar una atención de calidez y calidad,
+                                    a partir del 3 de enero de 2023 se habilitarán las reservas en línea. 
+                                    <br>
+                                    <br>
+                                    Felices fiestas!
                                 </h4>
                             </div>
                         </div>
