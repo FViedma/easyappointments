@@ -530,9 +530,6 @@ window.FrontendBookApi = window.FrontendBookApi || {};
         var imageBorderH = 100;
         var QRW = 80;
         var QRH = 80;
-
-
-
         doc.setFont('helvetica')
         doc.setFontType('bold')
         doc.setFontSize(fontTextSize)
