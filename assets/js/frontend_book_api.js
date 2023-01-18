@@ -354,6 +354,7 @@ window.FrontendBookApi = window.FrontendBookApi || {};
                 if (response.length == 0) {
                     $('#form-message').empty()
                     $('#appointment-message').empty()
+                    $('#button-reprint').prop('disabled',true)
                     $('#button-next-1').prop('disabled', true)
                     GeneralFunctions.displayMessageBox(EALang.message, EALang.patient_not_registered);
                 } else {
@@ -361,6 +362,7 @@ window.FrontendBookApi = window.FrontendBookApi || {};
                         response.forEach(element => {
                             $('#form-message').empty()
                             $('#appointment-message').empty()
+                            $('#button-reprint').prop('disabled',true)
                             $('#nombre_paciente').val(element.HCL_NOMBRE)
                             $('#ape_paciente').val(element.HCL_APPAT + " " + element.HCL_APMAT)
                             $('#clinic_story').val(element.HCL_CODIGO)
@@ -372,6 +374,36 @@ window.FrontendBookApi = window.FrontendBookApi || {};
                         $('#manage-appointment').find('#first-name, #last-name,#clinical-story').val('');
                     }
                 }
+            });
+    };
+
+    exports.reprintTicket = function (ci, complement) {
+        var url = GlobalVariables.baseUrl + '/index.php/Backend_api/ajax_get_patient_reservation';
+        var data = {
+            patientCI: ci,
+            complement: complement,
+        }
+        $.ajax({
+            url: url,
+            type: 'GET',
+            data: data,
+            dataType: 'json'
+        })
+            .done(function (response) {
+                var response = response['0']
+                var doctor = {
+                    doctor_name: response.provider.first_name + " " + response.provider.last_name,
+                    speciality: response.service.name
+                }
+                var formData = {
+                    doctor: doctor,
+                    appointment: response,
+                    customer: response.customer
+                }
+                var data = {
+                    post_data: formData
+                };
+                printTicket(data,response.hash,response.number_ticket)
             });
     };
 
@@ -396,6 +428,7 @@ window.FrontendBookApi = window.FrontendBookApi || {};
             .done(function (response) {
                 if (response == null) {
                     $('#appointment-message').empty()
+                    $('#button-reprint').prop('disabled', true)
                     $('#button-next-1').prop('disabled', true)
                     GeneralFunctions.displayMessageBox(EALang.message, EALang.patient_not_found);
                 } else if (response.length >= 1) {
@@ -404,6 +437,7 @@ window.FrontendBookApi = window.FrontendBookApi || {};
                     var appointmentDate = new Date(response.book_datetime)
                     if (compareDates(appointmentDate, new Date())) {
                         $('#appointment-message').append(getAppointmentFoundHTML(response.book_datetime, response.service.name, response.provider.first_name, response.provider.last_name))
+                        $('#button-reprint').prop('disabled', false)
                         $('#button-next-1').prop('disabled', true)
                     }
                 } else {
@@ -544,7 +578,7 @@ window.FrontendBookApi = window.FrontendBookApi || {};
         doc.addImage(base64Image, 'png', QRX, QRY, QRW, QRH);
         doc.setFontSize(fontSizeTitle)
         doc.text(dataStartX, dataStartY, 'Hospital Clínico Viedma');
-        doc.text(dataStartX+240, dataStartY, 'Ficha Nº:'+number);
+        doc.text(dataStartX + 240, dataStartY, 'Ficha Nº:' + number);
         doc.setFontSize(fontSizeSubTitle)
         doc.text(dataStartX, fontSubTitleStartYPos, EALang.attention_date);
         doc.text(dataStartX + 150, fontSubTitleStartYPos, EALang.user_id);
@@ -559,7 +593,7 @@ window.FrontendBookApi = window.FrontendBookApi || {};
         doc.text(dataStartX, fontTextStartYPos += (fontSizeSubTitle + fontTextSize + fontSubTitleSpace), customer.first_name);
         doc.text(dataStartX, fontTextStartYPos += fontTextSize, customer.last_name);
         doc.setFontSize(fontSizeSubTitle);
-        doc.text(logoposX,fontTextStartYPos += fontFinalTextSize + 15, EALang.admision);
+        doc.text(logoposX, fontTextStartYPos += fontFinalTextSize + 15, EALang.admision);
         //recomendacion
         doc.setFontSize(fontFinalTextSize)
         doc.text(logoposX, fontTextStartYPos += fontFinalTextSize + 10, EALang.ticket_recomendation_first);
@@ -580,10 +614,10 @@ window.FrontendBookApi = window.FrontendBookApi || {};
         doc.text(logoposX, fontTextStartYPos += fontFinalTextSize + 15, EALang.peso);
         doc.text(vitalSignsXpos2 += fontVitalSigns, fontTextStartYPos, EALang.talla);
 
-        doc.text(logoposX, fontTextStartYPos += fontFinalTextSize + 15 , EALang.sintomas_covid);
+        doc.text(logoposX, fontTextStartYPos += fontFinalTextSize + 15, EALang.sintomas_covid);
         doc.text(vitalSignsXpos2 += fontVitalSigns, fontTextStartYPos, EALang.otros);
-        
-        doc.text(logoposX, fontTextStartYPos += fontFinalTextSize + 15 , EALang.vacunado);
+
+        doc.text(logoposX, fontTextStartYPos += fontFinalTextSize + 15, EALang.vacunado);
         doc.text(vitalSignsXpos3 += fontVitalSigns + 60, fontTextStartYPos, EALang.dosis);
         doc.save('ficha.pdf');
     }
