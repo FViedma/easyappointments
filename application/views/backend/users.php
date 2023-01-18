@@ -565,7 +565,7 @@
 
                             <br>
 
-                            <h4><?= lang('providers') ?></h4>
+                            <h4><?= lang('providers') ?></h4><input id="select-all-chkbx" name="select-all-chkbx" type="checkbox"><?= lang('select_all') ?></input>
                             <div id="secretary-providers" class="card card-body bg-light border-light"></div>
                         </div>
                     </div>
