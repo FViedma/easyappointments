@@ -302,7 +302,13 @@ window.FrontendBook = window.FrontendBook || {};
                 FrontendBookApi.getPatientByCI(ci, complement);
             }
         });
-
+        
+        $('#button-reprint').on('click', function() {
+            var ci = $('#patient-ci').val();
+            var complement = $('#complement').val();
+            var booking_date = $('#book_datetime').val();
+            FrontendBookApi.reprintTicket(ci,complement);
+        });
         /**
          * Event: Next Step Button "Clicked"
          *
@@ -531,10 +537,14 @@ window.FrontendBook = window.FrontendBook || {};
                 missingRequiredField = true;
             }
             if (missingRequiredField) {
+                $('#appointment-message').empty()
+                $('#button-reprint').prop('disabled',true)
                 throw new Error(EALang.fields_are_required);
             }
             if (!GeneralFunctions.validateNumber($('#patient-ci').val())) {
                 $('#patient-ci').parents('.form-group').addClass('has-error');
+                $('#appointment-message').empty()
+                $('#button-reprint').prop('disabled',true)
                 throw new Error(EALang.invalid_ci_number);
             }
             return true;

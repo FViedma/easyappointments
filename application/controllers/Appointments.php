@@ -482,10 +482,11 @@ class Appointments extends EA_Controller {
 
             $appointment['id_users_customer'] = $customer_id;
             $appointment['is_unavailable'] = (int)$appointment['is_unavailable']; // needs to be type casted
+            //Numero de ficha, basado en la cantidad de reservas hechas para el medico en esa fecha sumado +1
+            $appointment_number = $this->appointments_model->get_appointment_number($provider['id'],substr($appointment['start_datetime'],0,10)) + 1;
+            $appointment['number_ticket'] = $appointment_number;
             $appointment['id'] = $this->appointments_model->add($appointment);
             $appointment['hash'] = $this->appointments_model->get_value('hash', $appointment['id']);
-            //Numero de ficha
-            $appointment_number = $this->appointments_model->get_appointment_number($provider['id'],substr($appointment['start_datetime'],0,10));
             $settings = [
                 'company_name' => $this->settings_model->get_setting('company_name'),
                 'company_link' => $this->settings_model->get_setting('company_link'),

@@ -523,7 +523,6 @@ window.BackendCalendarDefaultView = window.BackendCalendarDefaultView || {};
                 ? 'mr-2' : 'd-none';
             displayDelete = (GlobalVariables.user.privileges.appointments.delete === true)
                 ? 'mr-2' : 'd-none';
-            console.log(event)
             $html = $('<div/>', {
                 'html': [
                     $('<strong/>', {

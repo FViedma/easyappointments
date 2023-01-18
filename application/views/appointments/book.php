@@ -127,9 +127,24 @@
                             </div>
                         </div>
 
-                        <div id="form-message">
+                        <div class="row frame-content">
+                            <div class="col-12 col-md-12">
+                                <div class="form-group">
+                                    <div id="form-message">
+                                    </div>
+                                    <div id="appointment-message">
+                                        <!-- dinamic content -->
+                                    </div>
+                                </div>
+                            </div>
                         </div>
-                        <div id="appointment-message">
+
+                        <div class="row frame-content">
+                            <div class="col-12 col-md-6">
+                                <div class="form-group">
+                                    <button type="button" id="button-reprint" class="btn button-verify btn-success" disabled><?= lang('reprint') ?> <i class="fas fa-print ml-2"></i></button>
+                                </div>
+                            </div>
                         </div>
                         <input type="text" id="nombre_paciente" class="form-control" style="visibility: hidden" />
                         <input type="text" id="ape_paciente" class="form-control" style="visibility: hidden" />

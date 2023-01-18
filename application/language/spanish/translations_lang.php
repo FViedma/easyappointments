@@ -386,3 +386,4 @@ $lang['otros'] = 'OTROS:';
 $lang['vacunado'] = 'VACUNADO: SI ...... NO ......';
 $lang['dosis'] = 'DOSIS:';
 $lang['admision'] = 'Horario de Admision en la Mañana desde las 6:00 AM y en la tarde desde las 12:30 PM';
+$lang['reprint'] = 'Reimprimir Ficha';
