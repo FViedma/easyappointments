@@ -194,6 +194,22 @@
                 this.select(id, true);
             }
         }.bind(this));
+        
+        /**
+         * Event: Select all providers
+        */
+        $('#secretaries').on('click', '#select-all-chkbx', function () {
+            var selected = $('#select-all-chkbx')
+            if(selected.prop('checked')){
+                $('#secretary-providers input:checkbox').each(function (index, checkbox) {
+                    $(checkbox).prop('checked',true)
+                });
+            } else {
+                $('#secretary-providers input:checkbox').each(function (index, checkbox) {
+                    $(checkbox).prop('checked',false)
+                });
+            }
+        }.bind(this));
     };
 
     /**
