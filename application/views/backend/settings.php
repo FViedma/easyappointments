@@ -13,6 +13,7 @@
         timeFormat: <?= json_encode($time_format) ?>,
         userSlug: <?= json_encode($role_slug) ?>,
         timezones: <?= json_encode($timezones) ?>,
+        providers: <?= json_encode($providers) ?>,
         settings: {
             system: <?= json_encode($system_settings) ?>,
             user: <?= json_encode($user_settings) ?>
@@ -26,29 +27,29 @@
         }
     };
 
-    $(function () {
+    $(function() {
         BackendSettings.initialize(true);
     });
 </script>
 
 <div id="settings-page" class="container-fluid backend-page">
     <ul class="nav nav-pills">
-        <?php if ($privileges[PRIV_SYSTEM_SETTINGS]['view'] == TRUE): ?>
+        <?php if ($privileges[PRIV_SYSTEM_SETTINGS]['view'] == TRUE) : ?>
             <li class="nav-item">
                 <a class="nav-link" href="#general" data-toggle="tab"><?= lang('general') ?></a>
             </li>
         <?php endif ?>
-        <?php if ($privileges[PRIV_SYSTEM_SETTINGS]['view'] == TRUE): ?>
+        <?php if ($privileges[PRIV_SYSTEM_SETTINGS]['view'] == TRUE) : ?>
             <li class="nav-item">
                 <a class="nav-link" href="#business-logic" data-toggle="tab"><?= lang('business_logic') ?></a>
             </li>
         <?php endif ?>
-        <?php if ($privileges[PRIV_SYSTEM_SETTINGS]['view'] == TRUE): ?>
+        <?php if ($privileges[PRIV_SYSTEM_SETTINGS]['view'] == TRUE) : ?>
             <li class="nav-item">
                 <a class="nav-link" href="#legal-contents" data-toggle="tab"><?= lang('legal_contents') ?></a>
             </li>
         <?php endif ?>
-        <?php if ($privileges[PRIV_USER_SETTINGS]['view'] == TRUE): ?>
+        <?php if ($privileges[PRIV_USER_SETTINGS]['view'] == TRUE) : ?>
             <li class="nav-item">
                 <a class="nav-link" href="#current-user" data-toggle="tab"><?= lang('current_user') ?></a>
             </li>
@@ -68,9 +69,8 @@
                 <fieldset>
                     <legend class="border-bottom mb-4">
                         <?= lang('general_settings') ?>
-                        <?php if ($privileges[PRIV_SYSTEM_SETTINGS]['edit'] == TRUE): ?>
-                            <button type="button" class="save-settings btn btn-primary btn-sm mb-2"
-                                    data-tippy-content="<?= lang('save') ?>">
+                        <?php if ($privileges[PRIV_SYSTEM_SETTINGS]['edit'] == TRUE) : ?>
+                            <button type="button" class="save-settings btn btn-primary btn-sm mb-2" data-tippy-content="<?= lang('save') ?>">
                                 <i class="fas fa-check-square mr-2"></i>
                                 <?= lang('save') ?>
                             </button>
@@ -149,8 +149,7 @@
                             <div class="form-group">
                                 <label for="google-analytics-code">
                                     Google Analytics ID</label>
-                                <input id="google-analytics-code" placeholder="UA-XXXXXXXX-XX"
-                                       data-field="google_analytics_code" class="form-control">
+                                <input id="google-analytics-code" placeholder="UA-XXXXXXXX-XX" data-field="google_analytics_code" class="form-control">
                                 <span class="help-block">
                                     <?= lang('google_analytics_code_hint') ?>
                                 </span>
@@ -221,9 +220,8 @@
                 <fieldset>
                     <legend class="border-bottom mb-4">
                         <?= lang('business_logic') ?>
-                        <?php if ($privileges[PRIV_SYSTEM_SETTINGS]['edit'] == TRUE): ?>
-                            <button type="button" class="save-settings btn btn-primary btn-sm mb-2"
-                                    data-tippy-content="<?= lang('save') ?>">
+                        <?php if ($privileges[PRIV_SYSTEM_SETTINGS]['edit'] == TRUE) : ?>
+                            <button type="button" class="save-settings btn btn-primary btn-sm mb-2" data-tippy-content="<?= lang('save') ?>">
                                 <i class="fas fa-check-square mr-2"></i>
                                 <?= lang('save') ?>
                             </button>
@@ -239,11 +237,11 @@
 
                             <table class="working-plan table table-striped">
                                 <thead>
-                                <tr>
-                                    <th><?= lang('day') ?></th>
-                                    <th><?= lang('start') ?></th>
-                                    <th><?= lang('end') ?></th>
-                                </tr>
+                                    <tr>
+                                        <th><?= lang('day') ?></th>
+                                        <th><?= lang('start') ?></th>
+                                        <th><?= lang('end') ?></th>
+                                    </tr>
                                 </thead>
                                 <tbody><!-- Dynamic Content --></tbody>
                             </table>
@@ -257,16 +255,51 @@
 
                             <br>
 
-                            <h4><?= lang('book_advance_timeout') ?></h4>
-                            <div class="form-group">
-                                <label for="book-advance-timeout"
-                                       class="control-label"><?= lang('timeout_minutes') ?></label>
-                                <input id="book-advance-timeout" data-field="book_advance_timeout" class="form-control"
-                                       type="number" min="15">
-                                <p class="form-text text-muted">
-                                    <?= lang('book_advance_timeout_hint') ?>
-                                </p>
+                            <h4><?= lang('holydays') ?></h4>
+                            <span class="form-text text-muted">
+                                <?= lang('holydays_hint') ?>
+                            </span>
+                            <div class="col-12">
+                                <div class="mt-2">
+                                    <div class="row">
+                                        <div class="col-6">
+                                            <button type="button" class="add-holyday btn btn-primary">
+                                                <i class="fas fa-plus-square"></i>
+                                                <?= lang('add_holyday'); ?>
+                                            </button>
+                                        </div>
+                                        <div class="col-2">
+                                            <label> <?= lang('year') ?></label>
+                                        </div>
+                                        <div class="col-4">
+                                            <div class="form-group">
+                                                <select class="form-control" id="year" data-field="year">
+                                                    <?php
+                                                    for ($i = 2020; $i <= date("Y"); $i++) {
+                                                        echo "<option value=" . $i . ">" . $i . "</option>";
+                                                    }
+                                                    ?>
+                                                </select>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
                             </div>
+
+                            <br>
+
+                            <table class="holydays table table-striped">
+                                <thead>
+                                    <tr>
+                                        <th><?= lang('doctor') ?></th>
+                                        <th><?= lang('start') ?></th>
+                                        <th><?= lang('end') ?></th>
+                                        <th><?= lang('reason') ?></th>
+                                        <th><?= lang('actions') ?></th>
+                                    </tr>
+                                </thead>
+                                <tbody><!-- Dynamic Content --></tbody>
+                            </table>
                         </div>
                         <div class="col-12 col-sm-5 breaks-wrapper">
                             <h4><?= lang('breaks') ?></h4>
@@ -286,28 +319,34 @@
 
                             <table class="breaks table table-striped">
                                 <thead>
-                                <tr>
-                                    <th><?= lang('day') ?></th>
-                                    <th><?= lang('start') ?></th>
-                                    <th><?= lang('end') ?></th>
-                                    <th><?= lang('actions') ?></th>
-                                </tr>
+                                    <tr>
+                                        <th><?= lang('day') ?></th>
+                                        <th><?= lang('start') ?></th>
+                                        <th><?= lang('end') ?></th>
+                                        <th><?= lang('actions') ?></th>
+                                    </tr>
                                 </thead>
                                 <tbody><!-- Dynamic Content --></tbody>
                             </table>
 
-                            <h4><?= lang('max_reservation_period')?></h4>
+                            <h4><?= lang('max_reservation_period') ?></h4>
                             <span class="form-text text-muted">
                                 <?= lang('max_reservation_period_hint') ?>
                             </span>
                             <div class="form-group">
-                                <label for="max-reservation-period"
-                                       class="control-label"><?= lang('reservation_period_days') ?></label>
-                                <input id="max-reservation-period" data-field="max_reservation_period" class="form-control"
-                                       type="number" step="5" min="10">
+                                <label for="max-reservation-period" class="control-label"><?= lang('reservation_period_days') ?></label>
+                                <input id="max-reservation-period" data-field="max_reservation_period" class="form-control" type="number" step="5" min="10">
                             </div>
-                        </div>                     
-                        
+
+                            <h4><?= lang('book_advance_timeout') ?></h4>
+                            <div class="form-group">
+                                <label for="book-advance-timeout" class="control-label"><?= lang('timeout_minutes') ?></label>
+                                <input id="book-advance-timeout" data-field="book_advance_timeout" class="form-control" type="number" min="15">
+                                <p class="form-text text-muted">
+                                    <?= lang('book_advance_timeout_hint') ?>
+                                </p>
+                            </div>
+                        </div>
                     </div>
                 </fieldset>
             </form>
@@ -321,9 +360,8 @@
                 <fieldset>
                     <legend class="border-bottom mb-4">
                         <?= lang('legal_contents') ?>
-                        <?php if ($privileges[PRIV_SYSTEM_SETTINGS]['edit'] == TRUE): ?>
-                            <button type="button" class="save-settings btn btn-primary btn-sm mb-2"
-                                    data-tippy-content="<?= lang('save') ?>">
+                        <?php if ($privileges[PRIV_SYSTEM_SETTINGS]['edit'] == TRUE) : ?>
+                            <button type="button" class="save-settings btn btn-primary btn-sm mb-2" data-tippy-content="<?= lang('save') ?>">
                                 <i class="fas fa-check-square mr-2"></i>
                                 <?= lang('save') ?>
                             </button>
@@ -355,8 +393,7 @@
                             <div class="form-group">
                                 <div class="form-group">
                                     <div class="custom-control custom-checkbox">
-                                        <input class="custom-control-input" type="checkbox"
-                                               id="display-terms-and-conditions">
+                                        <input class="custom-control-input" type="checkbox" id="display-terms-and-conditions">
                                         <label class="custom-control-label" for="display-terms-and-conditions">
                                             <?= lang('display_terms_and_conditions') ?>
                                         </label>
@@ -366,8 +403,7 @@
 
                             <div class="form-group">
                                 <label><?= lang('terms_and_conditions_content') ?></label>
-                                <textarea id="terms-and-conditions-content" cols="30" rows="10"
-                                          class="form-group"></textarea>
+                                <textarea id="terms-and-conditions-content" cols="30" rows="10" class="form-group"></textarea>
                             </div>
 
                             <h4><?= lang('privacy_policy') ?></h4>
@@ -402,9 +438,8 @@
                     <fieldset class="col-12 col-sm-6 personal-info-wrapper">
                         <legend class="border-bottom mb-4">
                             <?= lang('personal_information') ?>
-                            <?php if ($privileges[PRIV_USER_SETTINGS]['edit'] == TRUE): ?>
-                                <button type="button" class="save-settings btn btn-primary btn-sm mb-2"
-                                        data-tippy-content="<?= lang('save') ?>">
+                            <?php if ($privileges[PRIV_USER_SETTINGS]['edit'] == TRUE) : ?>
+                                <button type="button" class="save-settings btn btn-primary btn-sm mb-2" data-tippy-content="<?= lang('save') ?>">
                                     <i class="fas fa-check-square mr-2"></i>
                                     <?= lang('save') ?>
                                 </button>
@@ -479,8 +514,7 @@
 
                         <div class="form-group">
                             <label for="retype-password"><?= lang('retype_password') ?></label>
-                            <input type="password" id="retype-password" class="form-control"
-                                   autocomplete="new-password">
+                            <input type="password" id="retype-password" class="form-control" autocomplete="new-password">
                         </div>
 
                         <div class="form-group">
@@ -519,7 +553,7 @@
             <div class="current-version card card-body bg-light border-light mb-3">
                 <?= lang('current_version') ?>
                 <?= config('version') ?>
-                <?php if (config('release_label')): ?>
+                <?php if (config('release_label')) : ?>
                     - <?= config('release_label') ?>
                 <?php endif ?>
             </div>

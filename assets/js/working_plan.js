@@ -285,6 +285,114 @@
     };
 
     /**
+    * Enable editable doctor.
+    *
+    * This method makes editable the doctors cells.
+    *
+    * @param {Object} $selector The jquery selector ready for use.
+    */
+    WorkingPlan.prototype.editableDoctorCell = function ($selector) {
+        var doctors = {};
+        doctors[0] = EALang.all; //'All';
+        GlobalVariables.providers.forEach(function (element) {
+            doctors[element.id] = element.first_name + " " + element.last_name
+        });
+        $selector.editable(function (value, settings) {
+            return value;
+        }, {
+            type: 'select',
+            data: doctors,
+            event: 'edit',
+            height: '30px',
+            submit: '<button type="button" class="d-none submit-editable">Submit</button>',
+            cancel: '<button type="button" class="d-none cancel-editable">Cancel</button>',
+            onblur: 'ignore',
+            onreset: function (settings, td) {
+                if (!this.enableCancel) {
+                    return false; // disable ESC button
+                }
+            }.bind(this),
+            onsubmit: function (settings, td) {
+                if (!this.enableSubmit) {
+                    return false; // disable Enter button
+                }
+            }.bind(this)
+        });
+    };
+
+    /**
+ * Enable editable holyday date.
+ *
+ * This method makes editable the holyday date cells.
+ *
+ * @param {Object} $selector The jquery selector ready for use.
+ */
+    WorkingPlan.prototype.editableDateCell = function ($selector) {
+        $selector.editable(function (value, settings) {
+            // Do not return the value because the user needs to press the "Save" button.
+            return value;
+        }, {
+            event: 'edit',
+            height: '30px',
+            submit: $('<button/>', {
+                'type': 'button',
+                'class': 'd-none submit-editable',
+                'text': EALang.save
+            })
+                .get(0)
+                .outerHTML,
+            cancel: $('<button/>', {
+                'type': 'button',
+                'class': 'd-none cancel-editable',
+                'text': EALang.cancel
+            })
+                .get(0)
+                .outerHTML,
+            onblur: 'ignore',
+            onreset: function (settings, td) {
+                if (!this.enableCancel) {
+                    return false; // disable ESC button
+                }
+            }.bind(this),
+            onsubmit: function (settings, td) {
+                if (!this.enableSubmit) {
+                    return false; // disable Enter button
+                }
+            }.bind(this)
+        });
+    };
+
+    /**
+        * Enable editable reason.
+        *
+        * This method makes editable the reason cells.
+        *
+        * @param {Object} $selector The jquery selector ready for use.
+        */
+    WorkingPlan.prototype.editableReasonCell = function ($selector) {
+        $selector.editable(function (value, settings) {
+            return value;
+        }, {
+            type: 'text',
+            event: 'edit',
+            height: '30px',
+            submit: '<button type="button" class="d-none submit-editable">Submit</button>',
+            cancel: '<button type="button" class="d-none cancel-editable">Cancel</button>',
+            onblur: 'ignore',
+            onreset: function (settings, td) {
+                if (!this.enableCancel) {
+                    return false; // disable ESC button
+                }
+            }.bind(this),
+            onsubmit: function (settings, td) {
+                if (!this.enableSubmit) {
+                    return false; // disable Enter button
+                }
+            }.bind(this)
+        });
+    };
+
+    /**
      * Enable editable break time.
      *
      * This method makes editable the break time cells.
@@ -593,6 +701,201 @@
         $(document).on('click', '.delete-working-plan-exception', function () {
             $(this).closest('tr').remove();
         });
+
+        /**
+        * Event: Add Holyday Button "Click"
+        *
+        * A new row is added on the table and the user can enter the new holyday
+        * data. After that he can either press the save or cancel button.
+        */
+        $('.add-holyday').on('click', function () {
+            var dateFormat = 'yyyy-mm-dd';
+            var timeFormat = GlobalVariables.timeFormat === 'regular' ? 'h:mm tt' : 'HH:mm';
+            var actualDatetime = new Date()
+            var dateToday = actualDatetime.getFullYear() + "/" + actualDatetime.getMonth() + 1 + "/" + actualDatetime.getDate();
+            var $newHolyday = $('<tr/>', {
+                'html': [
+                    $('<td/>', {
+                        'class': 'holyday-doctor editable',
+                        'text': EALang.all
+                    }),
+                    $('<td/>', {
+                        'class': 'holyday-start editable',
+                        'text': dateToday + " " + Date.parse('00:00:00').toString(timeFormat)
+                    }),
+                    $('<td/>', {
+                        'class': 'holyday-end editable',
+                        'text': dateToday + " " + Date.parse('23:59:59').toString(timeFormat)
+                    }),
+                    $('<td/>', {
+                        'class': 'holyday-reason editable',
+                        'text': EALang.holyday
+                    }),
+                    $('<td/>', {
+                        'html': [
+                            $('<button/>', {
+                                'type': 'button',
+                                'class': 'btn btn-outline-secondary btn-sm edit-holyday',
+                                'title': EALang.edit,
+                                'html': [
+                                    $('<span/>', {
+                                        'class': 'fas fa-edit'
+                                    })
+                                ]
+                            }),
+                            $('<button/>', {
+                                'type': 'button',
+                                'class': 'btn btn-outline-secondary btn-sm delete-holyday',
+                                'title': EALang.delete,
+                                'html': [
+                                    $('<span/>', {
+                                        'class': 'fas fa-trash-alt'
+                                    })
+                                ]
+                            }),
+                            $('<button/>', {
+                                'type': 'button',
+                                'class': 'btn btn-outline-secondary btn-sm save-holyday d-none',
+                                'title': EALang.save,
+                                'html': [
+                                    $('<span/>', {
+                                        'class': 'fas fa-check-circle'
+                                    })
+                                ]
+                            }),
+                            $('<button/>', {
+                                'type': 'button',
+                                'class': 'btn btn-outline-secondary btn-sm cancel-holyday d-none',
+                                'title': EALang.cancel,
+                                'html': [
+                                    $('<span/>', {
+                                        'class': 'fas fa-ban'
+                                    })
+                                ]
+                            })
+                        ]
+                    })
+                ]
+            })
+                .appendTo('.holydays tbody');
+
+            // Bind editable and event handlers.
+            this.editableDoctorCell($newHolyday.find('.holyday-doctor'));
+            this.editableDateCell($newHolyday.find('.holyday-start, .holyday-end'));
+            this.editableReasonCell($newHolyday.find('.holyday-reason'));
+            $newHolyday.find('.edit-holyday').trigger('click');
+            $('.add-holyday').prop('disabled', true);
+        }.bind(this));
+
+        /**
+      * Event: Edit Holyday Button "Click"
+      *
+      * Enables the row editing for the "Holydays" table rows.
+      */
+        $(document).on('click', '.edit-holyday', function () {
+            // Reset previous editable table cells.
+            var $previousEdits = $(this).closest('table').find('.editable');
+            var weekDayId = GeneralFunctions.getWeekDayId(GlobalVariables.firstWeekday);
+            $previousEdits.each(function (index, editable) {
+                if (editable.reset) {
+                    editable.reset();
+                }
+            });
+
+            // Make all cells in current row editable.
+            $(this).parent().parent().children().trigger('edit');
+            $(this).parent().parent().find('.holyday-start input, .holyday-end input').datepicker({
+                dateFormat: 'dd-mm-yy',
+                firstDay: weekDayId,
+                minDate: 0,
+                defaultDate: Date.today(),
+                dayNames: [
+                    EALang.sunday, EALang.monday, EALang.tuesday, EALang.wednesday,
+                    EALang.thursday, EALang.friday, EALang.saturday],
+                dayNamesShort: [EALang.sunday.substr(0, 3), EALang.monday.substr(0, 3),
+                EALang.tuesday.substr(0, 3), EALang.wednesday.substr(0, 3),
+                EALang.thursday.substr(0, 3), EALang.friday.substr(0, 3),
+                EALang.saturday.substr(0, 3)],
+                dayNamesMin: [EALang.sunday.substr(0, 2), EALang.monday.substr(0, 2),
+                EALang.tuesday.substr(0, 2), EALang.wednesday.substr(0, 2),
+                EALang.thursday.substr(0, 2), EALang.friday.substr(0, 2),
+                EALang.saturday.substr(0, 2)],
+                monthNames: [EALang.january, EALang.february, EALang.march, EALang.april,
+                EALang.may, EALang.june, EALang.july, EALang.august, EALang.september,
+                EALang.october, EALang.november, EALang.december],
+                prevText: EALang.previous,
+                nextText: EALang.next,
+                currentText: EALang.now,
+                closeText: EALang.close,
+            });
+            $(this).parent().parent().find('.holyday-doctor select').focus();
+
+            // Show save - cancel buttons.
+            var $tr = $(this).closest('tr');
+            $tr.find('.edit-holyday, .delete-holyday').addClass('d-none');
+            $tr.find('.save-holyday, .cancel-holyday').removeClass('d-none');
+            $tr.find('select,input:text').addClass('form-control input-sm')
+
+            $('.add-holyday').prop('disabled', true);
+        });
+
+        /**
+           * Event: Cancel Holyday Button "Click"
+           *
+           * Bring the ".holydays" table back to its initial state.
+           *
+           * @param {jQuery.Event} event
+           */
+        $(document).on('click', '.cancel-holyday', function (event) {
+            var element = event.target;
+            var $modifiedRow = $(element).closest('tr');
+            this.enableCancel = true;
+            $modifiedRow.find('.cancel-editable').trigger('click');
+            this.enableCancel = false;
+
+            $(element).closest('table').find('.edit-holyday, .delete-holyday').removeClass('d-none');
+            $modifiedRow.find('.save-holyday, .cancel-holyday').addClass('d-none');
+            $('.add-holyday').prop('disabled', false);
+        }.bind(this));
+
+        /**
+         * Event: Delete Break Button "Click"
+         *
+         * Removes the current line from the "Breaks" table.
+         */
+        $(document).on('click', '.delete-holyday', function () {
+            $(this).parent().parent().remove();
+        });
+
+        /**
+         * Event: Save Break Button "Click"
+         *
+         * Save the editable values and restore the table to its initial state.
+         *
+         * @param {jQuery.Event} e
+         */
+        $(document).on('click', '.save-holyday', function (event) {
+            // Holyday's start time must always be prior to Holyday's end.
+            var element = event.target;
+            var $modifiedRow = $(element).closest('tr');
+            var start = Date.parse($modifiedRow.find('.holyday-start input').val());
+            var end = Date.parse($modifiedRow.find('.holyday-end input').val());
+
+            if (start > end) {
+                $modifiedRow.find('.holyday-end input').val(start.addHours(1).toString(GlobalVariables.timeFormat === 'regular' ? 'h:mm tt' : 'HH:mm'));
+            }
+            this.enableSubmit = true;
+            $modifiedRow.find('.editable .submit-editable').trigger('click');
+            this.enableSubmit = false;
+
+            $modifiedRow.find('.save-holyday, .cancel-holyday').addClass('d-none');
+            $(element).closest('table').find('.edit-holyday, .delete-holyday').removeClass('d-none');
+            $('.add-holyday').prop('disabled', false);
+
+            // Refresh working plan to have the new break sorted in the break list.
+            var workingPlan = this.get();
+            this.setup(workingPlan);
+        }.bind(this));
     };
 
     /**
