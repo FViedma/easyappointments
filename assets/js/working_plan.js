@@ -893,8 +893,9 @@
             $('.add-holyday').prop('disabled', false);
 
             // Refresh working plan to have the new break sorted in the break list.
-            var workingPlan = this.get();
-            this.setup(workingPlan);
+            // use another refresher since this should be stored directly in the DB
+            // var workingPlan = this.get();
+            // this.setup(workingPlan);
         }.bind(this));
     };
 
