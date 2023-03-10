@@ -172,9 +172,10 @@ window.BackendCalendarApi = window.BackendCalendarApi || {};
                         while (index < response.length) {
                             var numCI = response[index].HCL_NUMCI.replace(regex, '')
                             if (numCI == patientCI) {
-                                $('#first-name').val(response[index].HCL_NOMBRE)
-                                $('#last-name').val(response[index].HCL_APPAT + " " + response[index].HCL_APMAT)
-                                $('#clinical-story').val(response[index].HCL_CODIGO)
+                                $('#first-name').val(response[index].HCL_NOMBRE);
+                                $('#last-name').val(response[index].HCL_APPAT + " " + response[index].HCL_APMAT);
+                                $('#clinical-story').val(response[index].HCL_CODIGO);
+                                $('#phone-number').val(response[index].HCL_TELDOM);
                                 $('#save-appointment').prop('disabled', false)
                                 break;
                             }
