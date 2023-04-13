@@ -3,6 +3,8 @@
 <script src="<?= asset_url('assets/ext/jquery-fullcalendar/fullcalendar.min.js') ?>"></script>
 <script src="<?= asset_url('assets/ext/jquery-jeditable/jquery.jeditable.min.js') ?>"></script>
 <script src="<?= asset_url('assets/ext/jquery-ui/jquery-ui-timepicker-addon.min.js') ?>"></script>
+<script src="<?= asset_url('assets/ext/qrious/qrious.min.js') ?>"></script>
+<script src="<?= asset_url('assets/ext/jsPDF/dist/jspdf.min.js') ?>"></script>
 <script src="<?= asset_url('assets/js/working_plan_exceptions_modal.js') ?>"></script>
 <script src="<?= asset_url('assets/js/backend_calendar.js') ?>"></script>
 <script src="<?= asset_url('assets/js/backend_calendar_default_view.js') ?>"></script>
@@ -27,7 +29,7 @@
         availableMedicalCenters: <?= json_encode($available_medical_centers) ?>,
         calendarView: <?= json_encode($calendar_view) ?>,
         timezones: <?= json_encode($timezones) ?>,
-        user_display_name:<?= json_encode($user_display_name)?>,
+        user_display_name: <?= json_encode($user_display_name) ?>,
         user: {
             id: <?= $user_id ?>,
             email: <?= json_encode($user_email) ?>,
@@ -50,7 +52,8 @@
                 </select>
             </div>
         </div>
-
+        <img id="qr_code" hidden>
+        </img>
         <div id="calendar-actions" class="col-12 col-sm-7">
             <?php if (($role_slug == DB_SLUG_ADMIN || $role_slug == DB_SLUG_PROVIDER)
                 && config('google_sync_feature') == TRUE
@@ -206,7 +209,7 @@
                                     <select id="select-provider" class="required form-control"></select>
                                 </div>
                                 <div class="form-group">
-                                    <h5><?= lang('reference_label')?></h5>
+                                    <h5><?= lang('reference_label') ?></h5>
                                 </div>
                                 <div class="form-group">
                                     <label for="appointment-select-municipality" class="control-label">

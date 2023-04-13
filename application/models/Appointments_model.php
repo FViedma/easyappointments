@@ -188,7 +188,7 @@ class Appointments_model extends EA_Model {
      *
      * @throws Exception If appointment record could not be updated.
      */
-    protected function update($appointment)
+    public function update($appointment)
     {
         $this->db->where('id', $appointment['id']);
         if ( ! $this->db->update('appointments', $appointment))

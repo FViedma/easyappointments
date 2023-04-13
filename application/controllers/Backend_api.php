@@ -262,6 +262,10 @@ class Backend_api extends EA_Controller
 
             $appointment = $this->appointments_model->get_row($appointment['id']);
             $provider = $this->providers_model->get_row($appointment['id_users_provider']);
+            //Numero de ficha, basado en la cantidad de reservas hechas para el medico en esa fecha sumado +1
+            $appointment_number = $this->appointments_model->get_appointment_number($provider['id'],substr($appointment['start_datetime'],0,10));
+            $appointment['number_ticket'] = $appointment_number;
+            $this->appointments_model->update($appointment);
             $customer = $this->customers_model->get_row($appointment['id_users_customer']);
             $service = $this->services_model->get_row($appointment['id_services']);
 
@@ -272,11 +276,11 @@ class Backend_api extends EA_Controller
                 'date_format' => $this->settings_model->get_setting('date_format'),
                 'time_format' => $this->settings_model->get_setting('time_format')
             ];
-
+            
             $this->synchronization->sync_appointment_saved($appointment, $service, $provider, $customer, $settings, $manage_mode);
             $this->notifications->notify_appointment_saved($appointment, $service, $provider, $customer, $settings, $manage_mode);
 
-            $response = AJAX_SUCCESS;
+            $response = ['status'=>AJAX_SUCCESS, $appointment, $provider,$customer,$service, 'number_ticket'=>$appointment_number];
         } catch (Exception $exception) {
             $this->output->set_status_header(500);
 
