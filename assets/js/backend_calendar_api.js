@@ -247,7 +247,7 @@ window.BackendCalendarApi = window.BackendCalendarApi || {};
         new QRious({
             element: document.querySelector("#qr_code"),
             value: appointment.hash, // La URL o el texto
-            size: 200,
+            size: 100,
             backgroundAlpha: 0, // 0 para fondo transparente
             foreground: "#000000", // Color del QR
             level: "H", // Puede ser L,M,Q y H (L es el de menor nivel, H el mayor)
@@ -300,7 +300,7 @@ window.BackendCalendarApi = window.BackendCalendarApi || {};
         doc.line(topLineX, topLineY, 200, topLineY);
         //codigo QR
         // doc.text(pageMarginX + 45, pageMarginY + 65, EALang.qr_code);
-        doc.addImage(imgQRBorder, 'png', QRBorderX, QRBorderY, imageBorderW, imageBorderH);
+        //doc.addImage(imgQRBorder, 'png', QRBorderX, QRBorderY, imageBorderW, imageBorderH);
         doc.addImage(base64Image, 'png', QRX, QRY, QRW, QRH);
         doc.setFontSize(fontSizeTitle)
         doc.text(dataStartX, dataStartY, 'Hospital Clínico Viedma');
