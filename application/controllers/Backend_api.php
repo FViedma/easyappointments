@@ -263,7 +263,10 @@ class Backend_api extends EA_Controller
             $appointment = $this->appointments_model->get_row($appointment['id']);
             $provider = $this->providers_model->get_row($appointment['id_users_provider']);
             //Numero de ficha, basado en la cantidad de reservas hechas para el medico en esa fecha sumado +1
-            $appointment_number = $this->appointments_model->get_appointment_number($provider['id'],substr($appointment['start_datetime'],0,10));
+            $appointment_number = $this->appointments_model->get_appointment_number($appointment);
+            if ($appointment_number == 0) {
+                $appointment_number = $this->appointments_model->generate_appointment_number($provider['id'],substr($appointment['start_datetime'],0,10));
+            }
             $appointment['number_ticket'] = $appointment_number;
             $this->appointments_model->update($appointment);
             $customer = $this->customers_model->get_row($appointment['id_users_customer']);
