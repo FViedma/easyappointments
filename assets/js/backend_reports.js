@@ -59,7 +59,12 @@ window.BackendReports = window.BackendReports || {};
         $('.print-reports').on('click', function () {
             var selectedSpeciality = $('#select-service').val();
             var date = $('#select-date').val();
-            BackendReportsApi.getAppointmentsBySpecialities(selectedSpeciality, date);
+            var endDate = $('#select-date-end').val();
+            if (date <= endDate) {
+                BackendReportsApi.getAppointmentsBySpecialities(selectedSpeciality, date, endDate);
+            } else {
+                alert(EALang.dates_report_error);
+            }
         });
 
         $('#btn-query').on('click', function (event) {

@@ -265,7 +265,7 @@ class Backend_api extends EA_Controller
             //Numero de ficha, basado en la cantidad de reservas hechas para el medico en esa fecha sumado +1
             $appointment_number = $this->appointments_model->get_appointment_number($appointment);
             if ($appointment_number == 0) {
-                $appointment_number = $this->appointments_model->generate_appointment_number($provider['id'],substr($appointment['start_datetime'],0,10));
+                $appointment_number = $this->appointments_model->generate_appointment_number($provider['id'], substr($appointment['start_datetime'], 0, 10));
             }
             $appointment['number_ticket'] = $appointment_number;
             $this->appointments_model->update($appointment);
@@ -279,11 +279,11 @@ class Backend_api extends EA_Controller
                 'date_format' => $this->settings_model->get_setting('date_format'),
                 'time_format' => $this->settings_model->get_setting('time_format')
             ];
-            
+
             $this->synchronization->sync_appointment_saved($appointment, $service, $provider, $customer, $settings, $manage_mode);
             $this->notifications->notify_appointment_saved($appointment, $service, $provider, $customer, $settings, $manage_mode);
 
-            $response = ['status'=>AJAX_SUCCESS, $appointment, $provider,$customer,$service, 'number_ticket'=>$appointment_number];
+            $response = ['status' => AJAX_SUCCESS, $appointment, $provider, $customer, $service, 'number_ticket' => $appointment_number];
         } catch (Exception $exception) {
             $this->output->set_status_header(500);
 
@@ -1563,20 +1563,27 @@ class Backend_api extends EA_Controller
         try {
             $speciality_id = $this->input->get('speciality_value');
             $today_date = $this->input->get('date_value');
+            $end_date = $this->input->get('date_end');
             if ($speciality_id == 0) {
-                $where_clause = 'is_unavailable = 0 AND start_datetime LIKE "' . $today_date . '%"';
+                $where_clause = 'is_unavailable = 0 AND start_datetime BETWEEN "' . $today_date . '%" AND "' . $end_date . '"';
             } else {
                 $where_clause = 'id_services = ' . $speciality_id . '
-                AND is_unavailable = 0 AND start_datetime LIKE "' . $today_date . '%"';
+                AND is_unavailable = 0 AND start_datetime BETWEEN "' . $today_date . '%" AND "' . $end_date . '%"';
             }
+            //corrregir como se envian los datos y ver la forma de agregar el total del resultado
+            $response['data'] = $this->appointments_model->get_batch($where_clause);
 
-            $response = $this->appointments_model->get_batch($where_clause);
-
-            foreach ($response as &$appointment) {
+            foreach ($response['data'] as &$appointment) {
                 $appointment['doctor'] = $this->providers_model->get_row($appointment['id_users_provider']);
                 $appointment['speciality'] = $this->services_model->get_row($appointment['id_services']);
                 $appointment['patient'] = $this->customers_model->get_row($appointment['id_users_customer']);
             }
+            if (!empty($response['data'])) {
+                $response['quantity'] = count($response['data']);
+            } else {
+                $response['quantity'] = 0;
+            }
+
         } catch (Exception $exception) {
             $this->output->set_status_header(500);
 
@@ -1622,10 +1629,10 @@ class Backend_api extends EA_Controller
     {
         try {
             $appointmentHash = $this->input->get('hashCode');
-            
-            $where_clause = 'hash = ' . '\''.$appointmentHash.'\'';
+
+            $where_clause = 'hash = ' . '\'' . $appointmentHash . '\'';
             $response = $this->appointments_model->get_batch($where_clause, 1, null, "id DESC", true);
-            if(count($response) < 0) {
+            if (count($response) < 0) {
                 $response = AJAX_FAILURE;
             }
         } catch (Exception $exception) {

@@ -28,7 +28,7 @@ window.BackendReportsApi = window.BackendReportsApi || {};
      *
      * @param {int} id_specialiaty The selected speciality
      */
-    exports.getAppointmentsBySpecialities = function (id_specialiaty, date) {
+    exports.getAppointmentsBySpecialities = function (id_specialiaty, date, end) {
 
         // Make ajax post request and get the appointments
         var url = GlobalVariables.baseUrl + '/index.php/Backend_api/ajax_get_appointments_by_specialities';
@@ -36,7 +36,8 @@ window.BackendReportsApi = window.BackendReportsApi || {};
         var data = {
             csrfToken: GlobalVariables.csrfToken,
             speciality_value: id_specialiaty,
-            date_value: date
+            date_value: date,
+            date_end: end
         };
 
         $.ajax({
@@ -46,9 +47,10 @@ window.BackendReportsApi = window.BackendReportsApi || {};
             dataType: 'json'
         })
             .done(function (response) {
-                if (response.length > 0) {
-                    printReport(response);
+                if (response.data.length > 0) {
+                    printReport(response.data);
                 }
+                $('#quantity').val(response.quantity);
             });
     };
 

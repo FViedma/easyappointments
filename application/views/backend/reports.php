@@ -38,10 +38,30 @@
                         </select>
                     </div>
                     <div class="form-group">
-                        <label class="control-label" for="select-date">
-                            <?= lang('select_report_date') ?>
-                        </label>
-                        <input id="select-date" type="date" value="<?php echo date('Y-m-d'); ?>" />
+                        <div class="container">
+                            <div class="row">
+                                <div class="col">
+                                    <label class="control-label" for="select-date">
+                                        <?= lang('select_report_date') ?>
+                                    </label>
+                                    <input id="select-date" type="date" value="<?php echo date('Y-m-d'); ?>" />
+                                </div>
+                                <div class="col">
+                                    <label class="control-label" for="select-date-end">
+                                        <?= lang('select_report_date_end') ?>
+                                    </label>
+                                    <input id="select-date-end" type="date" value="<?php echo date('Y-m-d'); ?>" />
+                                </div>
+                            </div>
+                            <div class="row">
+                                <div class="col">
+                                    <label class="control-label" for="quantity">
+                                        <?= lang('quantity_appointments') ?>
+                                    </label>
+                                    <input type="number" name="quantity" id="quantity" placeholder="0" disabled>
+                                </div>
+                            </div>
+                        </div>
                     </div>
                     <div class="form-group">
                         <button type="button" class="print-reports btn btn-primary btn-sm mb-2" data-tippy-content="<?= lang('print') ?>">
