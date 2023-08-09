@@ -1565,10 +1565,10 @@ class Backend_api extends EA_Controller
             $today_date = $this->input->get('date_value');
             $end_date = $this->input->get('date_end');
             if ($speciality_id == 0) {
-                $where_clause = 'is_unavailable = 0 AND start_datetime BETWEEN "' . $today_date . '%" AND "' . $end_date . '"';
+                $where_clause = 'is_unavailable = 0 AND start_datetime >= "' . $today_date . '" AND start_datetime < DATE_ADD("' . $end_date . '", INTERVAL 1 DAY)';
             } else {
                 $where_clause = 'id_services = ' . $speciality_id . '
-                AND is_unavailable = 0 AND start_datetime BETWEEN "' . $today_date . '%" AND "' . $end_date . '%"';
+                AND is_unavailable = 0 AND start_datetime >= "' . $today_date . '" AND start_datetime < DATE_ADD("' . $end_date . '", INTERVAL 1 DAY)';
             }
             //corrregir como se envian los datos y ver la forma de agregar el total del resultado
             $response['data'] = $this->appointments_model->get_batch($where_clause);
@@ -1583,7 +1583,6 @@ class Backend_api extends EA_Controller
             } else {
                 $response['quantity'] = 0;
             }
-
         } catch (Exception $exception) {
             $this->output->set_status_header(500);
 
