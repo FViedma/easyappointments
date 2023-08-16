@@ -283,12 +283,12 @@
 
                                             foreach ($grouped_services as $key => $group) {
                                                 $group_label = ($key != 'uncategorized')
-                                                    ? $group[0]['category_name'] : 'Uncategorized';
-
+                                                ? $group[0]['category_name'] : 'Uncategorized';
+                                                $excluded_specialities = ['ECOGRAFÍA','ECOCARDIOGRAFIA','ELECTRODIAGNOSTICO'];
                                                 if (count($group) > 0) {
                                                     echo '<optgroup label="' . $group_label . '">';
                                                     foreach ($group as $service) {
-                                                        if ($service['name'] != 'ECOGRAFÍA') {
+                                                        if (!in_array($service['name'], $excluded_specialities)) {
                                                             echo '<option value="' . $service['id'] . '">'
                                                                 . $service['name'] . '</option>';
                                                         }
@@ -298,7 +298,7 @@
                                             }
                                         } else {
                                             foreach ($available_services as $service) {
-                                                if ($service['name'] != 'ECOGRAFÍA') {
+                                                if (!in_array($service['name'], $excluded_specialities)) {
                                                     echo '<option value="' . $service['id'] . '">' . $service['name'] . '</option>';
                                                 }
                                             }
