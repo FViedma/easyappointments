@@ -94,6 +94,41 @@ window.BackendReportsApi = window.BackendReportsApi || {};
                 }
             });
     };
+
+    /**
+     * Get Appointments by user
+     *
+     * This function makes an AJAX call and returns the appointments for the user
+     * selected
+     *
+     * @param {int} id_user The selected speciality
+     */
+    exports.getAppointmentsByUser = function (id_user, date, end) {
+
+        // Make ajax post request and get the appointments
+        var url = GlobalVariables.baseUrl + '/index.php/Backend_api/ajax_get_appointments_by_user';
+
+        var data = {
+            csrfToken: GlobalVariables.csrfToken,
+            user_value: id_user,
+            date_value: date,
+            date_end: end
+        };
+
+        $.ajax({
+            url: url,
+            type: 'GET',
+            data: data,
+            dataType: 'json'
+        })
+            .done(function (response) {
+                $('#users-quantity').val(response.quantity);
+            });
+    };
+
+
+
+
     exports.getAppointmentByQr = function (qrHashCode) {
         // Make ajax post request and get the appointments
         var url = GlobalVariables.baseUrl + '/index.php/Backend_api/ajax_get_appointment_by_qrHash';

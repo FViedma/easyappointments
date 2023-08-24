@@ -9,6 +9,7 @@
     var GlobalVariables = {
         csrfToken: <?= json_encode($this->security->get_csrf_hash()) ?>,
         availableServices: <?= json_encode($available_services) ?>,
+        availableUsers: <?= json_encode($available_users) ?>,
         baseUrl: <?= json_encode($base_url) ?>,
     };
 
@@ -71,8 +72,57 @@
                     </div>
                 </div>
             </div>
-            <h3><?= lang('by_ci') ?></h3>
 
+            <h3><?= lang('by_user') ?></h3>
+            <div class="col-12 col-md-8" style="margin-left: 0;">
+                <div class="form-group">
+                    <label class="control-label" for="select-user">
+                        <?= lang('users') ?>
+                    </label>
+                    <select id="select-user" class="form-control">
+                        <?php
+                        echo '<option value = "0">' . lang('all_users') . '</option>';
+                        foreach ($available_users as $user) {
+                            echo '<option value="' . $user['id'] . '">' . $user['first_name'] . " " . $user['last_name'] . '</option>';
+                        }
+                        ?>
+                    </select>
+                </div>
+                <div class="form-group">
+                    <div class="container">
+                        <div class="row">
+                            <div class="col">
+                                <label class="control-label" for="select-date">
+                                    <?= lang('select_report_date') ?>
+                                </label>
+                                <input id="select-date-user" type="date" value="<?php echo date('Y-m-d'); ?>" />
+                            </div>
+                            <div class="col">
+                                <label class="control-label" for="select-date-end">
+                                    <?= lang('select_report_date_end') ?>
+                                </label>
+                                <input id="select-date-end-user" type="date" value="<?php echo date('Y-m-d'); ?>" />
+                            </div>
+                        </div>
+                        <div class="row">
+                            <div class="col">
+                                <label class="control-label" for="quantity">
+                                    <?= lang('quantity_appointments') ?>
+                                </label>
+                                <input type="number" name="users-quantity" id="users-quantity" placeholder="0" disabled>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="form-group">
+                    <button id="btn-query-users" type="button" class="query-reports btn btn-primary btn-sm mb-2" data-tippy-content="<?= lang('query') ?>">
+                        <i class="fas fa-pager mr-2"></i>
+                        <?= lang('query') ?>
+                    </button>
+                </div>
+            </div>
+
+            <h3><?= lang('by_ci') ?></h3>
             <div class="row">
                 <div class="col-12 col-md-8" style="margin-left: 0;">
                     <div class="form-group">

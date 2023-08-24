@@ -189,6 +189,7 @@ class Backend extends EA_Controller {
             return;
         }
         $view['available_services'] = $this->services_model->get_batch();
+        $view['available_users'] = $this->user_model->get_user_secretaries();
         $view['base_url'] = config('base_url');
         $view['page_title'] = lang('reports');
         $view['user_display_name'] = $this->user_model->get_user_display_name($this->session->userdata('user_id'));

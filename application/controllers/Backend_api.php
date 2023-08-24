@@ -1570,7 +1570,6 @@ class Backend_api extends EA_Controller
                 $where_clause = 'id_services = ' . $speciality_id . '
                 AND is_unavailable = 0 AND start_datetime BETWEEN "' . $today_date . '%" AND "' . $end_date . '%"';
             }
-            //corrregir como se envian los datos y ver la forma de agregar el total del resultado
             $response['data'] = $this->appointments_model->get_batch($where_clause);
 
             foreach ($response['data'] as &$appointment) {
@@ -1578,6 +1577,40 @@ class Backend_api extends EA_Controller
                 $appointment['speciality'] = $this->services_model->get_row($appointment['id_services']);
                 $appointment['patient'] = $this->customers_model->get_row($appointment['id_users_customer']);
             }
+            if (!empty($response['data'])) {
+                $response['quantity'] = count($response['data']);
+            } else {
+                $response['quantity'] = 0;
+            }
+
+        } catch (Exception $exception) {
+            $this->output->set_status_header(500);
+
+            $response = [
+                'message' => $exception->getMessage(),
+                'trace' => config('debug') ? $exception->getTrace() : []
+            ];
+        }
+
+        $this->output
+            ->set_content_type('application/json')
+            ->set_output(json_encode($response));
+    }
+
+    public function ajax_get_appointments_by_user()
+    {
+        $where_clause = '';
+        try {
+            $user_id = $this->input->get('user_value');
+            $today_date = $this->input->get('date_value');
+            $end_date = $this->input->get('date_end');
+            if ($user_id == 0) {
+                $where_clause = 'is_unavailable = 0 AND book_datetime BETWEEN "' . $today_date . '%" AND "' . $end_date . '"';
+            } else {
+                $where_clause = 'user_id = ' . $user_id . '
+                AND is_unavailable = 0 AND book_datetime BETWEEN "' . $today_date . '%" AND "' . $end_date . '%"';
+            }
+            $response['data'] = $this->appointments_model->get_batch($where_clause);
             if (!empty($response['data'])) {
                 $response['quantity'] = count($response['data']);
             } else {
