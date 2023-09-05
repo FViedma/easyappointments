@@ -78,6 +78,18 @@ window.BackendReports = window.BackendReports || {};
             }
         });
 
+        $('#btn-query-users').on('click', function (event) {
+            event.preventDefault();
+            var selectedUser = $('#select-user').val();
+            var date = $('#select-date-user').val();
+            var endDate = $('#select-date-end-user').val();
+            if (date <= endDate) {
+                BackendReportsApi.getAppointmentsByUser(selectedUser, date, endDate);
+            } else {
+                alert(EALang.dates_report_error);
+            }
+        });
+
         var html5QrcodeScanner = new Html5QrcodeScanner(
             "reader", { fps: 10, qrbox: 250 });
         html5QrcodeScanner.render(onScanSuccess, onScanError);
@@ -115,9 +127,9 @@ window.BackendReports = window.BackendReports || {};
     function onScanSuccess(qrCodeMessage) {
         BackendReportsApi.getAppointmentByQr(qrCodeMessage);
     }
-    
+
     function onScanError(errorMessage) {
         alert(EALang.qr_error)
     }
-    
+
 })(window.BackendReports);

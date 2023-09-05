@@ -208,4 +208,20 @@ class User_model extends EA_Model {
 
         return $row ? $row['timezone'] : NULL;
     }
+
+    /**
+     * Get the list of a user secretaries.
+     *
+     * @param int $id Database ID of the user.
+     *
+     * @return string|null
+     */
+    public function get_user_secretaries()
+    {
+        $row = $this->db->get_where('users', ['id_roles' => 4])->result_array();
+
+        return $row ? $row : NULL;
+    }
+
+
 }
