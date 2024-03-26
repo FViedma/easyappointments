@@ -267,7 +267,7 @@ window.BackendCalendarApi = window.BackendCalendarApi || {};
         var QRBorderX = pageMarginX + 52;
         var QRBorderY = pageMarginY + 185;
         var QRX = pageMarginX + 63;
-        var QRY = pageMarginY + 195;
+        var QRY = pageMarginY + 180;
         var topLineX = pageMarginX + 10;
         var topLineY = pageMarginY;
 
@@ -322,12 +322,13 @@ window.BackendCalendarApi = window.BackendCalendarApi || {};
         doc.text(dataStartX, fontTextStartYPos += (fontSizeSubTitle + fontTextSize + fontSubTitleSpace), doctor_name);
         doc.text(dataStartX, fontTextStartYPos += (fontSizeSubTitle + fontTextSize + fontSubTitleSpace), customer.first_name);
         doc.text(dataStartX, fontTextStartYPos += fontTextSize, customer.last_name);
-        doc.text(dataStartX, fontTextStartYPos += (fontSizeSubTitle +fontTextSize+ fontSubTitleSpace), appointment.user_display_name);
-        doc.text(dataStartX, fontTextStartYPos += (fontSizeSubTitle + fontTextSize + fontSubTitleSpace), appointment.book_datetime);
+        doc.text(dataStartX, fontTextStartYPos += (fontSizeSubTitle +fontTextSize), appointment.user_display_name);
+        doc.text(dataStartX, fontTextStartYPos += (fontSizeSubTitle + fontTextSize), appointment.book_datetime);
         //texto horario admision
         doc.setFontSize(fontSizeSubTitle);
-        doc.text(logoposX, fontTextStartYPos += fontFinalTextSize + 100, EALang.FirstAdmisionSch);
-        doc.text(logoposX, fontTextStartYPos += fontFinalTextSize, EALang.SecondAdmisionSch);
+        doc.text((doc.internal.pageSize.getWidth()/2) - 80, fontTextStartYPos += fontFinalTextSize + 85, EALang.FirstAdmisionSch);
+        doc.text((doc.internal.pageSize.getWidth()/2) - 70, fontTextStartYPos += fontFinalTextSize, EALang.SecondAdmisionSch);
+        doc.text((doc.internal.pageSize.getWidth()/2) - 80, fontTextStartYPos += fontFinalTextSize, EALang.ThirdAdmisionSch);
         var bottomLineY = fontTextStartYPos += fontFinalTextSize;
         doc.line(logoposX, bottomLineY, 200, bottomLineY);
         doc.save('ficha.pdf');
