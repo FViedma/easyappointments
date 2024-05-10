@@ -99,7 +99,7 @@ class Appointments extends API_V1_Controller
         $is_unavailable = ($status === 'true') ? true : false;
         $current_datetime = date('Y-m-d 00:00:00');
         try {
-            $appointments = $this->appointments_model->get_batch(['is_unavailable' => $is_unavailable, 'start_datetime >= ' => $current_datetime], NULL, NULL, NULL, array_key_exists('aggregates', $_GET));
+            $appointments = $this->appointments_model->get_batch(['is_unavailable' => $is_unavailable, 'start_datetime >= ' => $current_datetime, 'notes not like ' => '%FERIADO%'], NULL, NULL, NULL, array_key_exists('aggregates', $_GET));
 
             $response = new Response($appointments);
 
