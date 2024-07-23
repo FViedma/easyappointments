@@ -147,7 +147,7 @@ window.FrontendBookApi = window.FrontendBookApi || {};
         }
 
         var formData = JSON.parse($('input[name="post_data"]').val());
-
+        console.log(formData);
         var data = {
             csrfToken: GlobalVariables.csrfToken,
             post_data: formData
@@ -575,7 +575,7 @@ window.FrontendBookApi = window.FrontendBookApi || {};
         doc.addImage(base64Image, 'png', QRX, QRY, QRW, QRH);
         doc.setFontSize(fontSizeTitle)
         doc.text(dataStartX, dataStartY, 'Hospital Clínico Viedma');
-        doc.text(dataStartX + 240, dataStartY, 'Ficha Nº:' + number);
+        // doc.text(dataStartX + 240, dataStartY, 'Ficha Nº:' + number);
         doc.setFontSize(fontSizeSubTitle)
         doc.text(dataStartX, fontSubTitleStartYPos, EALang.attention_date);
         doc.text(dataStartX + 150, fontSubTitleStartYPos, EALang.user_id);

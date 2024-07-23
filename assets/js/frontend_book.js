@@ -723,7 +723,7 @@ window.FrontendBook = window.FrontendBook || {};
         var doctor = GeneralFunctions.escapeHtml($('#doctor-name').val());
         var diagnostic = GeneralFunctions.escapeHtml($('#diagnostic').val());
         var service = GeneralFunctions.escapeHtml($('#select-service option:selected').text());
-        var provider = GeneralFunctions.escapeHtml($('#select-provider').text());
+        var provider = GeneralFunctions.escapeHtml($('#select-provider option:selected').text());
         $('#customer-details').empty();
 
         $('<div/>', {
