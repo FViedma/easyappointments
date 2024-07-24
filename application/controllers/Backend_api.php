@@ -263,11 +263,11 @@ class Backend_api extends EA_Controller
             $appointment = $this->appointments_model->get_row($appointment['id']);
             $provider = $this->providers_model->get_row($appointment['id_users_provider']);
             //Numero de ficha, basado en la cantidad de reservas hechas para el medico en esa fecha sumado +1
-            $appointment_number = $this->appointments_model->get_appointment_number($appointment);
-            if ($appointment_number == 0) {
-                $appointment_number = $this->appointments_model->generate_appointment_number($provider['id'], substr($appointment['start_datetime'], 0, 10));
-            }
-            $appointment['number_ticket'] = $appointment_number;
+            // $appointment_number = $this->appointments_model->get_appointment_number($appointment);
+            // if ($appointment_number == 0) {
+            //     $appointment_number = $this->appointments_model->generate_appointment_number($provider['id'], substr($appointment['start_datetime'], 0, 10));
+            // }
+            // $appointment['number_ticket'] = $appointment_number;
             $this->appointments_model->update($appointment);
             $customer = $this->customers_model->get_row($appointment['id_users_customer']);
             $service = $this->services_model->get_row($appointment['id_services']);
@@ -283,7 +283,8 @@ class Backend_api extends EA_Controller
             $this->synchronization->sync_appointment_saved($appointment, $service, $provider, $customer, $settings, $manage_mode);
             $this->notifications->notify_appointment_saved($appointment, $service, $provider, $customer, $settings, $manage_mode);
 
-            $response = ['status' => AJAX_SUCCESS, $appointment, $provider, $customer, $service, 'number_ticket' => $appointment_number];
+            // $response = ['status' => AJAX_SUCCESS, $appointment, $provider, $customer, $service, 'number_ticket' => $appointment_number];
+            $response = ['status' => AJAX_SUCCESS, $appointment, $provider, $customer, $service];
         } catch (Exception $exception) {
             $this->output->set_status_header(500);
 

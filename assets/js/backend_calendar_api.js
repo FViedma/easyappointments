@@ -54,7 +54,8 @@ window.BackendCalendarApi = window.BackendCalendarApi || {};
                 if (successCallback) {
                     successCallback(response['status']);
                 }
-                printTicketAppointment(appointment,customer, provider,service, response['number_ticket'])
+                // printTicketAppointment(appointment,customer, provider,service, response['number_ticket'])
+                printTicketAppointment(appointment,customer, provider,service)
             })
             .fail(function (jqXHR, textStatus, errorThrown) {
                 if (errorCallback) {
@@ -267,13 +268,14 @@ window.BackendCalendarApi = window.BackendCalendarApi || {};
         var QRBorderX = pageMarginX + 52;
         var QRBorderY = pageMarginY + 185;
         var QRX = pageMarginX + 63;
-        var QRY = pageMarginY + 180;
+        var QRY = pageMarginY + 175;
         var topLineX = pageMarginX + 10;
         var topLineY = pageMarginY;
 
         //Font Size
         var fontSizeTitle = 16;
         var fontSizeSubTitle = 8;
+        var fontSizeRecomendation = 10;
         var fontTextSize = 12;
         var fontTextSpace = 10;
         var fontSubTitleSpace = 3;
@@ -282,7 +284,7 @@ window.BackendCalendarApi = window.BackendCalendarApi || {};
 
         //Positions
         var tiket_numberYPos = pageMarginY +35;
-        var fontSubTitleStartYPos = pageMarginY + 45;
+        var fontSubTitleStartYPos = pageMarginY + 35;
         var fontTextStartYPos = fontSubTitleStartYPos + fontSizeSubTitle + fontSubTitleSpace;
         var dataStartX = pageMarginX + 5
         var dataStartY = pageMarginY + 20
@@ -304,7 +306,7 @@ window.BackendCalendarApi = window.BackendCalendarApi || {};
         doc.addImage(base64Image, 'png', QRX, QRY, QRW, QRH);
         doc.setFontSize(fontSizeTitle)
         doc.text(dataStartX, dataStartY, 'Hospital Clínico Viedma');
-        doc.text(dataStartX, tiket_numberYPos, 'Ficha Nº:' + number);
+        // doc.text(dataStartX, tiket_numberYPos, 'Ficha Nº:' + number);
         //Títulos
         doc.setFontSize(fontSizeSubTitle)
         doc.text(dataStartX, fontSubTitleStartYPos, EALang.attention_date);
@@ -325,10 +327,10 @@ window.BackendCalendarApi = window.BackendCalendarApi || {};
         doc.text(dataStartX, fontTextStartYPos += (fontSizeSubTitle +fontTextSize), appointment.user_display_name);
         doc.text(dataStartX, fontTextStartYPos += (fontSizeSubTitle + fontTextSize), appointment.book_datetime);
         //texto horario admision
-        doc.setFontSize(fontSizeSubTitle);
-        doc.text((doc.internal.pageSize.getWidth()/2) - 80, fontTextStartYPos += fontFinalTextSize + 85, EALang.FirstAdmisionSch);
-        doc.text((doc.internal.pageSize.getWidth()/2) - 70, fontTextStartYPos += fontFinalTextSize, EALang.SecondAdmisionSch);
-        doc.text((doc.internal.pageSize.getWidth()/2) - 80, fontTextStartYPos += fontFinalTextSize, EALang.ThirdAdmisionSch);
+        doc.setFontSize(fontSizeRecomendation);
+        doc.text((doc.internal.pageSize.getWidth()/2) - 90, fontTextStartYPos += fontFinalTextSize + 90, EALang.FirstAdmisionSch);
+        doc.text((doc.internal.pageSize.getWidth()/2) - 80, fontTextStartYPos += fontFinalTextSize, EALang.SecondAdmisionSch);
+        doc.text((doc.internal.pageSize.getWidth()/2) - 90, fontTextStartYPos += fontFinalTextSize, EALang.ThirdAdmisionSch);
         var bottomLineY = fontTextStartYPos += fontFinalTextSize;
         doc.line(logoposX, bottomLineY, 200, bottomLineY);
         doc.save('ficha.pdf');
