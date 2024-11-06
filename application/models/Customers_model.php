@@ -375,20 +375,20 @@ class Customers_model extends EA_Model
         return $result->row_array();
     }
 
-
+//3527059
     public function get_patient_by_ci($ci, $complement)
     {
         if (empty($complement)) {
             $result = $this->db_hcv
                 ->select('*')
                 ->from('HC')
-                ->like('HCL_NUMCI', $ci)
+                ->where('HCL_NUMCI', $ci)
                 ->get();
         } else {
             $result = $this->db_hcv
                 ->select('*')
                 ->from('HC')
-                ->like(['HCL_NUMCI' => $ci, 'NumeroComplementoCI' => $complement])
+                ->where(['HCL_NUMCI' => $ci, 'NumeroComplementoCI' => $complement])
                 ->get();
         }
 
